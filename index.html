@@ -1,818 +1,773 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر حسين أثير للرشق</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-        }
-        .header {
-            margin-bottom: 20px;
-        }
-        .header h1 {
-            color: #FFD700;
-            font-size: 24px;
-        }
-        .service-box {
-            background-color: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-        .service-box h3 {
-            margin: 0 0 10px 0;
-            color: #FFD700;
-        }
-        .buy-btn {
-            background-color: #FFD700;
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            width: 100%;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>متجر حسين أثير</h1>
-        <p id="user-greeting">جاري تحميل البيانات...</p>
-    </div>
-
-    <div class="service-box">
-        <h3>رشق متابعين إنستغرام</h3>
-        <p>1000 متابع - السعر: 1$</p>
-        <button class="buy-btn" onclick="orderService('instagram_followers')">طلب الخدمة</button>
-    </div>
-
-    <div class="service-box">
-        <h3>رشق مشاهدات تيك توك</h3>
-        <p>10,000 مشاهدة - السعر: 0.5$</p>
-        <button class="buy-btn" onclick="orderService('tiktok_views')">طلب الخدمة</button>
-    </div>
-
-    <script>
-        let tg = window.Telegram.WebApp;
-        tg.expand(); 
-
-        if (tg.initDataUnsafe.user) {
-            document.getElementById("user-greeting").innerText = "أهلاً بك يا " + tg.initDataUnsafe.user.first_name;
-        }
-
-        function orderService(serviceType) {
-            tg.sendData(serviceType);
-            tg.close();
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر حسين اثير</title>
-    <!-- مكتبة تيليجرام لربط الواجهة بالبوت -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body { background-color: #121212; color: #ffffff; font-family: Tahoma, Arial, sans-serif; padding: 20px; margin: 0; }
-        h2 { text-align: center; color: #0088cc; }
-        p { text-align: center; color: #aaaaaa; }
-        .platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .card { background-color: #1e1e1e; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #333; cursor: pointer; transition: 0.3s; }
-        .card:active { border-color: #0088cc; background-color: #2a2a2a; }
-        .card h3 { margin: 0; font-size: 16px; }
-        #orderSection { display: none; margin-top: 30px; background-color: #1e1e1e; padding: 20px; border-radius: 12px; border: 1px solid #333; }
-        input { width: 100%; padding: 12px; margin: 10px 0 20px 0; border-radius: 8px; border: 1px solid #444; background-color: #2a2a2a; color: white; box-sizing: border-box; }
-        input:focus { outline: none; border-color: #0088cc; }
-        button { width: 100%; padding: 15px; background-color: #0088cc; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
-    </style>
-</head>
-<body>
-    <h2>متجر حسين اثير</h2>
-    <p>اختر المنصة التي تريد رشقها:</p>
-
-    <!-- أزرار المنصات -->
-    <div class="platform-grid">
-        <div class="card" onclick="openOrder('انستقرام')"><h3>📸 انستقرام</h3></div>
-        <div class="card" onclick="openOrder('تليجرام')"><h3>✈️ تليجرام</h3></div>
-        <div class="card" onclick="openOrder('تيك توك')"><h3>🎵 تيك توك</h3></div>
-        <div class="card" onclick="openOrder('فيسبوك')"><h3>📘 فيسبوك</h3></div>
-    </div>
-
-    <!-- قسم الطلب (يظهر عند الضغط على أي منصة) -->
-    <div id="orderSection">
-        <h3 id="platformTitle" style="color: #0088cc; text-align: center;"></h3>
-        <label>رابط الحساب أو المنشور:</label>
-        <input type="text" id="linkInput" placeholder="الصق الرابط هنا...">
-        <label>الكمية المطلوبة:</label>
-        <input type="number" id="quantityInput" placeholder="مثال: 1000">
-        <button onclick="sendOrder()">تأكيد وإرسال الطلب</button>
-    </div>
-
-    <script>
-        // تفعيل الواجهة لتأخذ الشاشة كاملة
-        let tg = window.Telegram.WebApp;
-        tg.expand();
-
-        let currentPlatform = "";
-
-        // دالة لفتح قسم الطلب وتغيير العنوان حسب المنصة
-        function openOrder(platformName) {
-            currentPlatform = platformName;
-            document.getElementById('platformTitle').innerText = "طلب رشق: " + platformName;
-            document.getElementById('orderSection').style.display = "block";
-            window.scrollTo(0, document.body.scrollHeight);
-        }
-
-        // دالة إرسال البيانات إلى البوت
-        function sendOrder() {
-       
-        
-let link = document.getElementById('linkInput').value;
-            let quantity = document.getElementById('quantityInput').value;
-
-            if(link === "" || quantity === "") {
-                tg.showAlert("يرجى إدخال الرابط والكمية أولاً!");
-                return;
-            }
-
-            // تجهيز البيانات
-            let dataToSend = {
-                platform: currentPlatform,
-                link: link,
-                quantity: quantity
-            };
-
-            // إرسال البيانات للبوت وإغلاق الواجهة
-            tg.sendData(JSON.stringify(dataToSend));
-            tg.close();
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>متجر حسين أثير</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    body {
-      background-color: #121212;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 15px;
-    }
-    h1 {
-      color: #ffd700;
-      margin-bottom: 5px;
-      font-size: 22px;
-    }
-    p.sub {
-      color: #aaa;
-      font-size: 14px;
-      margin-top: 0;
-    }
-    .section-title {
-      color: #4da6ff;
-      margin-top: 25px;
-      margin-bottom: 10px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .card {
-      background-color: #1e1e1e;
-      border-radius: 12px;
-      padding: 15px;
-      margin: 12px 0;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    }
-    .card h3 {
-      color: #ffd700;
-      margin: 0 0 8px 0;
-      font-size: 17px;
-    }
-    .card p {
-      color: #ccc;
-      margin: 5px 0 12px 0;
-      font-size: 14px;
-    }
-    .btn {
-      background-color: #ffd700;
-      color: #000;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      width: 100%;
-      font-size: 15px;
-      cursor: pointer;
-    }
-    .btn:active {
-      background-color: #e6c200;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 15px;
-    }
-    .grid-btn {
-      background-color: #1e1e1e;
-      color: #fff;
-      border: 1px solid #333;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-
-  <h1>متجر حسين أثير</h1>
-  <p class="sub">أهلاً بك يا حسين أثير</p>
-
-  <!-- قسم خدمات إنستغرام -->
-  <div class="section-title">📸 خدمات إنستغرام</div>
-
-  <div class="card">
-    <h3>1. رشق متابعين إنستغرام (ضمان)</h3>
-    <p>1000 متابع - السعر: $1.00</p>
-    <button class="btn">طلب الخدمة</button>
-  </div>
-
-  <div class="card">
-    <h3>2. رشق لايكات إنستغرام</h3>
-    <p>1000 لايك - السعر: $0.30</p>
-    <button class="btn">طلب الخدمة</button>
-  </div>
-
-  <div class="card">
-    <h3>3. رشق مشاهدات ريلز إنستغرام</h3>
-    <p>10,000 مشاهدة - السعر: $0.20</p>
-    <button class="btn">طلب الخدمة</button>
-  </div>
-
-  <div class="card">
-    <h3>4. تعليقات إنستغرام مخصصة</h3>
-    <p>100 تعليق - السعر: $0.50</p>
-    <button class="btn">طلب الخدمة</button>
-  </div>
-
-  <!-- قسم باقي المنصات -->
-  <div class="section-title">🎵 خدمات المنصات الأخرى</div>
-
-  <div class="card">
-    <h3>رشق مشاهدات تيك توك</h3>
-    <p>10,000 مشاهدة - السعر: $0.50</p>
-    <button class="btn">طلب الخدمة</button>
-  </div>
-
-  <div class="section-title">اختر المنصة التي تريد رشقها:</div>
-
-  <div class="grid">
-    <button class="grid-btn">📸 انستقرام</button>
-    <button class="grid-btn">✈️ تليجرام</button>
-    <button class="grid-btn">🎵 تيك توك</button>
-    <button class="grid-btn">🟦 فيسبوك</button>
-  </div>
-
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>متجر حسين أثير</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    body {
-      background-color: #121212;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 15px;
-    }
-    h1 {
-      color: #ffd700;
-      margin-bottom: 5px;
-      font-size: 22px;
-    }
-    p.sub {
-      color: #aaa;
-      font-size: 14px;
-      margin-top: 0;
-      margin-bottom: 25px;
-    }
-    /* أزرار المنصات الرئيسية */
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 25px;
-    }
-    .grid-btn {
-      background-color: #1e1e1e;
-      color: #fff;
-      border: 1px solid #333;
-      padding: 15px;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .grid-btn:hover {
-      background-color: #333;
-      border-color: #ffd700;
-      color: #ffd700;
-    }
-    
-    /* تصميم الأقسام (مخفية بالبداية) */
-    .section {
-      display: none; /* إخفاء كل الأقسام افتراضياً */
-      animation: fadeIn 0.4s;
-    }
-    /* القسم النشط (يظهر عند الضغط) */
-    .section.active {
-      display: block;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .section-title {
-      color: #4da6ff;
-      margin-bottom: 15px;
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .card {
-      background-color: #1e1e1e;
-      border-radius: 12px;
-      padding: 15px;
-      margin: 12px 0;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-      text-align: right;
-    }
-    .card h3 {
-      color: #ffd700;
-      margin: 0 0 8px 0;
-      font-size: 16px;
-    }
-    .card p {
-      color: #ccc;
-      margin: 5px 0 12px 0;
-      font-size: 14px;
-    }
-    .btn {
-      background-color: #ffd700;
-      color: #000;
-      border: none;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: bold;
-      width: 100%;
-      font-size: 15px;
-      cursor: pointer;
-    }
-    .btn:active {
-      background-color: #e6c200;
-    }
-    /* زر العودة للرئيسية */
-    .back-btn {
-      background-color: transparent;
-      color: #aaa;
-      border: 1px solid #555;
-      padding: 8px 15px;
-      border-radius: 8px;
-      margin-top: 15px;
-      cursor: pointer;
-      width: 100%;
-    }
-  </style>
-</head>
-<body>
-
-  <h1>متجر حسين أثير</h1>
-  <p class="sub">أهلاً بك يا حسين أثير</p>
-
-  <!-- قائمة المنصات الرئيسية (تختفي عندما نفتح قسم) -->
-  <div id="main-menu">
-    <p style="color: #ccc; margin-bottom: 15px;">اختر المنصة التي تريد رشقها:</p>
-    <div class="grid">
-      <button class="grid-btn" onclick="showSection('instagram')">📸 انستقرام</button>
-      <button class="grid-btn" onclick="showSection('telegram')">✈️ تليجرام</button>
-      <button class="grid-btn" onclick="showSection('tiktok')">🎵 تيك توك</button>
-      <button class="grid-btn" onclick="showSection('facebook')">🟦 فيسبوك</button>
-    </div>
-  </div>
-
-  <!-- =============================== -->
-  <!-- 1. قسم الانستقرام (مخفي) -->
-  <!-- =============================== -->
-  <div id="instagram" class="section">
-    <div class="section-title">📸 خدمات إنستغرام</div>
-
-    <div class="card">
-      <h3>رشق متابعين إنستغرام (ضمان)</h3>
-      <p>1000 متابع - السعر: $1.00</p>
-      <button class="btn">طلب الخدمة</button>
-    </div>
-    <div class="card">
-      <h3>رشق لايكات إنستغرام</h3>
-      <p>1000 لايك - السعر: $0.30</p>
-      <button class="btn">طلب الخدمة</button>
-    </div>
-    <div class="card">
-      <h3>رشق مشاهدات ريلز إنستغرام</h3>
-      <p>10,000 مشاهدة - السعر: $0.20</p>
-      <button class="btn">طلب الخدمة</button>
-    </div>
-    <div class="card">
-      <h3>تعليقات إنستغرام مخصصة</h3>
-      <p>100 تعليق - السعر: $0.50</p>
-      <button class="btn">طلب الخدمة</button>
-    </div>
-
-    <button class="back-btn" onclick="goBack()">🔙 عودة للقائمة الرئيسية</button>
-  </div>
-
-  <!-- =============================== -->
-  <!-- 2. قسم التليجرام (مخفي) -->
-  <!-- =============================== -->
-  <div id="telegram" class="section">
-    <div class="section-title">✈️ خدمات تليجرام</div>
-
-    <div class="card">
-      <h3>رشق أعضاء قنوات/كروبات (حقيقي)</h3>
-      <p>1000 عضو - السعر: $1.50</p>
-      <button class="btn">طلب الخدمة</button>
-    </div>
-    <div class="card">
-      <h3>رشق مشاهدات منشورات تليجرام</h3>
-      <p>5000 مشاهدة - السعر: $0.50</p>
-      <button class="btn">طلب الخدمة</button>
-    </div>
-
-    <button class="back-btn" onclick="goBack()">🔙 عودة للقائمة الرئيسية</button>
-  </div>
-
-  <!-- =============================== -->
-  <!-- 3. قسم التيك توك (مخفي) -->
-  <!-- =============================== -->
-  <div id="tiktok" class="section">
-    <div class="section-title">🎵 خدمات تيك توك</div>
-
-    <div class="card">
-      <h3>رشق متابعين تيك توك</h3>
-      <p>1000 متابع - السعر: $2.00</p>
-      <button class="btn">طلب الخدمة</button>
-    </div>
-    <div class="card">
-      <h3>رشق مشاهدات تيك توك</h3>
-      <p>10,000 مشاهدة - السعر: $0.50</p>
-      <button class="btn">طلب الخدمة</button>
-    </div>
-
-    <button class="back-btn" onclick="goBack()">🔙 عودة للقائمة الرئيسية</button>
-  </div>
-
-  <!-- =============================== -->
-  <!-- 4. قسم الفيسبوك (مخفي) -->
-  <!-- =============================== -->
-  <div id="facebook" class="section">
-    <div class="section-title">🟦 خدمات فيسبوك</div>
-
-    <div class="card">
-      <h3>رشق متابعين بيج فيسبوك</h3>
-      <p>1000 متابع - السعر: $1.20</p>
-      <button class="btn">طلب الخدمة</button>
-    </div>
-    <div class="card">
-      <h3>لايكات منشورات فيسبوك</h3>
-      <p>1000 لايك - السعر: $0.40</p>
-      <button class="btn">طلب الخدمة</button>
-    </div>
-
-    <button class="back-btn" onclick="goBack()">🔙 عودة للقائمة الرئيسية</button>
-  </div>
-
-
-  <!-- كود الجافاسكربت للتنقل بين الأقسام -->
-  <script>
-    function showSection(sectionId) {
-      // إخفاء القائمة الرئيسية
-      document.getElementById('main-menu').style.display = 'none';
-      
-      // إخفاء جميع الأقسام
-      let sections = document.querySelectorAll('.section');
-      sections.forEach(function(sec) {
-        sec.classList.remove('active');
-      });
-
-      // إظهار القسم المطلوب فقط
-      document.getElementById(sectionId).classList.add('active');
-    }
-
-    function goBack() {
-      // إخفاء جميع الأقسام
-      let sections = document.querySelectorAll('.section');
-      sections.forEach(function(sec) {
-        sec.classList.remove('active');
-      });
-
-      // إظهار القائمة الرئيسية
-      document.getElementById('main-menu').style.display = 'block';
-    }
-  </script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>متجر حسين أثير</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- مكتبة أيقونات FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       box-sizing: border-box;
-    }
-    body {
-      background-color: #121212;
-      color: #ffffff;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      text-align: center;
       margin: 0;
-      padding: 15px;
-    }
-    
-    .header-title {
-      color: #ffd700;
-      margin-top: 10px;
-      margin-bottom: 5px;
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .header-sub {
-      color: #888;
-      font-size: 14px;
-      margin-bottom: 25px;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    /* الشاشات تكون مخفية افتراضياً ما عدا الرئيسية */
+    body {
+      background-color: #121214;
+      color: #ffffff;
+      padding-bottom: 75px; /* مساحة للقائمة السفلية */
+    }
+
+    /* Top Bar Header */
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background-color: #18181c;
+      border-bottom: 1px solid #26262a;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .app-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: bold;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .app-brand i {
+      color: #ffd700;
+      font-size: 18px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon-btn {
+      background: #242428;
+      border: none;
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    /* Balance Card Header */
+    .balance-card {
+      background: #1d1d22;
+      margin: 12px 16px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #2a2a30;
+    }
+
+    .balance-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .balance-title {
+      font-size: 12px;
+      color: #8f8f9e;
+      margin-bottom: 4px;
+    }
+
+    .balance-amount {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .btn-deposit {
+      background-color: #ffd700;
+      color: #000000;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Screen Views Management */
     .screen {
       display: none;
-    }
-    #home-screen {
-      display: block; /* الشاشة الرئيسية فقط تظهر بالبداية */
+      padding: 0 16px;
     }
 
-    /* شبكة أزرار المنصات */
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      margin-top: 20px;
+    .screen.active {
+      display: block;
     }
-    .platform-card {
-      background-color: #1e1e1e;
-      border: 1px solid #333;
-      border-radius: 15px;
-      padding: 25px 10px;
-      font-size: 18px;
+
+    /* Search Input */
+    .search-box {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: #1d1d22;
+      border: 1px solid #2a2a30;
+      padding: 12px 40px 12px 14px;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .search-box i {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6e6e7a;
+    }
+
+    /* Section Headers */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: #8f8f9e;
+    }
+
+    /* Grid Categories (Platforms) */
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .platform-item {
+      background: #1d1d22;
+      border: 1px solid #2a2a30;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .platform-item:active {
+      background: #25252b;
+    }
+
+    .platform-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .platform-name {
+      font-size: 14px;
       font-weight: bold;
       color: #fff;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      margin-bottom: 4px;
     }
-    .platform-card:active {
-      transform: scale(0.96);
-      background-color: #2a2a2a;
+
+    .platform-sub {
+      font-size: 11px;
+      color: #7d7d8a;
+    }
+
+    .platform-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: justify-center;
+      font-size: 18px;
+    }
+
+    /* Platform Colors */
+    .bg-insta { background: rgba(225, 48, 108, 0.15); color: #e1306c; }
+    .bg-tele { background: rgba(0, 136, 204, 0.15); color: #0088cc; }
+    .bg-tiktok { background: rgba(255, 255, 255, 0.1); color: #ffffff; }
+    .bg-fb { background: rgba(24, 119, 242, 0.15); color: #1877f2; }
+    .bg-yt { background: rgba(255, 0, 0, 0.15); color: #ff0000; }
+    .bg-tw { background: rgba(29, 161, 242, 0.15); color: #1da1f2; }
+    .bg-snap { background: rgba(255, 252, 0, 0.15); color: #fffc00; }
+    .bg-free { background: rgba(0, 200, 83, 0.15); color: #00c853; }
+
+    /* Service Category List (Inside Specific Platform Screen) */
+    .category-card {
+      background: #1d1d22;
+      border: 1px solid #2a2a30;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .category-card:active {
       border-color: #ffd700;
     }
 
-    /* كروت الخدمات داخل كل قسم */
-    .section-title {
-      color: #4da6ff;
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-    .service-card {
-      background-color: #1e1e1e;
-      border: 1px solid #2a2a2a;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 15px;
-      text-align: right;
-    }
-    .service-card h3 {
-      color: #ffd700;
-      margin: 0 0 8px 0;
-      font-size: 16px;
-    }
-    .service-card p {
-      color: #ccc;
-      margin: 0 0 12px 0;
-      font-size: 14px;
-    }
-    .btn-order {
-      background-color: #ffd700;
-      color: #000;
-      border: none;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: bold;
-      width: 100%;
-      font-size: 15px;
-      cursor: pointer;
-    }
-    .btn-order:active {
-      background-color: #e6c200;
+    .category-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    /* زر العودة */
-    .btn-back {
-      background-color: #2a2a2a;
-      color: #fff;
-      border: 1px solid #444;
-      padding: 12px;
-      border-radius: 10px;
-      width: 100%;
-      font-size: 15px;
-      font-weight: bold;
-      margin-top: 10px;
+    /* Bottom Navigation Bar */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 65px;
+      background: #18181c;
+      border-top: 1px solid #26262a;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #7d7d8a;
+      font-size: 11px;
+      text-decoration: none;
+      gap: 4px;
+      cursor: pointer;
+      width: 20%;
+    }
+
+    .nav-item i {
+      font-size: 18px;
+    }
+
+    .nav-item.active {
+      color: #ffd700;
+    }
+
+    /* Orders Page Styles */
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
+
+    .pill {
+      background: #1d1d22;
+      border: 1px solid #2a2a30;
+      color: #8f8f9e;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      white-space: nowrap;
       cursor: pointer;
     }
-    .btn-back:active {
-      background-color: #333;
+
+    .pill.active {
+      background: rgba(255, 215, 0, 0.15);
+      border-color: #ffd700;
+      color: #ffd700;
+    }
+
+    .order-card {
+      background: #1d1d22;
+      border: 1px solid #2a2a30;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+
+    .badge-completed {
+      background: rgba(0, 200, 83, 0.2);
+      color: #00c853;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+    }
+
+    /* Notifications Card */
+    .notif-card {
+      background: #1d1d22;
+      border: 1px solid #2a2a30;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .notif-icon {
+      background: rgba(0, 200, 83, 0.15);
+      color: #00c853;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .notif-body h4 {
+      font-size: 14px;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .notif-body p {
+      font-size: 12px;
+      color: #8f8f9e;
+      margin-bottom: 6px;
+    }
+
+    .notif-time {
+      font-size: 10px;
+      color: #555560;
+    }
+
+    /* Back Button */
+    .back-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      cursor: pointer;
+      color: #ffd700;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <!-- ============================================== -->
-  <!-- 1️⃣ الشاشة الرئيسية (تظهر بالبداية فقط) -->
-  <!-- ============================================== -->
-  <div id="home-screen" class="screen">
-    <div class="header-title">متجر حسين أثير</div>
-    <div class="header-sub">أهلاً بك يا حسين أثير</div>
-
-    <p style="color: #aaa; margin-top: 30px;">اختر المنصة التي تريد رشقها:</p>
-
-    <div class="grid">
-      <div class="platform-card" onclick="openPage('insta-screen')">📸 انستقرام</div>
-      <div class="platform-card" onclick="openPage('tele-screen')">✈️ تليجرام</div>
-      <div class="platform-card" onclick="openPage('tiktok-screen')">🎵 تيك توك</div>
-      <div class="platform-card" onclick="openPage('fb-screen')">🟦 فيسبوك</div>
+  <!-- Top App Bar Header -->
+  <div class="app-header">
+    <div class="app-brand">
+      <i class="fa-solid fa-chart-line"></i>
+      <span>متجر حسين أثير</span>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="switchTab('notif-screen', document.getElementById('nav-notif'))">
+        <i class="fa-regular fa-bell"></i>
+      </button>
+      <button class="icon-btn" onclick="switchTab('more-screen', document.getElementById('nav-more'))">
+        <i class="fa-solid fa-bars"></i>
+      </button>
     </div>
   </div>
 
-  <!-- ============================================== -->
-  <!-- 2️⃣ صفحة خدمات إنستغرام -->
-  <!-- ============================================== -->
-  <div id="insta-screen" class="screen">
-    <div class="section-title">📸 خدمات إنستغرام</div>
-
-    <div class="service-card">
-      <h3>1. رشق متابعين إنستغرام (ضمان)</h3>
-      <p>1000 متابع - السعر: $1.00</p>
-      <button class="btn-order">طلب الخدمة</button>
+  <!-- Top Balance Bar -->
+  <div class="balance-card">
+    <div class="balance-info">
+      <span class="balance-title">الرصيد المتاح</span>
+      <span class="balance-amount">$3.12 <small style="font-size: 11px; color:#7d7d8a;">USD</small></span>
     </div>
-
-    <div class="service-card">
-      <h3>2. رشق لايكات إنستغرام</h3>
-      <p>1000 لايك - السعر: $0.30</p>
-      <button class="btn-order">طلب الخدمة</button>
-    </div>
-
-    <div class="service-card">
-      <h3>3. رشق مشاهدات ريلز إنستغرام</h3>
-      <p>10,000 مشاهدة - السعر: $0.20</p>
-      <button class="btn-order">طلب الخدمة</button>
-    </div>
-
-    <div class="service-card">
-      <h3>4. تعليقات إنستغرام مخصصة</h3>
-      <p>100 تعليق - السعر: $0.50</p>
-      <button class="btn-order">طلب الخدمة</button>
-    </div>
-
-    <button class="btn-back" onclick="goHome()">🔙 الرجوع للقائمة الرئيسية</button>
+    <button class="btn-deposit" onclick="switchTab('deposit-screen', document.getElementById('nav-deposit'))">
+      <i class="fa-solid fa-plus"></i> شحن الرصيد
+    </button>
   </div>
 
-  <!-- ============================================== -->
-  <!-- 3️⃣ صفحة خدمات تليجرام -->
-  <!-- ============================================== -->
-  <div id="tele-screen" class="screen">
-    <div class="section-title">✈️ خدمات تليجرام</div>
-
-    <div class="service-card">
-      <h3>رشق أعضاء قنوات / كروبات</h3>
-      <p>1000 عضو - السعر: $1.50</p>
-      <button class="btn-order">طلب الخدمة</button>
+  <!-- ======================================================== -->
+  <!-- 1️⃣ الشاشة الرئيسية (المنصات) -->
+  <!-- ======================================================== -->
+  <div id="home-screen" class="screen active">
+    
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="ابحث باسم الخدمة أو رقم الـ (ID)...">
     </div>
 
-    <div class="service-card">
-      <h3>رشق مشاهدات منشورات</h3>
-      <p>5000 مشاهدة - السعر: $0.50</p>
-      <button class="btn-order">طلب الخدمة</button>
+    <div class="section-header">
+      <span class="section-title">المنصات</span>
+      <span class="section-subtitle">10 منصة</span>
     </div>
 
-    <button class="btn-back" onclick="goHome()">🔙 الرجوع للقائمة الرئيسية</button>
+    <div class="platforms-grid">
+      <!-- إنستغرام -->
+      <div class="platform-item" onclick="openPlatform('insta-details')">
+        <div class="platform-meta">
+          <span class="platform-name">إنستغرام</span>
+          <span class="platform-sub">9 فئة · 21 خدمة</span>
+        </div>
+        <div class="platform-icon bg-insta"><i class="fa-brands fa-instagram"></i></div>
+      </div>
+
+      <!-- تليجرام -->
+      <div class="platform-item" onclick="openPlatform('tele-details')">
+        <div class="platform-meta">
+          <span class="platform-name">تليجرام</span>
+          <span class="platform-sub">6 فئة · 49 خدمة</span>
+        </div>
+        <div class="platform-icon bg-tele"><i class="fa-paper-plane"></i></div>
+      </div>
+
+      <!-- تيك توك -->
+      <div class="platform-item" onclick="openPlatform('tiktok-details')">
+        <div class="platform-meta">
+          <span class="platform-name">تيك توك</span>
+          <span class="platform-sub">9 فئة · 19 خدمة</span>
+        </div>
+        <div class="platform-icon bg-tiktok"><i class="fa-brands fa-tiktok"></i></div>
+      </div>
+
+      <!-- فيسبوك -->
+      <div class="platform-item" onclick="openPlatform('fb-details')">
+        <div class="platform-meta">
+          <span class="platform-name">فيسبوك</span>
+          <span class="platform-sub">4 فئة · 14 خدمة</span>
+        </div>
+        <div class="platform-icon bg-fb"><i class="fa-brands fa-facebook"></i></div>
+      </div>
+
+      <!-- يوتيوب -->
+      <div class="platform-item" onclick="openPlatform('yt-details')">
+        <div class="platform-meta">
+          <span class="platform-name">يوتيوب</span>
+          <span class="platform-sub">3 فئة · 12 خدمة</span>
+        </div>
+        <div class="platform-icon bg-yt"><i class="fa-brands fa-youtube"></i></div>
+      </div>
+
+      <!-- تويتر -->
+      <div class="platform-item" onclick="openPlatform('tw-details')">
+        <div class="platform-meta">
+          <span class="platform-name">تويتر (X)</span>
+          <span class="platform-sub">2 فئة · 8 خدمة</span>
+        </div>
+        <div class="platform-icon bg-tw"><i class="fa-brands fa-x-twitter"></i></div>
+      </div>
+
+      <!-- سناب شات -->
+      <div class="platform-item" onclick="openPlatform('snap-details')">
+        <div class="platform-meta">
+          <span class="platform-name">سناب شات</span>
+          <span class="platform-sub">2 فئة · 5 خدمة</span>
+        </div>
+        <div class="platform-icon bg-snap"><i class="fa-brands fa-snapchat"></i></div>
+      </div>
+
+      <!-- خدمات مجانية -->
+      <div class="platform-item" onclick="openPlatform('free-details')">
+        <div class="platform-meta">
+          <span class="platform-name">خدمات مجانية</span>
+          <span class="platform-sub">3 فئة · 6 خدمة</span>
+        </div>
+        <div class="platform-icon bg-free"><i class="fa-solid fa-gift"></i></div>
+      </div>
+    </div>
   </div>
 
-  <!-- ============================================== -->
-  <!-- 4️⃣ صفحة خدمات تيك توك -->
-  <!-- ============================================== -->
-  <div id="tiktok-screen" class="screen">
-    <div class="section-title">🎵 خدمات تيك توك</div>
+  <!-- ======================================================== -->
+  <!-- 📌 شاشة تفاصيل إنستغرام (عند الضغط على انستغرام) -->
+  <!-- ======================================================== -->
+  <div id="insta-details" class="screen">
+    <div class="back-bar" onclick="goBackToHome()">
+      <i class="fa-solid fa-arrow-right"></i> الرجوع للمنصات
+    </div>
+    <div class="section-title" style="margin-bottom: 15px;">📸 فئات إنستغرام</div>
 
-    <div class="service-card">
-      <h3>رشق متابعين تيك توك</h3>
-      <p>1000 متابع - السعر: $2.00</p>
-      <button class="btn-order">طلب الخدمة</button>
+    <div class="category-card">
+      <div class="category-left">
+        <div class="platform-icon bg-insta"><i class="fa-brands fa-instagram"></i></div>
+        <div>
+          <div style="font-weight: bold; font-size: 14px;">متابعين انستغرام - بضمان وتعويض</div>
+          <div style="font-size: 11px; color: #8f8f9e;">1 خدمة متوفرة</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-chevron-left" style="color: #555;"></i>
     </div>
 
-    <div class="service-card">
-      <h3>رشق مشاهدات تيك توك</h3>
-      <p>10,000 مشاهدة - السعر: $0.50</p>
-      <button class="btn-order">طلب الخدمة</button>
+    <div class="category-card">
+      <div class="category-left">
+        <div class="platform-icon bg-insta"><i class="fa-brands fa-instagram"></i></div>
+        <div>
+          <div style="font-weight: bold; font-size: 14px;">أنستغرام - لايكات ريلز + بوست</div>
+          <div style="font-size: 11px; color: #8f8f9e;">7 خدمة متوفرة</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-chevron-left" style="color: #555;"></i>
     </div>
 
-    <button class="btn-back" onclick="goHome()">🔙 الرجوع للقائمة الرئيسية</button>
+    <div class="category-card">
+      <div class="category-left">
+        <div class="platform-icon bg-insta"><i class="fa-brands fa-instagram"></i></div>
+        <div>
+          <div style="font-weight: bold; font-size: 14px;">متابعين أنستغرام - بدون ضمان</div>
+          <div style="font-size: 11px; color: #8f8f9e;">1 خدمة متوفرة</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-chevron-left" style="color: #555;"></i>
+    </div>
+
+    <div class="category-card">
+      <div class="category-left">
+        <div class="platform-icon bg-insta"><i class="fa-brands fa-instagram"></i></div>
+        <div>
+          <div style="font-weight: bold; font-size: 14px;">مشاهدات انستغرام ريلز</div>
+          <div style="font-size: 11px; color: #8f8f9e;">4 خدمة متوفرة</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-chevron-left" style="color: #555;"></i>
+    </div>
   </div>
 
-  <!-- ============================================== -->
-  <!-- 5️⃣ صفحة خدمات فيسبوك -->
-  <!-- ============================================== -->
-  <div id="fb-screen" class="screen">
-    <div class="section-title">🟦 خدمات فيسبوك</div>
-
-    <div class="service-card">
-      <h3>رشق متابعين بيج فيسبوك</h3>
-      <p>1000 متابع - السعر: $1.20</p>
-      <button class="btn-order">طلب الخدمة</button>
+  <!-- ======================================================== -->
+  <!-- 2️⃣ شاشة طلباتي -->
+  <!-- ======================================================== -->
+  <div id="orders-screen" class="screen">
+    <div class="section-title" style="margin-bottom: 12px;">طلباتي (788 طلب)</div>
+    
+    <div class="filter-pills">
+      <div class="pill active">الكل</div>
+      <div class="pill">مكتمل</div>
+      <div class="pill">قيد التنفيذ</div>
+      <div class="pill">قيد الانتظار</div>
     </div>
 
-    <div class="service-card">
-      <h3>لايكات منشورات فيسبوك</h3>
-      <p>1000 لايك - السعر: $0.40</p>
-      <button class="btn-order">طلب الخدمة</button>
+    <div class="order-card">
+      <div class="order-header">
+        <span style="font-weight: bold; color: #ffd700;">#119316007</span>
+        <span class="badge-completed">مكتمل</span>
+      </div>
+      <div style="font-size: 13px; font-weight: bold; margin-bottom: 6px;">مشاهدات تلي بوست واحد 🔥 | الحد الأقصى 50,000</div>
+      <div style="font-size: 11px; color: #7d7d8a; margin-bottom: 8px;">الكمية: 1,000 | السعر: $0.0018</div>
+      <div style="font-size: 10px; color: #555;">19 سبتمبر 2026، 07:53 م</div>
     </div>
 
-    <button class="btn-back" onclick="goHome()">🔙 الرجوع للقائمة الرئيسية</button>
+    <div class="order-card">
+      <div class="order-header">
+        <span style="font-weight: bold; color: #ffd700;">#119315942</span>
+        <span class="badge-completed">مكتمل</span>
+      </div>
+      <div style="font-size: 13px; font-weight: bold; margin-bottom: 6px;">اعضاء تليكرام - قناة عامة + كروبات عامة - ضمان 180 يوم</div>
+      <div style="font-size: 11px; color: #7d7d8a; margin-bottom: 8px;">الكمية: 1,000 | السعر: $1.8810</div>
+      <div style="font-size: 10px; color: #555;">19 سبتمبر 2026، 07:30 م</div>
+    </div>
   </div>
 
-  <!-- كود برمجة الانتقال بين الشاشات -->
+  <!-- ======================================================== -->
+  <!-- 3️⃣ شاشة شحن الرصيد -->
+  <!-- ======================================================== -->
+  <div id="deposit-screen" class="screen">
+    <div class="section-title" style="margin-bottom: 15px;">💳 إضافة رصيد للحساب</div>
+    <p style="font-size: 13px; color: #8f8f9e; margin-bottom: 20px;">اختر طريقة الدفع المناسبة لشحن حسابك في متجر حسين أثير:</p>
+
+    <div class="category-card">
+      <div class="category-left">
+        <i class="fa-solid fa-wallet" style="color: #ffd700; font-size: 20px;"></i>
+        <div>
+          <div style="font-weight: bold; font-size: 14px;">زين كاش (ZainCash)</div>
+          <div style="font-size: 11px; color: #8f8f9e;">دفع تلقائي ورصيد فوري</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-card">
+      <div class="category-left">
+        <i class="fa-solid fa-credit-card" style="color: #0088cc; font-size: 20px;"></i>
+        <div>
+          <div style="font-weight: bold; font-size: 14px;">ماستركارد / فيزا كارد</div>
+          <div style="font-size: 11px; color: #8f8f9e;">شحن كارتات الدفع الإلكتروني</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-card">
+      <div class="category-left">
+        <i class="fa-brands fa-telegram" style="color: #24A1DE; font-size: 20px;"></i>
+        <div>
+          <div style="font-weight: bold; font-size: 14px;">شحن عبر الدعم الفني</div>
+          <div style="font-size: 11px; color: #8f8f9e;">تواصل مباشر مع حسين أثير</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 4️⃣ شاشة الإشعارات -->
+  <!-- ======================================================== -->
+  <div id="notif-screen" class="screen">
+    <div class="section-title" style="margin-bottom: 15px;">🔔 الإشعارات</div>
+
+    <div class="notif-card">
+      <div class="notif-icon"><i class="fa-solid fa-check"></i></div>
+      <div class="notif-body">
+        <h4>اكتمل طلبك #119316007</h4>
+        <p>تم تنفيذ الطلب رقم 119316007 بالكامل - مشاهدات تلي بوست واحد 🔥.</p>
+        <span class="notif-time">منذ 7 أيام</span>
+      </div>
+    </div>
+
+    <div class="notif-card">
+      <div class="notif-icon"><i class="fa-solid fa-check"></i></div>
+      <div class="notif-body">
+        <h4>اكتمل طلبك #119315942</h4>
+        <p>تم تنفيذ الطلب رقم 119315942 بالكامل - أعضاء تليكرام قناة عامة + كروبات عامة.</p>
+        <span class="notif-time">منذ 7 أيام</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 5️⃣ شاشة المزيد -->
+  <!-- ======================================================== -->
+  <div id="more-screen" class="screen">
+    <div class="section-title" style="margin-bottom: 15px;">☰ القوائم الإضافية</div>
+
+    <div class="category-card" onclick="switchTab('home-screen', document.getElementById('nav-home'))">
+      <div class="category-left">
+        <i class="fa-solid fa-house" style="color: #ffd700;"></i>
+        <span style="font-size: 14px; font-weight: bold;">الرئيسية</span>
+      </div>
+    </div>
+
+    <div class="category-card" onclick="switchTab('orders-screen', document.getElementById('nav-orders'))">
+      <div class="category-left">
+        <i class="fa-solid fa-box" style="color: #ffd700;"></i>
+        <span style="font-size: 14px; font-weight: bold;">طلباتي</span>
+      </div>
+    </div>
+
+    <div class="category-card" onclick="switchTab('notif-screen', document.getElementById('nav-notif'))">
+      <div class="category-left">
+        <i class="fa-solid fa-bell" style="color: #ffd700;"></i>
+        <span style="font-size: 14px; font-weight: bold;">الإشعارات</span>
+      </div>
+    </div>
+
+    <div class="category-card" onclick="switchTab('deposit-screen', document.getElementById('nav-deposit'))">
+      <div class="category-left">
+        <i class="fa-solid fa-headset" style="color: #ffd700;"></i>
+        <span style="font-size: 14px; font-weight: bold;">الدعم الفني</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 🛑 القائمة السفلية ثابتة بكل الشاشات -->
+  <!-- ======================================================== -->
+  <nav class="bottom-nav">
+    <div id="nav-home" class="nav-item active" onclick="switchTab('home-screen', this)">
+      <i class="fa-solid fa-house"></i>
+      <span>الرئيسية</span>
+    </div>
+    <div id="nav-orders" class="nav-item" onclick="switchTab('orders-screen', this)">
+      <i class="fa-solid fa-list-check"></i>
+      <span>طلباتي</span>
+    </div>
+    <div id="nav-deposit" class="nav-item" onclick="switchTab('deposit-screen', this)">
+      <i class="fa-solid fa-wallet"></i>
+      <span>شحن</span>
+    </div>
+    <div id="nav-notif" class="nav-item" onclick="switchTab('notif-screen', this)">
+      <i class="fa-solid fa-bell"></i>
+      <span>الإشعارات</span>
+    </div>
+    <div id="nav-more" class="nav-item" onclick="switchTab('more-screen', this)">
+      <i class="fa-solid fa-bars"></i>
+      <span>المزيد</span>
+    </div>
+  </nav>
+
+  <!-- برمجة التنقل بين الشاشات والأزرار السفلية -->
   <script>
-    function openPage(pageId) {
+    // التهيئة مع التليجرام
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+    }
+
+    function switchTab(screenId, navElement) {
       // إخفاء كل الشاشات
-      var screens = document.querySelectorAll('.screen');
-      screens.forEach(function(s) {
-        s.style.display = 'none';
-      });
-      // إظهار الشاشة المطلوبة فقط
-      document.getElementById(pageId).style.display = 'block';
+      const screens = document.querySelectorAll('.screen');
+      screens.forEach(s => s.classList.remove('active'));
+
+      // إزالة التحديد عن كل أزرار القائمة السفلية
+      const navItems = document.querySelectorAll('.nav-item');
+      navItems.forEach(item => item.classList.remove('active'));
+
+      // إظهار الشاشة المطلوبة
+      const targetScreen = document.getElementById(screenId);
+      if (targetScreen) {
+        targetScreen.classList.add('active');
+      }
+
+      // تحديد الزر النشط بالقائمة السفلية
+      if (navElement) {
+        navElement.classList.add('active');
+      }
+
       window.scrollTo(0, 0);
     }
 
-    function goHome() {
-      // إخفاء كل الشاشات
-      var screens = document.querySelectorAll('.screen');
-      screens.forEach(function(s) {
-        s.style.display = 'none';
-      });
-      // إظهار الشاشة الرئيسية
-      document.getElementById('home-screen').style.display = 'block';
+    function openPlatform(platformScreenId) {
+      // إخفاء الشاشات
+      const screens = document.querySelectorAll('.screen');
+      screens.forEach(s => s.classList.remove('active'));
+
+      // فتح شاشة فئات المنصة
+      const target = document.getElementById(platformScreenId);
+      if (target) {
+        target.classList.add('active');
+      } else {
+        alert('جاري إضافة خدمات هذه المنصة قريباً!');
+        document.getElementById('home-screen').classList.add('active');
+      }
       window.scrollTo(0, 0);
+    }
+
+    function goBackToHome() {
+      switchTab('home-screen', document.getElementById('nav-home'));
     }
   </script>
-
 </body>
 </html>
-
