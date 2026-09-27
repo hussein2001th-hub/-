@@ -1225,4 +1225,14 @@
     });
 </script>
 <!-- === نهاية كود نظام الإشعارات === -->
+<div id="notifications-list"></div>
+<!-- هذا زر الإشعارات مالتك، مجرد ضيف الـ span اللي بي id="notifications-badge" داخله أو بصفه -->
+<div class="icon-btn" style="position: relative;" onclick="markAllNotificationsRead(); /* افتح صفحة الاشعارات هنا */">
+    🔔 <!-- أيقونة الجرس مالتك -->
+    
+    <!-- هذا هو العداد -->
+    <span id="notifications-badge" style="display: none; position: absolute; top: -5px; right: -5px; background: #ff3b30; color: white; font-size: 10px; font-weight: bold; width: 18px; height: 18px; border-radius: 50%; justify-content: center; align-items: center;">0</span>
+</div>
+// ضيف هذا السطر داخل دالة saveOrder بعد ما يكمل الطلب
+addNotification('طلب جديد تم استلامه 📦', `تم إرسال طلبك لخدمة ${serviceName} بنجاح، وهو قيد المراجعة.`);
 
