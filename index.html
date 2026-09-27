@@ -138,7 +138,9 @@
 
         // دالة إرسال البيانات إلى البوت
         function sendOrder() {
-            let link = document.getElementById('linkInput').value;
+       
+        
+let link = document.getElementById('linkInput').value;
             let quantity = document.getElementById('quantityInput').value;
 
             if(link === "" || quantity === "") {
@@ -158,6 +160,139 @@
             tg.close();
         }
     </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>متجر حسين أثير</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 15px;
+    }
+    h1 {
+      color: #ffd700;
+      margin-bottom: 5px;
+      font-size: 22px;
+    }
+    p.sub {
+      color: #aaa;
+      font-size: 14px;
+      margin-top: 0;
+    }
+    .section-title {
+      color: #4da6ff;
+      margin-top: 25px;
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .card {
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      padding: 15px;
+      margin: 12px 0;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+    .card h3 {
+      color: #ffd700;
+      margin: 0 0 8px 0;
+      font-size: 17px;
+    }
+    .card p {
+      color: #ccc;
+      margin: 5px 0 12px 0;
+      font-size: 14px;
+    }
+    .btn {
+      background-color: #ffd700;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      width: 100%;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .btn:active {
+      background-color: #e6c200;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .grid-btn {
+      background-color: #1e1e1e;
+      color: #fff;
+      border: 1px solid #333;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>متجر حسين أثير</h1>
+  <p class="sub">أهلاً بك يا حسين أثير</p>
+
+  <!-- قسم خدمات إنستغرام -->
+  <div class="section-title">📸 خدمات إنستغرام</div>
+
+  <div class="card">
+    <h3>1. رشق متابعين إنستغرام (ضمان)</h3>
+    <p>1000 متابع - السعر: $1.00</p>
+    <button class="btn">طلب الخدمة</button>
+  </div>
+
+  <div class="card">
+    <h3>2. رشق لايكات إنستغرام</h3>
+    <p>1000 لايك - السعر: $0.30</p>
+    <button class="btn">طلب الخدمة</button>
+  </div>
+
+  <div class="card">
+    <h3>3. رشق مشاهدات ريلز إنستغرام</h3>
+    <p>10,000 مشاهدة - السعر: $0.20</p>
+    <button class="btn">طلب الخدمة</button>
+  </div>
+
+  <div class="card">
+    <h3>4. تعليقات إنستغرام مخصصة</h3>
+    <p>100 تعليق - السعر: $0.50</p>
+    <button class="btn">طلب الخدمة</button>
+  </div>
+
+  <!-- قسم باقي المنصات -->
+  <div class="section-title">🎵 خدمات المنصات الأخرى</div>
+
+  <div class="card">
+    <h3>رشق مشاهدات تيك توك</h3>
+    <p>10,000 مشاهدة - السعر: $0.50</p>
+    <button class="btn">طلب الخدمة</button>
+  </div>
+
+  <div class="section-title">اختر المنصة التي تريد رشقها:</div>
+
+  <div class="grid">
+    <button class="grid-btn">📸 انستقرام</button>
+    <button class="grid-btn">✈️ تليجرام</button>
+    <button class="grid-btn">🎵 تيك توك</button>
+    <button class="grid-btn">🟦 فيسبوك</button>
+  </div>
+
 </body>
 </html>
 
