@@ -828,3 +828,206 @@
 </body>
 </html>
 
+    /* ================= تصميم صفحة طلباتي والإشعارات ================= */
+    .custom-page {
+      display: none; /* مخفية افتراضياً */
+      padding-bottom: 80px;
+    }
+
+    .page-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid #1c1c1e;
+      position: sticky;
+      top: 0;
+      background: #0d0d0e;
+      z-index: 100;
+    }
+
+    .page-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .icon-btn {
+      background: #161618;
+      border: 1px solid #242428;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .icon-btn svg { fill: #8e8e93; width: 20px; height: 20px; }
+
+    .notifications-list {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* كارت الطلب / الإشعار */
+    .notify-card {
+      background: #161618;
+      border: 1px solid #242428;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .notify-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .notify-id {
+      font-size: 14px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    /* أيقونة الحالة (مكتمل / قيد الانتظار) */
+    .status-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .status-success { background: rgba(16, 185, 129, 0.15); }
+    .status-success svg { fill: #10b981; width: 18px; height: 18px; }
+    
+    .status-pending { background: rgba(255, 184, 0, 0.15); }
+    .status-pending svg { fill: #ffb800; width: 18px; height: 18px; }
+
+    .notify-body {
+      font-size: 12px;
+      color: #8e8e93;
+      line-height: 1.6;
+    }
+
+    .notify-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    .notify-time {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #636366;
+    }
+    .notify-time svg { fill: #636366; width: 14px; height: 14px; }
+
+    .notify-price {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  <!-- ================= صفحة طلباتي / الإشعارات ================= -->
+  <div id="orders-view" class="custom-page">
+    <div class="page-top-bar">
+      <button class="icon-btn" onclick="goHome()">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      </button>
+      <span class="page-title">الإشعارات وطلباتي</span>
+      <button class="icon-btn">
+        <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+      </button>
+    </div>
+
+    <div class="notifications-list">
+      
+      <!-- كارت: طلب مكتمل -->
+      <div class="notify-card">
+        <div class="notify-header">
+          <span class="notify-id">اكتمل طلبك #119316007</span>
+          <div class="status-icon status-success">
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          </div>
+        </div>
+        <div class="notify-body">
+          تم تنفيذ الطلب رقم 119316007 بالكامل — مشاهدات تلي لبوست واحد 🔥 | الحد الأقصى 50,000.
+        </div>
+        <div class="notify-footer">
+          <div class="notify-time">
+            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+            <span>منذ 7 أيام</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- كارت: طلب جديد (مخصوم منه رصيد) -->
+      <div class="notify-card">
+        <div class="notify-header">
+          <span class="notify-id">طلب جديد #119316007</span>
+          <div class="status-icon status-pending">
+            <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          </div>
+        </div>
+        <div class="notify-body">
+          تم إنشاء الطلب رقم 119316007، وتم خصم 0.0018 من رصيدك.
+        </div>
+        <div class="notify-footer">
+          <div class="notify-time">
+            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+            <span>منذ 7 أيام</span>
+          </div>
+          <div class="notify-price">-$0.0018</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <nav class="bottom-nav">
+    <div class="nav-item active" onclick="switchTab('main-view', this)">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>الرئيسية</span>
+    </div>
+    <!-- ضفنا أمر الفتح هنا -->
+    <div class="nav-item" onclick="switchTab('orders-view', this)">
+      <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+      <span>طلباتي</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+      <span>شحن</span>
+    </div>
+    <!-- ضفنا أمر الفتح هنا -->
+    <div class="nav-item" onclick="switchTab('orders-view', this)">
+      <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+      <span>الإشعارات</span>
+    </div>
+  </nav>
+    // دالة التنقل بين التبويبات السفلية
+    function switchTab(viewId, navElement) {
+      // 1. إخفاء كل شيء أولاً (الرئيسية + صفحات المنصات + صفحة الطلبات)
+      document.getElementById('main-view').style.display = 'none';
+      let pages = document.querySelectorAll('.platform-page, .custom-page');
+      pages.forEach(page => page.style.display = 'none');
+
+      // 2. إظهار الصفحة المطلوبة
+      document.getElementById(viewId).style.display = 'block';
+      window.scrollTo(0, 0);
+
+      // 3. تغيير لون الأيقونة السفلية الفعالة (اللون الأصفر)
+      let navItems = document.querySelectorAll('.nav-item');
+      navItems.forEach(item => item.classList.remove('active'));
+      navElement.classList.add('active');
+    }
