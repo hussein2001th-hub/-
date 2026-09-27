@@ -1140,4 +1140,89 @@
 </div>
 <button onclick="showSuccessPopup()">أطلب الآن</button>
 <button onclick="showSuccessPopup(); saveOrder('مشاهدات منشورات تليجرام', 1000, 0.100)">أطلب الآن</button>
+<!-- === بداية كود نظام الإشعارات والعداد === -->
+<script>
+    // 1. جلب الإشعارات المحفوظة أو إنشاء مصفوفة جديدة
+    let myNotifications = JSON.parse(localStorage.getItem('hussein_notifications')) || [];
+
+    // 2. دالة إضافة إشعار جديد (تكدر تستدعيها بأي مكان)
+    function addNotification(title, message) {
+        let newNotif = {
+            id: Date.now(), // رقم تعريفي فريد
+            title: title,
+            message: message,
+            date: new Date().toLocaleTimeString('ar-IQ', { hour: '2-digit', minute: '2-digit' }) + ' | ' + new Date().toLocaleDateString('ar-IQ'),
+            isRead: false // الإشعار الجديد يكون "غير مقروء"
+        };
+
+        // إضافة الإشعار في بداية القائمة (الأحدث فوق)
+        myNotifications.unshift(newNotif);
+
+        // حفظ بالمتصفح
+        localStorage.setItem('hussein_notifications', JSON.stringify(myNotifications));
+
+        // تحديث الواجهة والعداد
+        renderNotifications();
+        updateBadge();
+    }
+
+    // 3. دالة رسم الإشعارات في صفحة الإشعارات
+    function renderNotifications() {
+        let notifContainer = document.getElementById('notifications-list');
+        if (!notifContainer) return;
+
+        notifContainer.innerHTML = ''; // تنظيف
+
+        if (myNotifications.length === 0) {
+            notifContainer.innerHTML = '<div style="text-align:center; color:#8e8e93; padding: 30px;">لا توجد إشعارات حالياً.</div>';
+            return;
+        }
+
+        myNotifications.forEach(notif => {
+            // إذا الإشعار ما مقري نخليه بلون مميز شوي، وإذا مقري نخليه عادي
+            let borderStyle = notif.isRead ? '1px solid #242428' : '1px solid #ff9800'; 
+            
+            let notifHTML = `
+                <div style="background: #161618; border: ${borderStyle}; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; position: relative;">
+                    ${!notif.isRead ? '<div style="width: 8px; height: 8px; background: #ff9800; border-radius: 50%; position: absolute; top: 16px; right: 16px;"></div>' : ''}
+                    <div style="font-size: 14px; font-weight: bold; color: #ffffff; padding-right: ${!notif.isRead ? '15px' : '0'};">${notif.title}</div>
+                    <div style="font-size: 13px; color: #b0b0b5;">${notif.message}</div>
+                    <div style="font-size: 11px; color: #666; text-align: left; margin-top: 5px;">${notif.date}</div>
+                </div>
+            `;
+            notifContainer.innerHTML += notifHTML;
+        });
+    }
+
+    // 4. دالة تحديث العداد (البادج الأحمر أو البرتقالي)
+    function updateBadge() {
+        let badge = document.getElementById('notifications-badge');
+        if (!badge) return;
+
+        // حساب عدد الإشعارات الغير مقروءة
+        let unreadCount = myNotifications.filter(n => n.isRead === false).length;
+
+        if (unreadCount > 0) {
+            badge.innerText = unreadCount > 99 ? '99+' : unreadCount;
+            badge.style.display = 'flex'; // إظهار العداد
+        } else {
+            badge.style.display = 'none'; // إخفاء العداد إذا صفر
+        }
+    }
+
+    // 5. دالة قراءة كل الإشعارات (تستدعيها من تفتح صفحة الإشعارات)
+    function markAllNotificationsRead() {
+        myNotifications.forEach(n => n.isRead = true);
+        localStorage.setItem('hussein_notifications', JSON.stringify(myNotifications));
+        updateBadge();
+        renderNotifications();
+    }
+
+    // تشغيل عند تحميل الصفحة
+    document.addEventListener("DOMContentLoaded", () => {
+        renderNotifications();
+        updateBadge();
+    });
+</script>
+<!-- === نهاية كود نظام الإشعارات === -->
 
