@@ -970,3 +970,42 @@
     }
 
 </html>
+        <script>
+    // دوال التنقل بين الصفحات
+    function openView(viewId) {
+      document.getElementById('main-view').style.display = 'none';
+      let views = ['insta-view', 'tiktok-view', 'tele-view', 'fb-view'];
+      views.forEach(v => {
+        let el = document.getElementById(v);
+        if(el) el.style.display = 'none';
+      });
+      document.getElementById(viewId).style.display = 'block';
+    }
+
+    function closeView() {
+      let views = ['insta-view', 'tiktok-view', 'tele-view', 'fb-view'];
+      views.forEach(v => {
+        let el = document.getElementById(v);
+        if(el) el.style.display = 'none';
+      });
+      document.getElementById('main-view').style.display = 'block';
+    }
+
+    function calcPrice(inputElement, pricePer1000) {
+      let qty = parseInt(inputElement.value) || 0;
+      if (qty < 0) qty = 0;
+      let totalPrice = (qty / 1000) * pricePer1000;
+      let priceDisplay = inputElement.closest('.order-controls').querySelector('.total-price');
+      priceDisplay.innerText = totalPrice.toFixed(3); 
+    }
+
+    function updateQty(btnElement, changeAmount, pricePer1000) {
+      let inputElement = btnElement.parentElement.querySelector('.qty-input');
+      let currentQty = parseInt(inputElement.value) || 0;
+      let newQty = currentQty + changeAmount;
+      if(newQty < 100) newQty = 100;
+      inputElement.value = newQty;
+      calcPrice(inputElement, pricePer1000);
+    }
+</script>
+
