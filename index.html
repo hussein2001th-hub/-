@@ -296,3 +296,256 @@ let link = document.getElementById('linkInput').value;
 </body>
 </html>
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>متجر حسين أثير</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 15px;
+    }
+    h1 {
+      color: #ffd700;
+      margin-bottom: 5px;
+      font-size: 22px;
+    }
+    p.sub {
+      color: #aaa;
+      font-size: 14px;
+      margin-top: 0;
+      margin-bottom: 25px;
+    }
+    /* أزرار المنصات الرئيسية */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+    .grid-btn {
+      background-color: #1e1e1e;
+      color: #fff;
+      border: 1px solid #333;
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .grid-btn:hover {
+      background-color: #333;
+      border-color: #ffd700;
+      color: #ffd700;
+    }
+    
+    /* تصميم الأقسام (مخفية بالبداية) */
+    .section {
+      display: none; /* إخفاء كل الأقسام افتراضياً */
+      animation: fadeIn 0.4s;
+    }
+    /* القسم النشط (يظهر عند الضغط) */
+    .section.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      color: #4da6ff;
+      margin-bottom: 15px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .card {
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      padding: 15px;
+      margin: 12px 0;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      text-align: right;
+    }
+    .card h3 {
+      color: #ffd700;
+      margin: 0 0 8px 0;
+      font-size: 16px;
+    }
+    .card p {
+      color: #ccc;
+      margin: 5px 0 12px 0;
+      font-size: 14px;
+    }
+    .btn {
+      background-color: #ffd700;
+      color: #000;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      width: 100%;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .btn:active {
+      background-color: #e6c200;
+    }
+    /* زر العودة للرئيسية */
+    .back-btn {
+      background-color: transparent;
+      color: #aaa;
+      border: 1px solid #555;
+      padding: 8px 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>متجر حسين أثير</h1>
+  <p class="sub">أهلاً بك يا حسين أثير</p>
+
+  <!-- قائمة المنصات الرئيسية (تختفي عندما نفتح قسم) -->
+  <div id="main-menu">
+    <p style="color: #ccc; margin-bottom: 15px;">اختر المنصة التي تريد رشقها:</p>
+    <div class="grid">
+      <button class="grid-btn" onclick="showSection('instagram')">📸 انستقرام</button>
+      <button class="grid-btn" onclick="showSection('telegram')">✈️ تليجرام</button>
+      <button class="grid-btn" onclick="showSection('tiktok')">🎵 تيك توك</button>
+      <button class="grid-btn" onclick="showSection('facebook')">🟦 فيسبوك</button>
+    </div>
+  </div>
+
+  <!-- =============================== -->
+  <!-- 1. قسم الانستقرام (مخفي) -->
+  <!-- =============================== -->
+  <div id="instagram" class="section">
+    <div class="section-title">📸 خدمات إنستغرام</div>
+
+    <div class="card">
+      <h3>رشق متابعين إنستغرام (ضمان)</h3>
+      <p>1000 متابع - السعر: $1.00</p>
+      <button class="btn">طلب الخدمة</button>
+    </div>
+    <div class="card">
+      <h3>رشق لايكات إنستغرام</h3>
+      <p>1000 لايك - السعر: $0.30</p>
+      <button class="btn">طلب الخدمة</button>
+    </div>
+    <div class="card">
+      <h3>رشق مشاهدات ريلز إنستغرام</h3>
+      <p>10,000 مشاهدة - السعر: $0.20</p>
+      <button class="btn">طلب الخدمة</button>
+    </div>
+    <div class="card">
+      <h3>تعليقات إنستغرام مخصصة</h3>
+      <p>100 تعليق - السعر: $0.50</p>
+      <button class="btn">طلب الخدمة</button>
+    </div>
+
+    <button class="back-btn" onclick="goBack()">🔙 عودة للقائمة الرئيسية</button>
+  </div>
+
+  <!-- =============================== -->
+  <!-- 2. قسم التليجرام (مخفي) -->
+  <!-- =============================== -->
+  <div id="telegram" class="section">
+    <div class="section-title">✈️ خدمات تليجرام</div>
+
+    <div class="card">
+      <h3>رشق أعضاء قنوات/كروبات (حقيقي)</h3>
+      <p>1000 عضو - السعر: $1.50</p>
+      <button class="btn">طلب الخدمة</button>
+    </div>
+    <div class="card">
+      <h3>رشق مشاهدات منشورات تليجرام</h3>
+      <p>5000 مشاهدة - السعر: $0.50</p>
+      <button class="btn">طلب الخدمة</button>
+    </div>
+
+    <button class="back-btn" onclick="goBack()">🔙 عودة للقائمة الرئيسية</button>
+  </div>
+
+  <!-- =============================== -->
+  <!-- 3. قسم التيك توك (مخفي) -->
+  <!-- =============================== -->
+  <div id="tiktok" class="section">
+    <div class="section-title">🎵 خدمات تيك توك</div>
+
+    <div class="card">
+      <h3>رشق متابعين تيك توك</h3>
+      <p>1000 متابع - السعر: $2.00</p>
+      <button class="btn">طلب الخدمة</button>
+    </div>
+    <div class="card">
+      <h3>رشق مشاهدات تيك توك</h3>
+      <p>10,000 مشاهدة - السعر: $0.50</p>
+      <button class="btn">طلب الخدمة</button>
+    </div>
+
+    <button class="back-btn" onclick="goBack()">🔙 عودة للقائمة الرئيسية</button>
+  </div>
+
+  <!-- =============================== -->
+  <!-- 4. قسم الفيسبوك (مخفي) -->
+  <!-- =============================== -->
+  <div id="facebook" class="section">
+    <div class="section-title">🟦 خدمات فيسبوك</div>
+
+    <div class="card">
+      <h3>رشق متابعين بيج فيسبوك</h3>
+      <p>1000 متابع - السعر: $1.20</p>
+      <button class="btn">طلب الخدمة</button>
+    </div>
+    <div class="card">
+      <h3>لايكات منشورات فيسبوك</h3>
+      <p>1000 لايك - السعر: $0.40</p>
+      <button class="btn">طلب الخدمة</button>
+    </div>
+
+    <button class="back-btn" onclick="goBack()">🔙 عودة للقائمة الرئيسية</button>
+  </div>
+
+
+  <!-- كود الجافاسكربت للتنقل بين الأقسام -->
+  <script>
+    function showSection(sectionId) {
+      // إخفاء القائمة الرئيسية
+      document.getElementById('main-menu').style.display = 'none';
+      
+      // إخفاء جميع الأقسام
+      let sections = document.querySelectorAll('.section');
+      sections.forEach(function(sec) {
+        sec.classList.remove('active');
+      });
+
+      // إظهار القسم المطلوب فقط
+      document.getElementById(sectionId).classList.add('active');
+    }
+
+    function goBack() {
+      // إخفاء جميع الأقسام
+      let sections = document.querySelectorAll('.section');
+      sections.forEach(function(sec) {
+        sec.classList.remove('active');
+      });
+
+      // إظهار القائمة الرئيسية
+      document.getElementById('main-menu').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
