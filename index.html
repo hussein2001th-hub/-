@@ -827,4 +827,89 @@
 
 </body>
 </html>
-  
+  <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق رشق - متجر حسين أثير</title>
+    <!-- كل أكواد الـ CSS يجب أن تكون هنا فقط -->
+    <style>
+        /* إخفاء كل الصفحات بشكل افتراضي */
+        .page-content {
+            display: none;
+            padding-bottom: 80px; /* لترك مساحة للبار السفلي */
+        }
+        
+        /* إظهار الصفحة النشطة فقط */
+        .page-content.active {
+            display: block;
+        }
+
+        /* تنسيق البار السفلي (للتبسيط) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background: #1c1c1e;
+            padding: 10px 0;
+        }
+        .nav-item.active {
+            color: #ff9800; /* لون الأيقونة المفعلة */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. صفحة الرئيسية -->
+    <div id="home-page" class="page-content active">
+        <h2>الرئيسية</h2>
+        <!-- ضع هنا كود الأقسام والمنصات (تيك توك، انستغرام...) -->
+    </div>
+
+    <!-- 2. صفحة طلباتي -->
+    <div id="orders-page" class="page-content">
+        <h2>طلباتي</h2>
+        <!-- ضع هنا كود كروت الطلبات وحالتها (الموجود في 36409.jpg) -->
+    </div>
+
+    <!-- 3. صفحة الإشعارات -->
+    <div id="notifications-page" class="page-content">
+        <h2>الإشعارات</h2>
+        <!-- ضع هنا كود الإشعارات -->
+    </div>
+
+    <!-- 4. صفحة الشحن -->
+    <div id="wallet-page" class="page-content">
+        <h2>شحن الحساب</h2>
+    </div>
+
+    <!-- البار السفلي للتنقل -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="switchPage('home-page', this)">الرئيسية</div>
+        <div class="nav-item" onclick="switchPage('orders-page', this)">طلباتي</div>
+        <div class="nav-item" onclick="switchPage('wallet-page', this)">شحن</div>
+        <div class="nav-item" onclick="switchPage('notifications-page', this)">الإشعارات</div>
+    </div>
+
+    <!-- سكربت التنقل -->
+    <script>
+        function switchPage(pageId, navElement) {
+            // 1. إخفاء جميع الصفحات
+            let pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // 2. إزالة التفعيل من جميع أزرار البار السفلي
+            let navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+
+            // 3. إظهار الصفحة المطلوبة وتفعيل الزر الخاص بها
+            document.getElementById(pageId).classList.add('active');
+            navElement.classList.add('active');
+        }
+    </script>
+</body>
+</html>
+
