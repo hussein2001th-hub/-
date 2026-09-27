@@ -1065,4 +1065,79 @@
     </script>
 </body>
 </html>
+<!-- === بداية كود حفظ وعرض الطلبات (مضاف جديد) === -->
+<script>
+    // 1. جلب الطلبات المحفوظة في الجهاز (أو مصفوفة فارغة إذا ماكو)
+    let myOrders = JSON.parse(localStorage.getItem('hussein_orders')) || [];
+
+    // 2. دالة إضافة الطلب (اربطها بزر "أطلب الآن" عندك)
+    // إذا عندك دالة قديمة اسمها showPopup أو orderService، خلي هاي الدالة تشتغل بداخلها
+    function saveOrder(serviceName, quantity, price) {
+        let orderId = Math.floor(Math.random() * 10000000); // رقم طلب عشوائي
+        
+        let newOrder = {
+            id: orderId,
+            service: serviceName,
+            qty: quantity,
+            price: price,
+            status: 'قيد الانتظار ⏳',
+            date: new Date().toLocaleDateString('ar-IQ') // تاريخ اليوم
+        };
+
+        // نضيف الطلب للقائمة
+        myOrders.push(newOrder);
+
+        // نحفظ القائمة بالمتصفح (علمود ما تنمسح)
+        localStorage.setItem('hussein_orders', JSON.stringify(myOrders));
+
+        // نحدث صفحة طلباتي فورا
+        renderOrdersList();
+    }
+
+    // 3. دالة رسم الطلبات في قسم "طلباتي"
+    function renderOrdersList() {
+        // تأكد أنك تحط id="orders-list" للـ div الموجود بصفحة طلباتي عندك
+        let ordersContainer = document.getElementById('orders-list');
+        
+        if (!ordersContainer) return; // إذا ما لقى الـ div يوقف
+
+        ordersContainer.innerHTML = ''; // تنظيف قبل الرسم
+
+        if(myOrders.length === 0) {
+            ordersContainer.innerHTML = '<div style="text-align:center; color:#888; padding: 20px;">لا توجد طلبات حالياً.</div>';
+            return;
+        }
+
+        // رسم الطلبات من الأحدث للأقدم
+        myOrders.slice().reverse().forEach(order => {
+            let orderHTML = `
+                <div style="background: #161618; border: 1px solid #242428; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #242428; padding-bottom: 8px;">
+                        <span style="font-size: 12px; color: #8e8e93;">رقم الطلب: ${order.id}</span>
+                        <span style="font-size: 12px; color: #8e8e93;">${order.date}</span>
+                    </div>
+                    <div style="font-size: 14px; font-weight: bold; color: #ffffff;">${order.service}</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: #8e8e93; font-size: 13px;">الكمية: ${order.qty}</span>
+                        <span style="background: rgba(255, 152, 0, 0.15); color: #ff9800; padding: 4px 8px; border-radius: 6px; font-size: 12px;">${order.status}</span>
+                    </div>
+                </div>
+            `;
+            ordersContainer.innerHTML += orderHTML;
+        });
+    }
+
+    // 4. تشغيل دالة الرسم أول ما تفتح الصفحة
+    document.addEventListener("DOMContentLoaded", () => {
+        renderOrdersList();
+    });
+</script>
+<!-- === نهاية كود حفظ وعرض الطلبات === -->
+<!-- صفحة طلباتي مالتك -->
+<div id="your-orders-page-id">
+   <!-- ضيف هذا السطر فقط داخل صفحة طلباتي -->
+   <div id="orders-list"></div>
+</div>
+<button onclick="showSuccessPopup()">أطلب الآن</button>
+<button onclick="showSuccessPopup(); saveOrder('مشاهدات منشورات تليجرام', 1000, 0.100)">أطلب الآن</button>
 
