@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر حسين أثير للرشق</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .header {
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #FFD700;
+            font-size: 24px;
+        }
+        .service-box {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .service-box h3 {
+            margin: 0 0 10px 0;
+            color: #FFD700;
+        }
+        .buy-btn {
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>متجر حسين أثير</h1>
+        <p id="user-greeting">جاري تحميل البيانات...</p>
+    </div>
+
+    <div class="service-box">
+        <h3>رشق متابعين إنستغرام</h3>
+        <p>1000 متابع - السعر: 1$</p>
+        <button class="buy-btn" onclick="orderService('instagram_followers')">طلب الخدمة</button>
+    </div>
+
+    <div class="service-box">
+        <h3>رشق مشاهدات تيك توك</h3>
+        <p>10,000 مشاهدة - السعر: 0.5$</p>
+        <button class="buy-btn" onclick="orderService('tiktok_views')">طلب الخدمة</button>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand(); 
+
+        if (tg.initDataUnsafe.user) {
+            document.getElementById("user-greeting").innerText = "أهلاً بك يا " + tg.initDataUnsafe.user.first_name;
+        }
+
+        function orderService(serviceType) {
+            tg.sendData(serviceType);
+            tg.close();
+        }
+    </script>
+</body>
+</html>
