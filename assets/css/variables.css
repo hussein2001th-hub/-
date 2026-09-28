@@ -1,0 +1,82 @@
+/**
+ * ==============================================================================
+ * @file        variables.css
+ * @package     StoreApp.Theme.Variables
+ * @description لوحة الألوان الفاخرة (Design Tokens) والمتغيرات العامة وتوافق تليجرام.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+:root {
+    /* الخلفيات والألوان الداكنة الفاخرة */
+    --bg-main: #0c0d10;
+    --bg-card: #15161c;
+    --bg-card-hover: #1c1d25;
+    --bg-card-glass: rgba(21, 22, 28, 0.75);
+    --bg-input: #1f212a;
+    --bg-input-focus: #272935;
+    --bg-surface: #121318;
+    
+    /* الألوان المميزة (ذهب ملكي وأصفر تليجرام) */
+    --primary: #ffb800;
+    --primary-light: #ffd000;
+    --primary-hover: #e6a500;
+    --primary-gradient: linear-gradient(135deg, #ffc400 0%, #ff9e00 100%);
+    --primary-rgb: 255, 184, 0;
+    --primary-glow: rgba(255, 184, 0, 0.16);
+    --primary-glow-strong: rgba(255, 184, 0, 0.35);
+    
+    /* نصوص وتباعدات */
+    --text-main: #ffffff;
+    --text-muted: #9596a2;
+    --text-dim: #656775;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-color-hover: rgba(255, 184, 0, 0.3);
+    --border-color-light: rgba(255, 255, 255, 0.14);
+    
+    /* ألوان الحالات والنتائج */
+    --danger: #ff4757;
+    --danger-bg: rgba(255, 71, 87, 0.14);
+    --success: #2ed573;
+    --success-bg: rgba(46, 213, 115, 0.14);
+    --info: #1e90ff;
+    --info-bg: rgba(30, 144, 255, 0.14);
+    --warning: #ffa502;
+    --warning-bg: rgba(255, 165, 2, 0.14);
+
+    /* ألوان المنصات العالمية */
+    --brand-instagram: #e1306c;
+    --brand-tiktok: #00f2fe;
+    --brand-telegram: #0088cc;
+    --brand-facebook: #1877f2;
+    --brand-youtube: #ff0000;
+
+    /* المقاسات والأبعاد */
+    --nav-height: 66px;
+    --top-bar-height: 58px;
+    --max-content-width: 600px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 22px;
+    --radius-full: 9999px;
+
+    /* الظلال المتقدمة */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 12px 35px rgba(0, 0, 0, 0.6);
+    --shadow-gold: 0 4px 18px rgba(255, 184, 0, 0.25);
+
+    /* أزمنة الانتقال */
+    --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* مزامنة ثيم تليجرام */
+body.telegram-theme {
+    --bg-main: var(--tg-theme-bg-color, #0c0d10);
+    --bg-card: var(--tg-theme-secondary-bg-color, #15161c);
+    --text-main: var(--tg-theme-text-color, #ffffff);
+    --text-muted: var(--tg-theme-hint-color, #9596a2);
+}
