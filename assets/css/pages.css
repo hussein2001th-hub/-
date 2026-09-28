@@ -19,48 +19,108 @@
 
 /* Platforms Grid (Home Page) */
 .platforms-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .platform-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    padding: 16px 14px;
+    padding: 14px 16px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 14px;
     cursor: pointer;
-    transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition: transform var(--transition-fast), border-color var(--transition-fast),
+                background-color var(--transition-fast), box-shadow var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+/* الخط الجانبي الملون */
+.platform-card::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    background: var(--card-accent, var(--primary));
+    opacity: 0.7;
+    transition: opacity var(--transition-fast), width var(--transition-fast);
 }
 
 .platform-card:hover {
     background-color: var(--bg-card-hover);
     border-color: var(--border-color-hover);
-    transform: translateY(-2px);
+    transform: translateX(-2px);
     box-shadow: var(--shadow-sm);
 }
 
+.platform-card:hover::before {
+    opacity: 1;
+    width: 4px;
+}
+
 .platform-card:active {
-    transform: scale(0.97);
+    transform: scale(0.98);
     border-color: var(--primary);
 }
 
+/* الأيقونة */
+.platform-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+/* نقطة الأونلاين */
+.platform-online-dot {
+    position: absolute;
+    bottom: -2px;
+    left: -2px;
+    width: 12px;
+    height: 12px;
+    background: var(--success);
+    border-radius: 50%;
+    border: 2px solid var(--bg-card);
+    animation: pulse-online 2.5s infinite;
+}
+
+@keyframes pulse-online {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(46, 213, 115, 0.55); }
+    50%       { box-shadow: 0 0 0 5px rgba(46, 213, 115, 0); }
+}
+
+/* معلومات المنصة */
 .platform-info {
-    text-align: right;
     flex: 1;
     min-width: 0;
+    text-align: right;
+}
+
+.platform-name-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 3px;
+    flex-wrap: wrap;
 }
 
 .platform-name {
     font-size: 15px;
     font-weight: 800;
-    margin-bottom: 2px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    color: var(--text-main);
+    line-height: 1.3;
 }
 
 .platform-badge-hot {
@@ -68,38 +128,84 @@
     color: var(--danger);
     font-size: 10px;
     font-weight: 800;
-    padding: 1px 5px;
-    border-radius: 4px;
+    padding: 1px 6px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 71, 87, 0.2);
+}
+
+.platform-badge-online {
+    background: rgba(46, 213, 115, 0.12);
+    color: var(--success);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 1px 7px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(46, 213, 115, 0.22);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.platform-badge-online::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--success);
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse-online 2.5s infinite;
 }
 
 .platform-desc {
-    font-size: 11px;
+    font-size: 11.5px;
     color: var(--text-muted);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 5px;
 }
 
-.platform-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-md);
+.platform-meta-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 20px;
+    gap: 10px;
+}
+
+.platform-services-count {
+    font-size: 10.5px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.platform-services-count i {
+    color: var(--primary);
+    font-size: 9px;
+}
+
+/* سهم التنقل */
+.platform-arrow {
+    color: var(--text-dim);
+    font-size: 13px;
     flex-shrink: 0;
-    margin-right: 10px;
+    transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.platform-card:hover .platform-arrow {
+    color: var(--primary);
+    transform: translateX(-4px);
 }
 
 /* Brand specific icon backgrounds */
-.icon-insta { background: rgba(225, 48, 108, 0.12); color: var(--brand-instagram); }
-.icon-tiktok { background: rgba(0, 242, 254, 0.12); color: var(--brand-tiktok); }
-.icon-telegram { background: rgba(0, 136, 204, 0.12); color: var(--brand-telegram); }
-.icon-facebook { background: rgba(24, 119, 242, 0.12); color: var(--brand-facebook); }
-.icon-youtube { background: rgba(255, 0, 0, 0.12); color: var(--brand-youtube); }
-.icon-free { background: rgba(255, 184, 0, 0.12); color: var(--primary); }
-.icon-real { background: rgba(46, 213, 115, 0.12); color: var(--success); }
+.icon-insta    { background: rgba(225, 48, 108, 0.12); color: var(--brand-instagram); --card-accent: var(--brand-instagram); }
+.icon-tiktok   { background: rgba(0, 242, 254, 0.12);  color: var(--brand-tiktok);    --card-accent: var(--brand-tiktok); }
+.icon-telegram { background: rgba(0, 136, 204, 0.12);  color: var(--brand-telegram);  --card-accent: var(--brand-telegram); }
+.icon-facebook { background: rgba(24, 119, 242, 0.12); color: var(--brand-facebook);  --card-accent: var(--brand-facebook); }
+.icon-youtube  { background: rgba(255, 0, 0, 0.12);    color: var(--brand-youtube);   --card-accent: var(--brand-youtube); }
+.icon-free     { background: rgba(255, 184, 0, 0.12);  color: var(--primary);         --card-accent: var(--primary); }
+.icon-real     { background: rgba(46, 213, 115, 0.12); color: var(--success);         --card-accent: var(--success); }
+
 
 /* Platform View Header */
 .platform-view-head {
