@@ -1326,4 +1326,381 @@ addNotification('طلب جديد تم استلامه 📦', `تم إرسال ط�
     });
 </script>
 <!-- === نهاية نظام الطلبات والإشعارات المتكامل === -->
+<!-- === بداية سكربت النظام المتكامل (الطلبات، الإشعارات، الرصيد، الواجهة) === -->
+<script>
+    // ==========================================
+    // 1. تهيئة البيانات الأساسية (Data Initialization)
+    // ==========================================
+    const DEFAULT_USER_DATA = {
+        name: "حسون",
+        username: "h69kkg",
+        email: "hussein2001th@gmail.com", // من صورة الإعدادات
+        balance: 3.12, // الرصيد الابتدائي من الصورة
+        currency: "$"
+    };
+
+    // جلب البيانات من LocalStorage أو استخدام الافتراضية
+    let currentUser = JSON.parse(localStorage.getItem('hussein_user_data')) || DEFAULT_USER_DATA;
+    let userOrders = JSON.parse(localStorage.getItem('hussein_orders')) || [];
+    let userNotifications = JSON.parse(localStorage.getItem('hussein_notifications')) || [];
+
+    // ==========================================
+    // 2. دوال تحديث الواجهة العامة (UI Updates)
+    // ==========================================
+    function updateUserInterface() {
+        // تحديث الرصيد في الأماكن المخصصة (مثال: قائمة جانبية، إعدادات)
+        const balanceElements = document.querySelectorAll('.user-balance-display');
+        balanceElements.forEach(el => {
+            el.innerText = `${currentUser.currency}${currentUser.balance.toFixed(2)}`;
+        });
+
+        // تحديث معلومات المستخدم (اسم، يوزر، ايميل)
+        const nameElements = document.querySelectorAll('.user-name-display');
+        nameElements.forEach(el => el.innerText = currentUser.name);
+        
+        const usernameElements = document.querySelectorAll('.user-username-display');
+        usernameElements.forEach(el => el.innerText = currentUser.username);
+
+        updateNotificationBadge();
+    }
+
+    // ==========================================
+    // 3. نظام الطلبات (Orders System)
+    // ==========================================
+    
+    // دالة إنشاء طلب جديد (يتم استدعاؤها عند الضغط على "أطلب الآن")
+    function createNewOrder(serviceName, quantity, pricePerK, link = "") {
+        // حساب السعر الإجمالي (السعر لكل 1000 * (الكمية / 1000))
+        const totalPrice = (pricePerK * (quantity / 1000)).toFixed(4);
+
+        // التحقق من الرصيد الكافي
+        if (currentUser.balance < totalPrice) {
+            alert("عذراً، رصيدك غير كافٍ لإتمام هذا الطلب. يرجى شحن الرصيد.");
+            return;
+        }
+
+        // خصم الرصيد
+        currentUser.balance -= parseFloat(totalPrice);
+        saveUserData();
+
+        // إنشاء كائن الطلب
+        const orderId = Math.floor(10000000 + Math.random() * 90000000); // رقم عشوائي بـ 8 أرقام
+        const now = new Date();
+        const formattedDate = `${now.getDate()} ${getMonthName(now.getMonth())} ${now.getFullYear()}, ${formatTime(now)}`;
+
+        const newOrder = {
+            id: orderId,
+            service: serviceName,
+            qty: quantity,
+            price: totalPrice,
+            link: link || "لم يتم توفير رابط",
+            status: 'قيد الانتظار', // الحالات: قيد الانتظار، قيد التنفيذ، مكتمل
+            date: formattedDate,
+            startCount: 0,
+            remains: quantity,
+            progress: 0
+        };
+
+        // حفظ الطلب
+        userOrders.unshift(newOrder); // إضافة للأحدث
+        saveOrdersData();
+
+        // إشعار المستخدم
+        addNotification("طلب جديد 📦", `تم استلام طلبك لخدمة ${serviceName} بنجاح. رقم الطلب: #${orderId}`);
+        
+        // تحديث الواجهة
+        updateUserInterface();
+        renderOrdersList('all'); // إعادة رسم الطلبات
+        
+        // رسالة نجاح (مؤقتة، يفضل استخدام Popup)
+        alert(`تم تنفيذ الطلب بنجاح! خصم: ${currentUser.currency}${totalPrice}`);
+    }
+
+    // دالة رسم قائمة الطلبات مع الفلاتر (تحاكي صورة طلباتي)
+    function renderOrdersList(filterStatus = 'all') {
+        const container = document.getElementById('orders-container-list');
+        if (!container) return; // الخروج إذا لم يكن العنصر موجوداً
+
+        // تحديث الأزرار النشطة للفلتر
+        updateOrderFilterButtons(filterStatus);
+
+        // تصفية الطلبات
+        const filteredOrders = filterStatus === 'all' 
+            ? userOrders 
+            : userOrders.filter(order => order.status === filterStatus);
+
+        // تفريغ الحاوية
+        container.innerHTML = '';
+
+        // التحقق من وجود طلبات
+        if (filteredOrders.length === 0) {
+            container.innerHTML = `
+                <div style="text-align: center; color: #888; padding: 40px 20px;">
+                    <i class="fas fa-box-open" style="font-size: 40px; margin-bottom: 10px; color:#444;"></i>
+                    <p>لا توجد طلبات في هذا القسم حالياً.</p>
+                </div>
+            `;
+            return;
+        }
+
+        // رسم كل طلب
+        filteredOrders.forEach(order => {
+            const statusColor = getStatusColor(order.status);
+            const statusIcon = getStatusIcon(order.status);
+
+            const orderHTML = `
+                <div class="order-card" style="background: #1e1e1e; border-radius: 12px; padding: 15px; margin-bottom: 15px; border-left: 4px solid ${statusColor};">
+                    <!-- الترويسة: السعر ورقم الطلب والحالة -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="color: #ff9800; font-weight: bold; font-size: 16px;">${currentUser.currency}${order.price}</span>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="background: ${statusColor}22; color: ${statusColor}; padding: 4px 8px; border-radius: 20px; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+                                ${statusIcon} ${order.status}
+                            </span>
+                            <span style="color: #fff; font-weight: bold;">${order.id} #</span>
+                        </div>
+                    </div>
+                    
+                    <!-- اسم الخدمة -->
+                    <div style="color: #fff; font-size: 14px; margin-bottom: 10px; text-align: right;">
+                        ${order.service}
+                    </div>
+
+                    <!-- الرابط -->
+                    <div style="background: #2a2a2a; padding: 8px; border-radius: 8px; color: #aaa; font-size: 12px; text-align: right; margin-bottom: 15px; overflow-wrap: break-word;">
+                        <i class="fas fa-external-link-alt" style="margin-left:5px;"></i> ${order.link}
+                    </div>
+
+                    <!-- تفاصيل الكمية والإنجاز -->
+                    <div style="display: flex; justify-content: space-between; text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 10px;">
+                        <div style="flex: 1;">
+                            <div style="color: #888; font-size: 11px;">المتبقي</div>
+                            <div style="color: ${statusColor}; font-weight: bold; font-size: 14px;">${order.remains}</div>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="color: #888; font-size: 11px;">المستلم</div>
+                            <div style="color: #4caf50; font-weight: bold; font-size: 14px;">${order.qty - order.remains}</div>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="color: #888; font-size: 11px;">البدء</div>
+                            <div style="color: #2196f3; font-weight: bold; font-size: 14px;">${order.startCount}</div>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="color: #888; font-size: 11px;">الكمية</div>
+                            <div style="color: #fff; font-weight: bold; font-size: 14px;">${order.qty}</div>
+                        </div>
+                    </div>
+
+                    <!-- شريط التقدم -->
+                    <div style="margin-bottom: 10px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span style="color: #aaa; font-size: 11px;">نسبة الإنجاز</span>
+                            <span style="color: ${statusColor}; font-size: 11px;">${order.progress}%</span>
+                        </div>
+                        <div style="background: #333; height: 6px; border-radius: 3px; overflow: hidden;">
+                            <div style="background: ${statusColor}; width: ${order.progress}%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- التاريخ -->
+                    <div style="color: #777; font-size: 11px; text-align: left; display: flex; align-items: center; gap: 5px;">
+                        <i class="far fa-calendar-alt"></i> ${order.date}
+                    </div>
+                </div>
+            `;
+            container.innerHTML += orderHTML;
+        });
+        
+        // تحديث عداد إجمالي الطلبات (إذا كان موجوداً في الواجهة)
+        const totalOrdersCountEl = document.getElementById('total-orders-count');
+        if(totalOrdersCountEl) totalOrdersCountEl.innerText = `${userOrders.length} طلب`;
+    }
+
+    // دوال مساعدة للطلبات
+    function getStatusColor(status) {
+        switch(status) {
+            case 'مكتمل': return '#4caf50'; // أخضر
+            case 'قيد التنفيذ': return '#2196f3'; // أزرق
+            case 'قيد الانتظار': return '#ff9800'; // برتقالي
+            case 'ملغي': return '#f44336'; // أحمر
+            default: return '#888';
+        }
+    }
+
+    function getStatusIcon(status) {
+        switch(status) {
+            case 'مكتمل': return '<i class="fas fa-check-circle"></i>';
+            case 'قيد التنفيذ': return '<i class="fas fa-sync-alt fa-spin"></i>';
+            case 'قيد الانتظار': return '<i class="far fa-clock"></i>';
+            case 'ملغي': return '<i class="fas fa-times-circle"></i>';
+            default: return '';
+        }
+    }
+
+    function updateOrderFilterButtons(activeStatus) {
+        // افترض أن لديك أزرار فلاتر تحمل الكلاس 'order-filter-btn' وبيانات الحالة 'data-status'
+        const buttons = document.querySelectorAll('.order-filter-btn');
+        buttons.forEach(btn => {
+            if(btn.dataset.status === activeStatus) {
+                btn.classList.add('active'); // لون مفعل
+                btn.style.borderColor = '#ff9800';
+                btn.style.color = '#ff9800';
+            } else {
+                btn.classList.remove('active');
+                btn.style.borderColor = '#333';
+                btn.style.color = '#888';
+            }
+        });
+    }
+
+    // ==========================================
+    // 4. نظام الإشعارات (Notifications System)
+    // ==========================================
+    function addNotification(title, message) {
+        const now = new Date();
+        const newNotif = {
+            id: Date.now(),
+            title: title,
+            message: message,
+            date: `${formatTime(now)} | ${now.toLocaleDateString('en-GB')}`,
+            isRead: false
+        };
+        
+        userNotifications.unshift(newNotif);
+        saveNotificationsData();
+        updateNotificationBadge();
+        renderNotificationsList();
+    }
+
+    function renderNotificationsList() {
+        const container = document.getElementById('notifications-container-list');
+        if (!container) return;
+
+        container.innerHTML = '';
+
+        if (userNotifications.length === 0) {
+            container.innerHTML = `
+                <div style="text-align: center; color: #888; padding: 40px 20px;">
+                    <i class="far fa-bell-slash" style="font-size: 40px; margin-bottom: 10px; color:#444;"></i>
+                    <p>لا توجد إشعارات حالياً.</p>
+                </div>
+            `;
+            return;
+        }
+
+        userNotifications.forEach(notif => {
+            const bg = notif.isRead ? '#1e1e1e' : '#2a2a2a'; // تمييز غير المقروء
+            const border = notif.isRead ? '#333' : '#ff9800';
+
+            const html = `
+                <div style="background: ${bg}; border: 1px solid ${border}; border-radius: 10px; padding: 15px; margin-bottom: 10px; text-align: right;">
+                    <div style="font-weight: bold; color: #fff; margin-bottom: 5px; font-size: 14px;">${notif.title}</div>
+                    <div style="color: #ccc; font-size: 13px; margin-bottom: 8px; line-height: 1.4;">${notif.message}</div>
+                    <div style="color: #666; font-size: 11px;">${notif.date}</div>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+    }
+
+    function updateNotificationBadge() {
+        const badges = document.querySelectorAll('.notif-badge-count');
+        const unreadCount = userNotifications.filter(n => !n.isRead).length;
+
+        badges.forEach(badge => {
+            if (unreadCount > 0) {
+                badge.innerText = unreadCount > 9 ? '9+' : unreadCount;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        });
+    }
+
+    function markAllNotificationsRead() {
+        let changed = false;
+        userNotifications.forEach(n => {
+            if (!n.isRead) {
+                n.isRead = true;
+                changed = true;
+            }
+        });
+
+        if (changed) {
+            saveNotificationsData();
+            updateNotificationBadge();
+            renderNotificationsList();
+        }
+    }
+
+
+    // ==========================================
+    // 5. دوال الحفظ والمساعدة (Storage & Helpers)
+    // ==========================================
+    function saveUserData() { localStorage.setItem('hussein_user_data', JSON.stringify(currentUser)); }
+    function saveOrdersData() { localStorage.setItem('hussein_orders', JSON.stringify(userOrders)); }
+    function saveNotificationsData() { localStorage.setItem('hussein_notifications', JSON.stringify(userNotifications)); }
+
+    function formatTime(date) {
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        const ampm = hours >= 12 ? 'م' : 'ص';
+        hours = hours % 12;
+        hours = hours ? hours : 12; 
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        return `${hours}:${minutes} ${ampm}`;
+    }
+
+    function getMonthName(monthIndex) {
+        const months = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+        return months[monthIndex];
+    }
+
+    // ==========================================
+    // 6. التحكم بالواجهة (Tab Navigation)
+    // ==========================================
+    // دالة للتبديل بين الصفحات الرئيسية (الرئيسية، طلباتي، شحن، إلخ)
+    function showPage(pageId) {
+        // إخفاء جميع الصفحات
+        document.querySelectorAll('.app-page').forEach(page => {
+            page.style.display = 'none';
+        });
+        
+        // إظهار الصفحة المطلوبة
+        const targetPage = document.getElementById(pageId);
+        if (targetPage) targetPage.style.display = 'block';
+
+        // تحديث شريط التنقل السفلي
+        document.querySelectorAll('.bottom-nav-item').forEach(item => {
+            item.classList.remove('active');
+            // افترض أن العنصر يحتوي على data-target مطابق للـ pageId
+            if(item.dataset.target === pageId) {
+                item.classList.add('active');
+            }
+        });
+
+        // إذا تم فتح الإشعارات، اجعلها مقروءة
+        if (pageId === 'notifications-page') {
+            markAllNotificationsRead();
+        }
+        
+        // تحديث الواجهة بشكل عام عند تغيير الصفحة
+        updateUserInterface();
+    }
+
+
+    // ==========================================
+    // 7. التهيئة عند تحميل الصفحة (On Load)
+    // ==========================================
+    document.addEventListener("DOMContentLoaded", () => {
+        updateUserInterface();
+        renderOrdersList('all'); // عرض كل الطلبات افتراضياً
+        renderNotificationsList();
+        
+        // يمكنك إضافة أمر لإظهار الصفحة الرئيسية افتراضياً هنا
+        // showPage('home-page');
+    });
+
+</script>
+<!-- === نهاية السكربت === -->
 
