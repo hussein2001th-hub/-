@@ -1165,65 +1165,6 @@
         renderNotifications();
         updateBadge();
     }
-
-    // 3. دالة رسم الإشعارات في صفحة الإشعارات
-    function renderNotifications() {
-        let notifContainer = document.getElementById('notifications-list');
-        if (!notifContainer) return;
-
-        notifContainer.innerHTML = ''; // تنظيف
-
-        if (myNotifications.length === 0) {
-            notifContainer.innerHTML = '<div style="text-align:center; color:#8e8e93; padding: 30px;">لا توجد إشعارات حالياً.</div>';
-            return;
-        }
-
-        myNotifications.forEach(notif => {
-            // إذا الإشعار ما مقري نخليه بلون مميز شوي، وإذا مقري نخليه عادي
-            let borderStyle = notif.isRead ? '1px solid #242428' : '1px solid #ff9800'; 
-            
-            let notifHTML = `
-                <div style="background: #161618; border: ${borderStyle}; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; position: relative;">
-                    ${!notif.isRead ? '<div style="width: 8px; height: 8px; background: #ff9800; border-radius: 50%; position: absolute; top: 16px; right: 16px;"></div>' : ''}
-                    <div style="font-size: 14px; font-weight: bold; color: #ffffff; padding-right: ${!notif.isRead ? '15px' : '0'};">${notif.title}</div>
-                    <div style="font-size: 13px; color: #b0b0b5;">${notif.message}</div>
-                    <div style="font-size: 11px; color: #666; text-align: left; margin-top: 5px;">${notif.date}</div>
-                </div>
-            `;
-            notifContainer.innerHTML += notifHTML;
-        });
-    }
-
-    // 4. دالة تحديث العداد (البادج الأحمر أو البرتقالي)
-    function updateBadge() {
-        let badge = document.getElementById('notifications-badge');
-        if (!badge) return;
-
-        // حساب عدد الإشعارات الغير مقروءة
-        let unreadCount = myNotifications.filter(n => n.isRead === false).length;
-
-        if (unreadCount > 0) {
-            badge.innerText = unreadCount > 99 ? '99+' : unreadCount;
-            badge.style.display = 'flex'; // إظهار العداد
-        } else {
-            badge.style.display = 'none'; // إخفاء العداد إذا صفر
-        }
-    }
-
-    // 5. دالة قراءة كل الإشعارات (تستدعيها من تفتح صفحة الإشعارات)
-    function markAllNotificationsRead() {
-        myNotifications.forEach(n => n.isRead = true);
-        localStorage.setItem('hussein_notifications', JSON.stringify(myNotifications));
-        updateBadge();
-        renderNotifications();
-    }
-
-    // تشغيل عند تحميل الصفحة
-    document.addEventListener("DOMContentLoaded", () => {
-        renderNotifications();
-        updateBadge();
-    });
-</script>
 <!-- === نهاية كود نظام الإشعارات === -->
 <div id="notifications-list"></div>
 <!-- هذا زر الإشعارات مالتك، مجرد ضيف الـ span اللي بي id="notifications-badge" داخله أو بصفه -->
@@ -1235,4 +1176,154 @@
 </div>
 // ضيف هذا السطر داخل دالة saveOrder بعد ما يكمل الطلب
 addNotification('طلب جديد تم استلامه 📦', `تم إرسال طلبك لخدمة ${serviceName} بنجاح، وهو قيد المراجعة.`);
+<!-- === بداية نظام الطلبات والإشعارات المتكامل === -->
+<script>
+    // 1. تهيئة مصفوفات البيانات من الـ LocalStorage
+    let userOrders = JSON.parse(localStorage.getItem('hussein_orders')) || [];
+    let userNotifications = JSON.parse(localStorage.getItem('hussein_notifications')) || [];
+
+    // 2. دالة حفظ طلب جديد
+    function submitOrder(serviceName, quantity, price) {
+        // توليد رقم طلب
+        const orderId = Math.floor(Math.random() * 10000000);
+        const orderDate = new Date().toLocaleDateString('ar-IQ');
+
+        // إنشاء الطلب
+        const newOrder = {
+            id: orderId,
+            service: serviceName,
+            qty: quantity,
+            price: price,
+            status: 'قيد الانتظار ⏳',
+            date: orderDate
+        };
+
+        // حفظ الطلب
+        userOrders.unshift(newOrder); // إضافته في البداية (الأحدث أولاً)
+        localStorage.setItem('hussein_orders', JSON.stringify(userOrders));
+
+        // إنشاء إشعار لهذا الطلب
+        createNotification('طلب جديد 📦', `تم إرسال طلبك بنجاح لخدمة: ${serviceName}. وهو قيد المراجعة.`);
+
+        // تحديث واجهة الطلبات فوراً
+        renderOrders();
+        
+        // يمكنك هنا استدعاء دالة عرض نافذة النجاح (الـ Popup) الخاصة بك
+        // showSuccessPopup();
+    }
+
+    // 3. دالة رسم (عرض) الطلبات في قسم "طلباتي"
+    function renderOrders() {
+        const ordersListDiv = document.getElementById('orders-list');
+        if (!ordersListDiv) return;
+
+        ordersListDiv.innerHTML = ''; // تفريغ القائمة
+
+        if (userOrders.length === 0) {
+            ordersListDiv.innerHTML = '<div style="text-align:center; color:#888; padding: 20px;">لا توجد طلبات حالياً.</div>';
+            return;
+        }
+
+        userOrders.forEach(order => {
+            const orderHTML = `
+                <div style="background: #161618; border: 1px solid #242428; border-radius: 12px; padding: 15px; margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #2a2a2c; padding-bottom: 8px; margin-bottom: 8px;">
+                        <span style="font-size: 12px; color: #888;">طلب #${order.id}</span>
+                        <span style="font-size: 12px; color: #888;">${order.date}</span>
+                    </div>
+                    <div style="font-weight: bold; font-size: 14px; margin-bottom: 10px; color: #fff;">${order.service}</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: #ccc; font-size: 13px;">الكمية: ${order.qty}</span>
+                        <span style="background: rgba(255, 193, 7, 0.1); color: #ffc107; padding: 4px 8px; border-radius: 6px; font-size: 12px;">${order.status}</span>
+                    </div>
+                </div>
+            `;
+            ordersListDiv.innerHTML += orderHTML;
+        });
+    }
+
+    // 4. دالة إنشاء إشعار جديد
+    function createNotification(title, message) {
+        const notifDate = new Date().toLocaleTimeString('ar-IQ', { hour: '2-digit', minute: '2-digit' }) + ' | ' + new Date().toLocaleDateString('ar-IQ');
+        
+        const newNotif = {
+            id: Date.now(),
+            title: title,
+            message: message,
+            date: notifDate,
+            isRead: false
+        };
+
+        userNotifications.unshift(newNotif);
+        localStorage.setItem('hussein_notifications', JSON.stringify(userNotifications));
+
+        renderNotifications();
+        updateNotificationBadge();
+    }
+
+    // 5. دالة رسم (عرض) الإشعارات
+    function renderNotifications() {
+        const notifListDiv = document.getElementById('notifications-list');
+        if (!notifListDiv) return;
+
+        notifListDiv.innerHTML = '';
+
+        if (userNotifications.length === 0) {
+            notifListDiv.innerHTML = '<div style="text-align:center; color:#888; padding: 20px;">لا توجد إشعارات.</div>';
+            return;
+        }
+
+        userNotifications.forEach(notif => {
+            const borderColor = notif.isRead ? '#242428' : '#ff9800'; // تمييز الإشعار غير المقروء
+            const notifHTML = `
+                <div style="background: #161618; border: 1px solid ${borderColor}; border-radius: 12px; padding: 15px; margin-bottom: 12px;">
+                    <div style="font-weight: bold; font-size: 14px; margin-bottom: 5px; color: #fff;">${notif.title}</div>
+                    <div style="font-size: 13px; color: #bbb; margin-bottom: 8px;">${notif.message}</div>
+                    <div style="font-size: 11px; color: #666;">${notif.date}</div>
+                </div>
+            `;
+            notifListDiv.innerHTML += notifHTML;
+        });
+    }
+
+    // 6. دالة تحديث عداد الإشعارات
+    function updateNotificationBadge() {
+        const badgeElement = document.getElementById('notif-badge');
+        if (!badgeElement) return;
+
+        const unreadCount = userNotifications.filter(n => n.isRead === false).length;
+        
+        if (unreadCount > 0) {
+            badgeElement.innerText = unreadCount > 9 ? '9+' : unreadCount;
+            badgeElement.style.display = 'flex';
+        } else {
+            badgeElement.style.display = 'none';
+        }
+    }
+
+    // 7. دالة قراءة جميع الإشعارات (استدعِها عند فتح قسم الإشعارات)
+    function markNotificationsAsRead() {
+        let hasUnread = false;
+        userNotifications.forEach(n => {
+            if(!n.isRead){
+                n.isRead = true;
+                hasUnread = true;
+            }
+        });
+
+        if (hasUnread) {
+            localStorage.setItem('hussein_notifications', JSON.stringify(userNotifications));
+            updateNotificationBadge();
+            renderNotifications();
+        }
+    }
+
+    // تشغيل دوال العرض عند تحميل الصفحة
+    document.addEventListener("DOMContentLoaded", () => {
+        renderOrders();
+        renderNotifications();
+        updateNotificationBadge();
+    });
+</script>
+<!-- === نهاية نظام الطلبات والإشعارات المتكامل === -->
 
