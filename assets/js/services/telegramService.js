@@ -74,7 +74,7 @@ window.StoreApp.Services.Telegram = (function() {
             id: 1001,
             firstName: "حسين أثير",
             lastName: "",
-            username: "@hussein_toxin",
+            username: "@h99lh",
             photoUrl: null
         };
     }
