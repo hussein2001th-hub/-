@@ -133,20 +133,30 @@ window.StoreApp.UI.Renderers = (function() {
             countBadge.innerText = `${filtered.length} منصات`;
         }
 
-        container.innerHTML = filtered.map(platform => `
+        container.innerHTML = filtered.map(platform => {
+            const serviceCount = platform.services ? platform.services.length : 0;
+            return `
             <div class="platform-card" onclick="window.StoreApp.UI.Navigation.openPlatformView('${platform.id}')" data-platform-id="${platform.id}">
-                <div class="platform-info">
-                    <div class="platform-name">
-                        ${Security.escapeHTML(platform.name)}
-                        ${platform.popular ? '<span class="platform-badge-hot">شائع 🔥</span>' : ''}
-                    </div>
-                    <div class="platform-desc">${Security.escapeHTML(platform.desc)}</div>
-                </div>
                 <div class="platform-icon ${platform.iconClass}">
                     <i class="${platform.icon}"></i>
+                    <div class="platform-online-dot"></div>
                 </div>
+                <div class="platform-info">
+                    <div class="platform-name-row">
+                        <span class="platform-name">${Security.escapeHTML(platform.name)}</span>
+                        ${platform.popular ? '<span class="platform-badge-hot">شائع 🔥</span>' : ''}
+                        <span class="platform-badge-online">أونلاين</span>
+                    </div>
+                    <div class="platform-desc">${Security.escapeHTML(platform.desc)}</div>
+                    <div class="platform-meta-row">
+                        <span class="platform-services-count">
+                            <i class="fas fa-circle-dot"></i> ${serviceCount} خدمات متاحة
+                        </span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-left platform-arrow"></i>
             </div>
-        `).join('');
+        `}).join('');
     }
 
     /**
