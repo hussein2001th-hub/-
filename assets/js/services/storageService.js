@@ -31,7 +31,7 @@ window.StoreApp.Services.Storage = (function() {
                 serviceId: "insta-followers-30d",
                 service: "متابعين إنستغرام (حقيقي) - ضمان 30 يوم",
                 platformName: "إنستغرام",
-                target: "https://instagram.com/hussein_toxin",
+                target: "https://instagram.com/h99lh",
                 qty: 1000,
                 cost: 1.20,
                 status: "مكتمل",
