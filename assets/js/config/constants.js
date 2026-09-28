@@ -32,8 +32,8 @@ window.StoreApp.Config.Constants = {
 
     // قنوات الدعم والتواصل الرسمي
     SUPPORT: {
-        TELEGRAM_USERNAME: "hussein_toxin",
-        TELEGRAM_URL: "https://t.me/hussein_toxin",
+        TELEGRAM_USERNAME: "h99lh",
+        TELEGRAM_URL: "https://t.me/h99lh",
         TELEGRAM_CHANNEL: "https://t.me/hush_store",
         WHATSAPP_NUMBER: "+9647800000000",
         WHATSAPP_URL: "https://wa.me/9647800000000",
@@ -44,9 +44,10 @@ window.StoreApp.Config.Constants = {
          */
         getOrderInquiryUrl: function(orderId, serviceName) {
             const text = encodeURIComponent(`مرحباً أخي حسين، لدي استفسار بخصوص الطلب رقم #${orderId} (${serviceName})`);
-            return `https://t.me/hussein_toxin?text=${text}`;
+            return `https://t.me/h99lh?text=${text}`;
         }
     },
+
 
     // بوابات ومحافظ الدفع المتاحة داخل العراق
     PAYMENT_METHODS: [
