@@ -9,22 +9,22 @@
 
 :root {
     /* الخلفيات والألوان الداكنة الفاخرة */
-    --bg-main: #0c0d10;
-    --bg-card: #15161c;
-    --bg-card-hover: #1c1d25;
-    --bg-card-glass: rgba(21, 22, 28, 0.75);
-    --bg-input: #1f212a;
-    --bg-input-focus: #272935;
-    --bg-surface: #121318;
+    --bg-main: #121212;
+    --bg-card: #1c1c1e;
+    --bg-card-hover: #262629;
+    --bg-card-glass: rgba(28, 28, 30, 0.85);
+    --bg-input: #262629;
+    --bg-input-focus: #323236;
+    --bg-surface: #171717;
     
     /* الألوان المميزة (ذهب ملكي وأصفر تليجرام) */
-    --primary: #ffb800;
-    --primary-light: #ffd000;
-    --primary-hover: #e6a500;
-    --primary-gradient: linear-gradient(135deg, #ffc400 0%, #ff9e00 100%);
-    --primary-rgb: 255, 184, 0;
-    --primary-glow: rgba(255, 184, 0, 0.16);
-    --primary-glow-strong: rgba(255, 184, 0, 0.35);
+    --primary: #dda035;
+    --primary-light: #ecc164;
+    --primary-hover: #c68b2a;
+    --primary-gradient: linear-gradient(135deg, #e4af45 0%, #cc8e25 100%);
+    --primary-rgb: 221, 160, 53;
+    --primary-glow: rgba(221, 160, 53, 0.16);
+    --primary-glow-strong: rgba(221, 160, 53, 0.35);
     
     /* نصوص وتباعدات */
     --text-main: #ffffff;
