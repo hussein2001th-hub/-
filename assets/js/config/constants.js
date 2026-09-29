@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ==============================================================================
  * @file        constants.js
  * @package     StoreApp.Config.Constants
@@ -22,8 +22,8 @@ window.StoreApp.Config.Constants = {
 
     // مفاتيح التخزين الآمن
     STORAGE_KEYS: {
-        MAIN_STATE: "hush_store_data_v2",
-        LEGACY_STATE: "hush_store_data",
+        MAIN_STATE: "h98lh_data_v2",
+        LEGACY_STATE: "h98lh_data",
         THEME_MODE: "hush_theme_mode"
     },
 
@@ -32,79 +32,48 @@ window.StoreApp.Config.Constants = {
 
     // قنوات الدعم والتواصل الرسمي
     SUPPORT: {
+        BOT_USERNAME:      "ttbbegbot",
+        BOT_URL:           "https://t.me/ttbbegbot",
         TELEGRAM_USERNAME: "h99lh",
-        TELEGRAM_URL: "https://t.me/h99lh",
-        TELEGRAM_CHANNEL: "https://t.me/hush_store",
-        WHATSAPP_NUMBER: "+9647800000000",
-        WHATSAPP_URL: "https://wa.me/9647800000000",
-        
-        /**
-         * @function getOrderInquiryUrl
-         * @description توليد رابط تليجرام مباشر للاستفسار عن طلب معين مع رسالة مجهزة مسبقاً.
-         */
+        TELEGRAM_URL:      "https://t.me/h99lh",
+        TELEGRAM_CHANNEL:  "https://t.me/h98lh",
         getOrderInquiryUrl: function(orderId, serviceName) {
-            const text = encodeURIComponent(`مرحباً أخي حسين، لدي استفسار بخصوص الطلب رقم #${orderId} (${serviceName})`);
+            const text = encodeURIComponent(
+                `مرحباً، لدي استفسار عن الطلب رقم #${orderId} (${serviceName})`
+            );
             return `https://t.me/h99lh?text=${text}`;
         }
     },
 
-
-    // بوابات ومحافظ الدفع المتاحة داخل العراق
+    // بوابات الدفع — مطابقة لقائمة البوت
     PAYMENT_METHODS: [
         {
-            id: "zain_cash",
-            name: "زين كاش (ZainCash)",
-            badge: "فوري وتلقائي",
-            icon: "fas fa-mobile-alt",
-            accountNumber: "07801234567",
+            id: "stars", name: "نجوم تيليكرام ⭐", badge: "فوري",
+            icon: "fas fa-star", accountNumber: "@ttbbegbot",
             accountHolder: "حسين أثير",
-            instructions: "قم بتحويل المبلغ المطلوب إلى رقم محفظة زين كاش أعلاه، ثم الصق رقم الحوالة هنا.",
-            isCard: false,
-            color: "#e63946"
+            instructions: "أرسل النجوم للبوت @ttbbegbot ثم أرسلنا عددها واسم حسابك.",
+            isCard: false, color: "#f4c430"
         },
         {
-            id: "asia_hawala",
-            name: "آسيا حوالة (AsiaHawala)",
-            badge: "شائع في العراق",
-            icon: "fas fa-money-check-alt",
-            accountNumber: "07701234567",
+            id: "asiasell", name: "أسياسيل 📱", badge: "شائع",
+            icon: "fas fa-mobile-alt", accountNumber: "07739439110",
             accountHolder: "حسين أثير",
-            instructions: "قم بتحويل المبلغ المطلوب إلى رقم محفظة آسيا حوالة ثم اكتب رقم عملية الإشعار.",
-            isCard: false,
-            color: "#00b4d8"
+            instructions: "حوّل للرقم 07739439110 ثم أرسل رقم العملية والمبلغ.",
+            isCard: false, color: "#00b4d8"
         },
         {
-            id: "asia_card",
-            name: "كارت شحن آسيا سيل (رصيد)",
-            badge: "كارت مباشر",
-            icon: "fas fa-ticket-alt",
-            accountNumber: "كارت رصيد آسيا",
-            accountHolder: "كود الكارت",
-            instructions: "اكتب كود كارت الشحن (14 أو 16 رقم) مع ذكر فئة الكارت (مثال: كارت 5$ أو 10$).",
-            isCard: true,
-            color: "#e76f51"
+            id: "zaincash", name: "زين كاش 💳", badge: "فوري",
+            icon: "fas fa-wallet", accountNumber: "07739439110",
+            accountHolder: "حسين أثير",
+            instructions: "حوّل للمحفظة 07739439110 ثم أرسل رقم العملية والمبلغ.",
+            isCard: false, color: "#e63946"
         },
         {
-            id: "atheer_card",
-            name: "كارت شحن زين العراق (أثير)",
-            badge: "كارت مباشر",
-            icon: "fas fa-credit-card",
-            accountNumber: "كارت رصيد زين",
-            accountHolder: "كود الكارت",
-            instructions: "اكتب كود كارت الشحن زين مع تحديد فئة الكارت وقيمته.",
-            isCard: true,
-            color: "#7209b7"
-        },
-        {
-            id: "usdt_trc20",
-            name: "USDT (TRON - TRC20)",
-            badge: "عملات رقمية",
-            icon: "fas fa-coins",
-            accountNumber: "TNb3H4m8Kpx9QwE21Yz7bV6X1s0Lk9J2",
-            accountHolder: "محفظة USDT TRC-20",
-            instructions: "يرجى التحويل حصراً على شبكة TRC20، ووضع معرف المعاملة (TxID) بدقة.",
-            isCard: false,
-            color: "#2ec4b6"
+            id: "master_rafidain", name: "ماستر الرافدين 💳", badge: "بنك",
+            icon: "fas fa-credit-card", accountNumber: "1234-5678-9012-3456",
+            accountHolder: "حسين أثير",
+            instructions: "حوّل للحساب 1234-5678-9012-3456 ثم أرسل رقم التحويل والمبلغ.",
+            isCard: true, color: "#7209b7"
         }
     ],
 
