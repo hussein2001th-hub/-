@@ -113,34 +113,48 @@ window.StoreApp.Main = (function() {
 
     /**
      * @function showStoreInfoModal
-     * @description عرض نافذة معلومات المتجر والدعم الفني والنسخ الاحتياطي.
+     * @description عرض واجهة الملف الشخصي الخاصة بالمستخدم مع اسم المستخدم والرصيد (تحاكي القائمة الجانبية).
      */
     function showStoreInfoModal() {
-        Modal.show({
-            title: '<i class="fas fa-info-circle text-primary"></i> حول متجر حسين أثير',
-            bodyHtml: `
-                <div style="text-align: center; margin-bottom: 14px;">
-                    <div style="font-weight: 800; font-size: 17px; margin-bottom: 4px;">${Constants.APP_NAME}</div>
-                    <div style="font-size: 12px; color: var(--text-muted);">${Constants.APP_SUBTITLE}</div>
-                    <div style="font-size: 11px; color: var(--primary); margin-top: 4px;">الإصدار: v${Constants.APP_VERSION}</div>
-                </div>
+        const user = window.StoreApp.Services.Telegram.getUser();
+        const shortId = 'h' + user.id.toString(36);
+        const currentBalance = window.StoreApp.Services.Storage.getBalance();
 
-                <div style="font-size: 13px; line-height: 1.8; color: var(--text-muted); margin-bottom: 16px;">
-                    نقدم خدمات حقيقية ومضمونة لزيادة المتابعين، المشاهدات، والتفاعلات لجميع المنصات، بالإضافة لحملات إعلانية ممولة دقيقة الاستهداف في العراق والوطن العربي.
+        Modal.show({
+            title: '<i class="fas fa-user-circle text-primary"></i> ملفي الشخصي',
+            bodyHtml: `
+                <div style="background: var(--bg-surface); border-radius: var(--radius-md); padding: 16px; margin-bottom: 20px; text-align: center; border: 1px solid var(--border-color);">
+                    <div style="width: 56px; height: 56px; border-radius: 18px; background: var(--bg-card); display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--primary); font-weight: 800; margin: 0 auto 12px; border: 1px solid var(--border-color-hover);">
+                        ${user.firstName.charAt(0)}
+                    </div>
+                    <div style="font-weight: 800; font-size: 16px; color: var(--text-main); margin-bottom: 4px;">${user.firstName}</div>
+                    
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 16px;">
+                        <span style="font-size: 13px; color: var(--text-muted); background: var(--bg-card); padding: 4px 10px; border-radius: 6px; letter-spacing: 1px;">
+                            ${shortId}
+                        </span>
+                        <i class="far fa-copy" style="color: var(--text-muted); cursor: pointer; font-size: 14px;" onclick="navigator.clipboard.writeText('${shortId}'); window.StoreApp.UI.Toast.success('تم نسخ اسم المستخدم!');"></i>
+                    </div>
+
+                    <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 12px; margin-bottom: 12px;">
+                        <div style="text-align: right;">
+                            <div style="font-size: 11px; color: var(--text-muted);">الرصيد المتاح</div>
+                            <div style="font-size: 18px; font-weight: 800; color: var(--text-main);">$${currentBalance.toFixed(2)}</div>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" style="width: 100%; padding: 12px; border-radius: var(--radius-md); font-weight: 800; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 14px;" onclick="window.StoreApp.UI.Modal.hide(); window.StoreApp.UI.Navigation.navigateTo('page-recharge');">
+                        <i class="fas fa-plus"></i> شحن الرصيد
+                    </button>
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <a href="${Constants.SUPPORT.TELEGRAM_URL}" target="_blank" class="btn-action" style="text-decoration:none;">
-                        <i class="fab fa-telegram-plane"></i> تواصل مع الدعم الفني تلجرام (@${Constants.SUPPORT.TELEGRAM_USERNAME})
-                    </a>
-
-                    <a href="${Constants.SUPPORT.TELEGRAM_CHANNEL}" target="_blank" class="btn-action btn-secondary" style="text-decoration:none;">
-                        <i class="fas fa-bullhorn"></i> قناة العروض والأسعار الرسمية
-                    </a>
-
                     <button type="button" class="btn-action btn-secondary" onclick="window.StoreApp.Main.openCurrencyCalc()">
-                        <i class="fas fa-calculator text-primary"></i> حاسبة تحويل العملة (الدولار / الدينار)
+                        <i class="fas fa-calculator text-primary"></i> حاسبة تحويل العملة
                     </button>
+                    <a href="${Constants.SUPPORT.TELEGRAM_URL}" target="_blank" class="btn-action btn-secondary" style="text-decoration:none;">
+                        <i class="fas fa-headset text-primary"></i> الدعم الفني
+                    </a>
                 </div>
             `,
             showCancel: false,
