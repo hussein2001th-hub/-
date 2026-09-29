@@ -29,7 +29,8 @@ window.StoreApp.Config.ServicesCatalog = [
         services: [
             {
                 id: "insta-followers-30d",
-                name: "متابعين إنستغرام (حقيقي) - ضمان 30 يوم",
+                numId: 1,
+                name: "[1] متابعين إنستغرام (حقيقي) - ضمان 30 يوم",
                 rate: 1.20,
                 min: 100,
                 max: 50000,
@@ -42,7 +43,8 @@ window.StoreApp.Config.ServicesCatalog = [
             },
             {
                 id: "insta-likes-fast",
-                name: "لايكات إنستغرام (سريع جداً + فوري)",
+                numId: 2,
+                name: "[2] لايكات إنستغرام (سريع جداً + فوري)",
                 rate: 0.35,
                 min: 50,
                 max: 100000,
@@ -55,7 +57,8 @@ window.StoreApp.Config.ServicesCatalog = [
             },
             {
                 id: "insta-reels-views",
-                name: "مشاهدات ريلز إنستغرام فائقة السرعة",
+                numId: 3,
+                name: "[3] مشاهدات ريلز إنستغرام فائقة السرعة",
                 rate: 0.10,
                 min: 100,
                 max: 1000000,
@@ -68,7 +71,8 @@ window.StoreApp.Config.ServicesCatalog = [
             },
             {
                 id: "insta-comments-custom",
-                name: "تعليقات إنستغرام عربية خليجية مخصصة",
+                numId: 4,
+                name: "[4] تعليقات إنستغرام عربية خليجية مخصصة",
                 rate: 5.50,
                 min: 10,
                 max: 1000,
@@ -96,7 +100,8 @@ window.StoreApp.Config.ServicesCatalog = [
         services: [
             {
                 id: "tiktok-followers-hq",
-                name: "متابعين تيك توك (جودة عالية مع صور)",
+                numId: 5,
+                name: "[5] متابعين تيك توك (جودة عالية مع صور)",
                 rate: 2.10,
                 min: 100,
                 max: 50000,
@@ -109,7 +114,8 @@ window.StoreApp.Config.ServicesCatalog = [
             },
             {
                 id: "tiktok-views-instant",
-                name: "مشاهدات تيك توك (فورية + رفع إكسبلور)",
+                numId: 6,
+                name: "[6] مشاهدات تيك توك (فورية + رفع إكسبلور)",
                 rate: 0.05,
                 min: 1000,
                 max: 5000000,
@@ -122,7 +128,8 @@ window.StoreApp.Config.ServicesCatalog = [
             },
             {
                 id: "tiktok-likes-fast",
-                name: "لايكات تيك توك سريعة وآمنة",
+                numId: 7,
+                name: "[7] لايكات تيك توك سريعة وآمنة",
                 rate: 0.45,
                 min: 100,
                 max: 100000,
@@ -135,7 +142,8 @@ window.StoreApp.Config.ServicesCatalog = [
             },
             {
                 id: "tiktok-shares-saves",
-                name: "حركات إكسبلور ومشاركات وحفظ الفيديو",
+                numId: 8,
+                name: "[8] حركات إكسبلور ومشاركات وحفظ الفيديو",
                 rate: 0.15,
                 min: 100,
                 max: 200000,
@@ -163,7 +171,8 @@ window.StoreApp.Config.ServicesCatalog = [
         services: [
             {
                 id: "telegram-members-fast",
-                name: "أعضاء قناة/مجموعة تليجرام (سرعة فائقة)",
+                numId: 9,
+                name: "[9] أعضاء قناة/مجموعة تليجرام (سرعة فائقة)",
                 rate: 0.90,
                 min: 100,
                 max: 50000,
@@ -176,7 +185,8 @@ window.StoreApp.Config.ServicesCatalog = [
             },
             {
                 id: "telegram-post-views",
-                name: "مشاهدات وتفاعلات منشورات القناة (إيموجي)",
+                numId: 10,
+                name: "[10] مشاهدات وتفاعلات منشورات القناة (إيموجي)",
                 rate: 0.15,
                 min: 100,
                 max: 500000,
@@ -204,7 +214,8 @@ window.StoreApp.Config.ServicesCatalog = [
         services: [
             {
                 id: "facebook-page-followers",
-                name: "متابعين ولايكات صفحة/بيج فيسبوك (ضمان)",
+                numId: 11,
+                name: "[11] متابعين ولايكات صفحة/بيج فيسبوك (ضمان)",
                 rate: 2.50,
                 min: 100,
                 max: 100000,
@@ -217,7 +228,8 @@ window.StoreApp.Config.ServicesCatalog = [
             },
             {
                 id: "facebook-post-likes",
-                name: "تفاعلات ولايكات منشورات فيسبوك (Love, Wow, Like)",
+                numId: 12,
+                name: "[12] تفاعلات ولايكات منشورات فيسبوك (Love, Wow, Like)",
                 rate: 0.80,
                 min: 100,
                 max: 50000,
@@ -245,7 +257,8 @@ window.StoreApp.Config.ServicesCatalog = [
         services: [
             {
                 id: "youtube-views-retention",
-                name: "مشاهدات يوتيوب بجودة عالية ومدة بقاء ممتازة",
+                numId: 13,
+                name: "[13] مشاهدات يوتيوب بجودة عالية ومدة بقاء ممتازة",
                 rate: 1.80,
                 min: 500,
                 max: 500000,
@@ -258,7 +271,8 @@ window.StoreApp.Config.ServicesCatalog = [
             },
             {
                 id: "youtube-subscribers-stable",
-                name: "مشتركين يوتيوب حقيقيين وثابتين (ضمان)",
+                numId: 14,
+                name: "[14] مشتركين يوتيوب حقيقيين وثابتين (ضمان)",
                 rate: 7.90,
                 min: 50,
                 max: 5000,
@@ -286,7 +300,8 @@ window.StoreApp.Config.ServicesCatalog = [
         services: [
             {
                 id: "free-insta-views",
-                name: "تجربة مشاهدات انستغرام مجانية (1000 مشاهدة)",
+                numId: 15,
+                name: "[15] تجربة مشاهدات انستغرام مجانية (1000 مشاهدة)",
                 rate: 0.00,
                 min: 1000,
                 max: 1000,
@@ -300,7 +315,8 @@ window.StoreApp.Config.ServicesCatalog = [
             },
             {
                 id: "free-telegram-reactions",
-                name: "تجربة تفاعلات تليجرام مجانية (500 تفاعل)",
+                numId: 16,
+                name: "[16] تجربة تفاعلات تليجرام مجانية (500 تفاعل)",
                 rate: 0.00,
                 min: 500,
                 max: 500,
@@ -329,7 +345,8 @@ window.StoreApp.Config.ServicesCatalog = [
         services: [
             {
                 id: "real-ad-campaign",
-                name: "حملة ممولة موجهة (عراقية) - انستغرام وفيسبوك وتيك توك",
+                numId: 17,
+                name: "[17] حملة ممولة موجهة (عراقية) - انستغرام وفيسبوك وتيك توك",
                 rate: 1.00,
                 min: 10,
                 max: 2000,
