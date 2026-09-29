@@ -65,8 +65,16 @@ window.StoreApp.UI.Renderers = (function() {
 
         // 4. يوزر المستخدم في الشريط العلوي
         const userPillEl = document.getElementById('header-user-pill');
-        if (userPillEl && user.username) {
-            userPillEl.innerHTML = `<i class="fab fa-telegram-plane text-primary"></i> <span>${Security.escapeHTML(user.username)}</span>`;
+        if (userPillEl) {
+            const shortId = 'h' + user.id.toString(36);
+            userPillEl.innerHTML = `<i class="fas fa-user-circle text-primary"></i> <span style="font-weight: 800; letter-spacing: 0.5px;">${shortId}</span>`;
+            // Make it click to copy as well
+            userPillEl.style.cursor = 'pointer';
+            userPillEl.title = "انقر لنسخ اسم المستخدم الخاص بك";
+            userPillEl.onclick = function() {
+                navigator.clipboard.writeText(shortId);
+                window.StoreApp.UI.Toast.success('تم نسخ اسم المستخدم!');
+            };
         }
 
         // 5. عدد الطلبات في شارة صفحة الطلبات
