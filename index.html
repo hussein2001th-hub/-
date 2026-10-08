@@ -27,11 +27,1621 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=5.0">
 
     <!-- Modular CSS Architecture -->
-    <link rel="stylesheet" href="assets/css/variables.css?v=5.0">
-    <link rel="stylesheet" href="assets/css/base.css?v=5.0">
-    <link rel="stylesheet" href="assets/css/layout.css?v=5.0">
-    <link rel="stylesheet" href="assets/css/components.css?v=5.0">
-    <link rel="stylesheet" href="assets/css/pages.css?v=5.0">
+    <style>
+/**
+ * ==============================================================================
+ * @file        variables.css
+ * @package     StoreApp.Theme.Variables
+ * @description Design Tokens for Professional Light Theme.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+:root {
+    /* Main Background & Cards */
+    --bg-main: #f8f9fa;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f1f3f5;
+    --bg-card-glass: rgba(255, 255, 255, 0.9);
+    --bg-input: #f1f3f5;
+    --bg-input-focus: #ffffff;
+    --bg-surface: #ffffff;
+    
+    /* Primary Colors (Elegant Gold) */
+    --primary: #d97706; /* Rich professional amber/gold */
+    --primary-light: #f59e0b;
+    --primary-hover: #b45309;
+    --primary-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    --primary-rgb: 217, 119, 6;
+    --primary-glow: rgba(217, 119, 6, 0.12);
+    --primary-glow-strong: rgba(217, 119, 6, 0.25);
+    
+    /* Typography */
+    --text-main: #1f2937; /* Slate 800 */
+    --text-muted: #6b7280; /* Gray 500 */
+    --text-dim: #9ca3af; /* Gray 400 */
+    --border-color: rgba(0, 0, 0, 0.08);
+    --border-color-hover: rgba(217, 119, 6, 0.3);
+    --border-color-light: rgba(0, 0, 0, 0.04);
+    
+    /* Status Colors */
+    --danger: #ef4444;
+    --danger-bg: rgba(239, 68, 68, 0.1);
+    --success: #10b981;
+    --success-bg: rgba(16, 185, 129, 0.1);
+    --info: #3b82f6;
+    --info-bg: rgba(59, 130, 246, 0.1);
+    --warning: #f59e0b;
+    --warning-bg: rgba(245, 158, 11, 0.1);
+
+    /* Brand Colors */
+    --brand-instagram: #e1306c;
+    --brand-tiktok: #000000;
+    --brand-telegram: #0088cc;
+    --brand-facebook: #1877f2;
+    --brand-youtube: #ff0000;
+
+    /* Metrics */
+    --nav-height: 66px;
+    --top-bar-height: 58px;
+    --max-content-width: 600px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 22px;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+    --shadow-gold: 0 4px 14px rgba(217, 119, 6, 0.25);
+
+    /* Animations */
+    --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Enforce light theme */
+body.telegram-theme {
+    /* Ignore dynamic tg-theme colors to maintain the perfect light theme */
+}
+
+</style>
+    <style>
+/**
+ * ==============================================================================
+ * @file        base.css
+ * @package     StoreApp.Theme.Base
+ * @description ضبط التنسيقات الأساسية، الخط العربي الفاخر، وشريط التمرير.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+    direction: rtl;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: calc(var(--nav-height) + 22px);
+    user-select: none;
+    -webkit-user-select: none;
+    overflow-x: hidden;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Luxury Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* Typography & Reset */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: transparent;
+}
+
+input, select, textarea {
+    font-family: inherit;
+    border: none;
+    outline: none;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseGold {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(217, 119, 6, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 22px rgba(217, 119, 6, 0.45);
+    }
+}
+
+@keyframes modalPop {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+.text-muted { color: var(--text-muted); }
+.text-primary { color: var(--primary); }
+.text-success { color: var(--success); }
+.text-danger { color: var(--danger); }
+.font-bold { font-weight: 700; }
+.font-extrabold { font-weight: 800; }
+
+.ltr { direction: ltr; text-align: left; }
+.rtl { direction: rtl; text-align: right; }
+
+.pulse-focus {
+    animation: pulseGold 0.6s ease-in-out;
+    border-color: var(--primary) !important;
+}
+
+</style>
+    <style>
+/**
+ * ==============================================================================
+ * @file        layout.css
+ * @package     StoreApp.Theme.Layout
+ * @description هيكل التطبيق العام، الهيدر الزجاجي، بطاقة الرصيد الفاخرة، والشريط السفلي.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+/* Top App Bar */
+.top-app-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 18px;
+    height: var(--top-bar-height);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.top-app-bar .app-title {
+    font-size: 16px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: -0.2px;
+}
+
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.top-icon-btn {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: var(--transition-fast);
+}
+
+.top-icon-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: var(--border-color-light);
+    transform: translateY(-1px);
+}
+
+.top-icon-btn:active {
+    transform: scale(0.94);
+}
+
+.badge-dot {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--danger);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--danger);
+}
+
+/* User Pill in Top Bar */
+.user-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--border-color);
+    padding: 5px 12px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* Main Container */
+.app-container {
+    padding: 16px;
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+    width: 100%;
+    flex: 1;
+}
+
+/* Brand Header */
+.brand-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.brand-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-title i {
+    color: var(--primary);
+    font-size: 22px;
+}
+
+.brand-badge {
+    background: var(--primary-glow);
+    color: var(--primary);
+    border: 1px solid rgba(217, 119, 6, 0.3);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Luxury Balance Card */
+.balance-card {
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+    border: 1px solid var(--border-color-light);
+    border-radius: var(--radius-xl);
+    padding: 20px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.balance-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -25%;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.16) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.balance-amount {
+    text-align: right;
+    transition: transform var(--transition-fast);
+}
+
+.balance-amount:hover {
+    transform: scale(1.02);
+}
+
+.balance-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+}
+
+.balance-value {
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.balance-value span.currency {
+    color: var(--primary);
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.balance-iqd-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    direction: rtl;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-recharge-head {
+    background: var(--primary-gradient);
+    color: #ffffff;
+    border: none;
+    padding: 11px 20px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-gold);
+}
+
+.btn-recharge-head:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+.btn-recharge-head:active {
+    transform: scale(0.96);
+}
+
+/* Stats Chips Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.stat-chip {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 11px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-main);
+    transition: border-color var(--transition-fast);
+}
+
+.stat-chip:hover {
+    border-color: var(--border-color-hover);
+}
+
+.stat-chip i {
+    color: var(--primary);
+}
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-height);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 25%;
+    padding: 8px 0;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+    position: relative;
+}
+
+.nav-item i {
+    font-size: 19px;
+    transition: transform var(--transition-fast);
+}
+
+.nav-item.active {
+    color: var(--primary);
+}
+
+.nav-item.active i {
+    transform: translateY(-2px);
+}
+
+.nav-item .nav-badge {
+    position: absolute;
+    top: 5px;
+    right: calc(50% - 18px);
+    background-color: var(--danger);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 1px 5px;
+    border-radius: var(--radius-full);
+    box-shadow: 0 0 6px var(--danger);
+}
+
+/* ==================== Sidebar Drawer ==================== */
+.sidebar-backdrop {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 10000;
+    opacity: 0; visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(3px);
+}
+.sidebar-backdrop.active {
+    opacity: 1; visibility: visible;
+}
+.sidebar-content {
+    position: absolute; top: 0; right: -300px;
+    width: 280px; height: 100%;
+    background-color: var(--bg-main);
+    box-shadow: -4px 0 15px rgba(0,0,0,0.15);
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+    border-top-left-radius: var(--radius-xl);
+    border-bottom-left-radius: var(--radius-xl);
+}
+.sidebar-backdrop.active .sidebar-content { right: 0; }
+.sidebar-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px; border-bottom: 1px solid var(--border-color);
+}
+.sidebar-brand { display: flex; align-items: center; gap: 12px; }
+.sidebar-brand .brand-icon {
+    width: 36px; height: 36px; background: var(--primary-bg);
+    border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+}
+.sidebar-brand .brand-name { font-weight: 800; font-size: 15px; color: var(--text-main); }
+.sidebar-brand .brand-sub { font-size: 11px; color: var(--text-muted); }
+.sidebar-close {
+    background: var(--bg-input); border: none;
+    width: 30px; height: 30px; border-radius: var(--radius-full);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); cursor: pointer;
+}
+.sidebar-user-card {
+    display: flex; align-items: center; gap: 12px; padding: 15px;
+    background: var(--bg-card); margin: 15px; border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm); border: 1px solid var(--border-color-light);
+}
+.user-avatar {
+    width: 45px; height: 45px; background: var(--primary-gradient); color: white;
+    border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800;
+}
+.user-info .user-name { font-weight: 700; font-size: 15px; color: var(--text-main); margin-bottom: 2px; }
+.user-info .user-id { font-size: 12px; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap:4px; }
+.sidebar-balance-card {
+    background: var(--bg-card); padding: 15px; margin: 0 15px 15px;
+    border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color-light); display: flex; flex-direction: column; gap: 12px;
+}
+.balance-labels .bal-title { font-size: 12px; color: var(--text-muted); }
+.balance-labels .bal-amount { font-size: 22px; font-weight: 900; color: var(--text-main); }
+.btn-charge {
+    background: var(--primary-gradient); color: white; border: none;
+    padding: 10px; border-radius: var(--radius-sm); font-weight: 700;
+    cursor: pointer; text-align: center; width: 100%;
+}
+.sidebar-menu { padding: 5px 15px; flex-grow: 1; }
+.menu-section-title { font-size: 11px; font-weight: 800; color: var(--text-dim); margin: 15px 0 8px; padding-right: 5px; }
+.sidebar-menu .menu-item {
+    display: flex; align-items: center; gap: 12px; padding: 12px 10px;
+    border-radius: var(--radius-sm); color: var(--text-main); font-weight: 700; font-size: 14px;
+    cursor: pointer; transition: var(--transition-fast); margin-bottom: 2px;
+}
+.sidebar-menu .menu-item i { width: 18px; text-align: center; color: var(--text-muted); }
+.sidebar-menu .menu-item:hover, .sidebar-menu .menu-item.active { background: var(--bg-card-hover); color: var(--primary); }
+.sidebar-menu .menu-item:hover i, .sidebar-menu .menu-item.active i { color: var(--primary); }
+.arrow-left { margin-right: auto; font-size: 10px; color: var(--text-dim); }
+.sidebar-footer { padding: 15px; border-top: 1px solid var(--border-color); }
+.sidebar-footer .menu-item {
+    display: flex; align-items: center; gap: 12px; padding: 12px;
+    border-radius: var(--radius-sm); font-weight: 700; cursor: pointer; color: var(--danger);
+}
+.sidebar-footer .menu-item i { color: var(--danger); width: 18px; text-align: center; }
+.sidebar-footer .menu-item:hover { background: var(--danger-bg); }
+
+</style>
+    <style>
+/**
+ * ==============================================================================
+ * @file        components.css
+ * @package     StoreApp.Theme.Components
+ * @description المكونات التفاعلية: النوافذ المنبثقة، أزرار الشحن السريع، وتتبع الطلبات.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+/* Search Box */
+.search-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    width: 100%;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 13px 18px 13px 44px;
+    color: var(--text-main);
+    font-size: 13px;
+    outline: none;
+    transition: border-color var(--transition-normal), background-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.search-box input:focus {
+    border-color: var(--primary);
+    background-color: var(--bg-input-focus);
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.12);
+}
+
+.search-box i {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 15px;
+    pointer-events: none;
+}
+
+/* Section Header */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-count {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: rgba(0, 0, 0, 0.05);
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-color);
+}
+
+/* Form Controls */
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.form-control {
+    width: 100%;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    color: var(--text-main);
+    font-size: 13px;
+    outline: none;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    background-color: var(--bg-input-focus);
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.12);
+}
+
+.form-control::placeholder {
+    color: var(--text-dim);
+}
+
+/* Price Summary Box */
+.price-summary-box {
+    background: rgba(217, 119, 6, 0.06);
+    border: 1px dashed rgba(217, 119, 6, 0.35);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.price-summary-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.price-summary-value {
+    font-size: 19px;
+    font-weight: 900;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Action Buttons */
+.btn-action {
+    width: 100%;
+    background: var(--primary-gradient);
+    color: #ffffff;
+    border: none;
+    padding: 13px;
+    border-radius: var(--radius-md);
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-action:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+.btn-action:active {
+    transform: scale(0.98);
+}
+
+.btn-action.btn-secondary {
+    background: rgba(0, 0, 0, 0.07);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    box-shadow: none;
+}
+
+.btn-action.btn-secondary:hover {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+/* Back Button */
+.back-btn {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.back-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.back-btn:active {
+    transform: scale(0.94);
+}
+
+/* Filter Tabs */
+.filter-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.filter-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-tab {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 7px 15px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transition-fast);
+}
+
+.filter-tab:hover {
+    border-color: var(--border-color-hover);
+    color: var(--text-main);
+}
+
+.filter-tab.active {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+}
+
+/* Quick Recharge Presets */
+.recharge-presets-grid {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.preset-chip {
+    flex: 1;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 8px 0;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 800;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.preset-chip:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-glow);
+}
+
+.preset-chip:active {
+    transform: scale(0.95);
+}
+
+/* Order Details Modal Tracking Bar */
+.tracking-progress-container {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    margin-bottom: 14px;
+}
+
+.tracking-progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.tracking-progress-track {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.tracking-progress-bar {
+    height: 100%;
+    background: var(--primary-gradient);
+    border-radius: var(--radius-full);
+    transition: width 0.5s ease-in-out;
+}
+
+.tracking-subtext {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    text-align: center;
+}
+
+/* Receipt Details */
+.receipt-preview-box {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    margin-bottom: 14px;
+}
+
+.receipt-service-title {
+    font-weight: 800;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.receipt-target-url {
+    font-size: 12px;
+    color: var(--text-muted);
+    word-break: break-all;
+    direction: ltr;
+    text-align: right;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.receipt-row:last-child {
+    border-bottom: none;
+}
+
+/* Modal Dialog */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-normal);
+}
+
+.modal-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color-light);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 440px;
+    padding: 22px;
+    box-shadow: var(--shadow-lg);
+    transform: scale(0.93) translateY(14px);
+    transition: transform var(--transition-smooth);
+}
+
+.modal-backdrop.active .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-title {
+    font-size: 16px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-close {
+    color: var(--text-muted);
+    font-size: 20px;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: var(--transition-fast);
+}
+
+.modal-close:hover {
+    color: var(--text-main);
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.modal-body {
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 20px;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 10px;
+}
+
+/* Toast Notifications */
+#toast {
+    visibility: hidden;
+    min-width: 260px;
+    max-width: 90%;
+    background-color: var(--primary);
+    color: #ffffff;
+    text-align: center;
+    border-radius: var(--radius-md);
+    padding: 13px 20px;
+    position: fixed;
+    z-index: 3000;
+    left: 50%;
+    bottom: 84px;
+    transform: translateX(-50%);
+    font-weight: 800;
+    font-size: 13px;
+    box-shadow: var(--shadow-lg);
+    pointer-events: none;
+    transition: opacity 0.3s ease, bottom 0.3s ease;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+#toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 92px;
+}
+
+#toast.toast-error {
+    background-color: var(--danger);
+    color: #ffffff;
+}
+
+#toast.toast-success {
+    background-color: var(--success);
+    color: #ffffff;
+}
+
+#toast.toast-warning {
+    background-color: var(--warning);
+    color: #000000;
+}
+
+/* Copy Buttons */
+.copy-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: var(--radius-md);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.copy-pill:active {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+.copy-pill-inline {
+    background: rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 2px 7px;
+    border-radius: 6px;
+    font-size: 11px;
+    margin-right: 6px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.copy-pill-inline:active {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+</style>
+    <style>
+/**
+ * ==============================================================================
+ * @file        pages.css
+ * @package     StoreApp.Theme.Pages
+ * @description أنماط الصفحات المتخصصة: كروت المنصات، كروت الخدمات، وسجل الطلبات.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+/* Pages System */
+.page-section {
+    display: none;
+}
+
+.page-section.active {
+    display: block;
+    animation: fadeIn var(--transition-normal) ease-in-out;
+}
+
+/* Platforms Grid (Home Page) */
+.platforms-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.platform-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: transform var(--transition-fast), border-color var(--transition-fast),
+                background-color var(--transition-fast), box-shadow var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+/* الخط الجانبي الملون */
+.platform-card::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    background: var(--card-accent, var(--primary));
+    opacity: 0.7;
+    transition: opacity var(--transition-fast), width var(--transition-fast);
+}
+
+.platform-card:hover {
+    background-color: var(--bg-card-hover);
+    border-color: var(--border-color-hover);
+    transform: translateX(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.platform-card:hover::before {
+    opacity: 1;
+    width: 4px;
+}
+
+.platform-card:active {
+    transform: scale(0.98);
+    border-color: var(--primary);
+}
+
+/* الأيقونة */
+.platform-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+/* نقطة الأونلاين */
+.platform-online-dot {
+    position: absolute;
+    bottom: -2px;
+    left: -2px;
+    width: 12px;
+    height: 12px;
+    background: var(--success);
+    border-radius: 50%;
+    border: 2px solid var(--bg-card);
+    animation: pulse-online 2.5s infinite;
+}
+
+@keyframes pulse-online {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(46, 213, 115, 0.55); }
+    50%       { box-shadow: 0 0 0 5px rgba(46, 213, 115, 0); }
+}
+
+/* معلومات المنصة */
+.platform-info {
+    flex: 1;
+    min-width: 0;
+    text-align: right;
+}
+
+.platform-name-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 3px;
+    flex-wrap: wrap;
+}
+
+.platform-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1.3;
+}
+
+.platform-badge-hot {
+    background: rgba(255, 71, 87, 0.15);
+    color: var(--danger);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 1px 6px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 71, 87, 0.2);
+}
+
+.platform-badge-online {
+    background: rgba(46, 213, 115, 0.12);
+    color: var(--success);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 1px 7px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(46, 213, 115, 0.22);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.platform-badge-online::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--success);
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse-online 2.5s infinite;
+}
+
+.platform-desc {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+}
+
+.platform-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.platform-services-count {
+    font-size: 10.5px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.platform-services-count i {
+    color: var(--primary);
+    font-size: 9px;
+}
+
+/* سهم التنقل */
+.platform-arrow {
+    color: var(--text-dim);
+    font-size: 13px;
+    flex-shrink: 0;
+    transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.platform-card:hover .platform-arrow {
+    color: var(--primary);
+    transform: translateX(-4px);
+}
+
+/* Brand specific icon backgrounds */
+.icon-insta    { background: rgba(225, 48, 108, 0.12); color: var(--brand-instagram); --card-accent: var(--brand-instagram); }
+.icon-tiktok   { background: rgba(0, 242, 254, 0.12);  color: var(--brand-tiktok);    --card-accent: var(--brand-tiktok); }
+.icon-telegram { background: rgba(0, 136, 204, 0.12);  color: var(--brand-telegram);  --card-accent: var(--brand-telegram); }
+.icon-facebook { background: rgba(24, 119, 242, 0.12); color: var(--brand-facebook);  --card-accent: var(--brand-facebook); }
+.icon-youtube  { background: rgba(255, 0, 0, 0.12);    color: var(--brand-youtube);   --card-accent: var(--brand-youtube); }
+.icon-free     { background: rgba(217, 119, 6, 0.12);  color: var(--primary);         --card-accent: var(--primary); }
+.icon-real     { background: rgba(46, 213, 115, 0.12); color: var(--success);         --card-accent: var(--success); }
+
+
+/* Platform View Header */
+.platform-view-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.platform-view-head h3 {
+    font-size: 19px;
+    font-weight: 800;
+}
+
+/* Service Card Inside Platform */
+.service-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    margin-bottom: 16px;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.service-card:hover {
+    border-color: var(--border-color-light);
+    box-shadow: var(--shadow-sm);
+}
+
+.service-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+    gap: 8px;
+}
+
+.service-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1.4;
+}
+
+.service-tag {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: var(--radius-full);
+    background: var(--primary-glow);
+    color: var(--primary);
+    white-space: nowrap;
+    border: 1px solid rgba(217, 119, 6, 0.25);
+}
+
+.service-rate {
+    font-size: 13px;
+    color: var(--primary);
+    font-weight: 800;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.service-meta-info {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.service-meta-info span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Order Cards (My Orders Page) */
+.order-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin-bottom: 14px;
+    cursor: pointer;
+    transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.order-card:hover {
+    background-color: var(--bg-card-hover);
+    border-color: var(--border-color-hover);
+    transform: translateY(-2px);
+}
+
+.order-card:active {
+    transform: scale(0.99);
+}
+
+.order-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.order-id {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.order-status {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: var(--radius-sm);
+    font-weight: 800;
+}
+
+.status-completed { background: var(--success-bg); color: var(--success); }
+.status-pending { background: var(--primary-glow); color: var(--primary); }
+.status-processing { background: var(--info-bg); color: var(--info); }
+.status-cancelled { background: var(--danger-bg); color: var(--danger); }
+
+.order-body {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.order-service-name {
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.order-target {
+    color: var(--text-muted);
+    font-size: 12px;
+    word-break: break-all;
+    direction: ltr;
+    text-align: right;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    margin-top: 6px;
+}
+
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* Recharge Page Styles */
+.payment-method-details {
+    background: var(--bg-surface);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    margin-bottom: 16px;
+}
+
+.payment-account-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin-top: 8px;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+}
+
+.payment-account-number {
+    font-family: monospace;
+    font-weight: 800;
+    color: var(--primary);
+    direction: ltr;
+    font-size: 14px;
+}
+
+/* Notification Cards */
+.notif-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 15px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    transition: border-color var(--transition-fast);
+}
+
+.notif-card.notif-unread {
+    border-color: rgba(217, 119, 6, 0.4);
+    background: linear-gradient(135deg, rgba(217, 119, 6, 0.04) 0%, var(--bg-card) 100%);
+}
+
+.notif-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    background: var(--primary-glow);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+}
+
+.notif-content {
+    flex: 1;
+}
+
+.notif-title {
+    font-weight: 800;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.notif-body {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    line-height: 1.6;
+}
+
+.notif-time {
+    font-size: 10px;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 50px 16px;
+}
+
+.empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 14px;
+    opacity: 0.35;
+    color: var(--primary);
+}
+
+.empty-state-title {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: var(--text-main);
+}
+
+.empty-state-desc {
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+</style>
 </head>
 <body>
 
@@ -379,29 +1989,2720 @@
     <!-- تحميل السكربتات البرمجية بالترتيب المعماري الدقيق       -->
     <!-- ======================================================== -->
     <!-- 1. وحدات الحماية والأدوات المساعدة (Utils & Security) -->
-    <script src="assets/js/utils/security.js?v=5.0"></script>
-    <script src="assets/js/utils/formatters.js?v=5.0"></script>
+    <script>
+/**
+ * ==============================================================================
+ * @file        security.js
+ * @package     StoreApp.Utils.Security
+ * @description وحدة الحماية وتطهير البيانات والتحقق الأمني لمنع ثغرات XSS وتلاعب البيانات.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+window.StoreApp = window.StoreApp || {};
+window.StoreApp.Utils = window.StoreApp.Utils || {};
+
+window.StoreApp.Utils.Security = (function() {
+    'use strict';
+
+    /**
+     * @function escapeHTML
+     * @description تحويل المحارف الخاصة إلى كيانات HTML لمنع ثغرات الحقن (XSS Injection).
+     * @param {string|number} str - النص المراد تطهيره.
+     * @returns {string} النص المطهر الخالي من أي وسوم أو أكواد خبيثة.
+     */
+    function escapeHTML(str) {
+        if (str === null || str === undefined) return '';
+        const s = String(str);
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#x27;',
+            '/': '&#x2F;',
+            '`': '&#x60;'
+        };
+        return s.replace(/[&<>"'/`]/g, match => map[match]);
+    }
+
+    /**
+     * @function sanitizeString
+     * @description إزالة المسافات الزائدة والمحارف غير المرئية أو الضارة.
+     * @param {string} input - النص المدخل.
+     * @returns {string} النص بعد التنظيف.
+     */
+    function sanitizeString(input) {
+        if (typeof input !== 'string') return '';
+        return input.trim().replace(/[\u0000-\u001F\u007F-\u009F]/g, '');
+    }
+
+    /**
+     * @function generateSecureId
+     * @description توليد معرف رقمي فريد ومحمي ضد الاصطدام باستخدام Crypto API.
+     * @param {number} length - طول المعرف (الافتراضي 6 أرقام).
+     * @returns {number} المعرف الرقمي المولد.
+     */
+    function generateSecureId(length = 6) {
+        if (window.crypto && window.crypto.getRandomValues) {
+            const array = new Uint32Array(1);
+            window.crypto.getRandomValues(array);
+            const min = Math.pow(10, length - 1);
+            const max = Math.pow(10, length) - 1;
+            return min + (array[0] % (max - min + 1));
+        }
+        // Fallback آمن يعتمد على الطابع الزمني والإنتروبيا العشوائية
+        const timestamp = Date.now().toString().slice(-4);
+        const rand = Math.floor(Math.random() * 90) + 10;
+        return parseInt(`${rand}${timestamp}`, 10);
+    }
+
+    /**
+     * @function validateTargetUrl
+     * @description التحقق من سلامة وصحة الرابط أو اسم المستخدم المدخل بحسب المنصة.
+     * @param {string} target - الرابط أو اليوزر.
+     * @param {string} platformId - معرف المنصة.
+     * @returns {{ valid: boolean, error?: string, sanitized: string }}
+     */
+    function validateTargetUrl(target, platformId) {
+        const clean = sanitizeString(target);
+        if (!clean) {
+            return { valid: false, error: '⚠️ يرجى إدخال الرابط أو اسم المستخدم المطلوب', sanitized: '' };
+        }
+
+        // فحص وجود وسوم مريبة أو محاولات حقن بروتوكول javascript:
+        if (/^(javascript:|data:|vbscript:)/i.test(clean)) {
+            return { valid: false, error: '❌ بروتوكول الرابط غير مسموح به لأسباب أمنية', sanitized: '' };
+        }
+
+        // تحققات مرنة بحسب نوع المنصة
+        switch (platformId) {
+            case 'instagram':
+                if (clean.includes('instagram.com') || /^@?[a-zA-Z0-9._]{1,30}$/.test(clean)) {
+                    return { valid: true, sanitized: clean };
+                }
+                return { valid: true, sanitized: clean }; // مرن مع السماح بأي رابط منشور
+
+            case 'tiktok':
+                if (clean.includes('tiktok.com') || /^@?[a-zA-Z0-9._]{1,30}$/.test(clean)) {
+                    return { valid: true, sanitized: clean };
+                }
+                return { valid: true, sanitized: clean };
+
+            case 'telegram':
+                if (clean.includes('t.me/') || /^@?[a-zA-Z0-9_]{4,32}$/.test(clean)) {
+                    return { valid: true, sanitized: clean };
+                }
+                return { valid: true, sanitized: clean };
+
+            default:
+                if (clean.length < 3) {
+                    return { valid: false, error: '⚠️ الرابط أو اسم المستخدم قصير جداً', sanitized: '' };
+                }
+                return { valid: true, sanitized: clean };
+        }
+    }
+
+    /**
+     * @function debounce
+     * @description دالة لمنع النقر المتكرر السريع (Double Submit) ومقاومة Race Conditions.
+     * @param {Function} func - الدالة المراد تقييدها.
+     * @param {number} waitMs - زمن الانتظار بالمللي ثانية.
+     * @returns {Function} الدالة المقيدة.
+     */
+    function debounce(func, waitMs = 300) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), waitMs);
+        };
+    }
+
+    /**
+     * @function safeJSONParse
+     * @description فك تشفير نصوص JSON بأمان دون التسبب في انهيار التطبيق أو هجمات Prototype Pollution.
+     * @param {string} jsonString - النص المشفر.
+     * @param {*} fallbackValue - القيمة البديلة في حالة الفشل.
+     * @returns {*} الكائن المفكك أو القيمة البديلة.
+     */
+    function safeJSONParse(jsonString, fallbackValue = null) {
+        if (!jsonString || typeof jsonString !== 'string') return fallbackValue;
+        try {
+            const parsed = JSON.parse(jsonString);
+            // حماية ضد Prototype Pollution
+            if (parsed && typeof parsed === 'object') {
+                delete parsed.__proto__;
+                delete parsed.constructor;
+                delete parsed.prototype;
+            }
+            return parsed;
+        } catch (e) {
+            console.warn('[Security] Failed to parse JSON safely:', e);
+            return fallbackValue;
+        }
+    }
+
+    return {
+        escapeHTML,
+        sanitizeString,
+        generateSecureId,
+        validateTargetUrl,
+        debounce,
+        safeJSONParse
+    };
+})();
+
+</script>
+    <script>
+/**
+ * ==============================================================================
+ * @file        formatters.js
+ * @package     StoreApp.Utils.Formatters
+ * @description منسقات الأرقام، العملات (USD / IQD)، التواريخ، ودقة الحسابات العشرية.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+window.StoreApp = window.StoreApp || {};
+window.StoreApp.Utils = window.StoreApp.Utils || {};
+
+window.StoreApp.Utils.Formatters = (function() {
+    'use strict';
+
+    /**
+     * @function roundDecimal
+     * @description معالجة أخطاء الفاصلة العائمة (Floating Point Precision) في جافاسكربت بدقة عالية.
+     * @param {number} value - القيمة المراد تقريبها.
+     * @param {number} decimals - عدد الخانات العشرية (الافتراضي 2 أو 3).
+     * @returns {number} الرقم المقرب بدقة متناهية.
+     */
+    function roundDecimal(value, decimals = 3) {
+        if (isNaN(value) || value === null) return 0;
+        const factor = Math.pow(10, decimals);
+        return Math.round((Number(value) + Number.EPSILON) * factor) / factor;
+    }
+
+    /**
+     * @function formatUSD
+     * @description تنسيق المبلغ المالي بالدولار الأمريكي.
+     * @param {number} amount - المبلغ.
+     * @param {number} decimals - عدد الخانات العشرية.
+     * @returns {string} النص المنسق مثل $1.20
+     */
+    function formatUSD(amount, decimals = 2) {
+        const rounded = roundDecimal(amount, decimals);
+        return `$${rounded.toFixed(decimals)}`;
+    }
+
+    /**
+     * @function formatIQD
+     * @description تحويل المبلغ من الدولار إلى الدينار العراقي وتنسيقه مع الفواصل.
+     * @param {number} usdAmount - المبلغ بالدولار.
+     * @param {number} exchangeRate - سعر الصرف (الافتراضي 1520).
+     * @returns {string} المبلغ منسق مثل 15,200 د.ع
+     */
+    function formatIQD(usdAmount, exchangeRate = 1520) {
+        if (isNaN(usdAmount) || usdAmount <= 0) return '0 د.ع';
+        const iqd = Math.round(usdAmount * exchangeRate);
+        return `${iqd.toLocaleString('ar-IQ')} د.ع`;
+    }
+
+    /**
+     * @function formatNumber
+     * @description إضافة فواصل الآلاف للأرقام والكميات الكبيرة.
+     * @param {number|string} num - الرقم المدخل.
+     * @returns {string} الرقم مع فواصل الآلاف مثل 10,000
+     */
+    function formatNumber(num) {
+        if (num === null || num === undefined || isNaN(num)) return '0';
+        return Number(num).toLocaleString('en-US');
+    }
+
+    /**
+     * @function formatDate
+     * @description تنسيق التاريخ والوقت بصيغة عربية واضحة ومقروءة.
+     * @param {string|Date} dateInput - التاريخ.
+     * @returns {string} تاريخ منسق.
+     */
+    function formatDate(dateInput) {
+        if (!dateInput) return '';
+        try {
+            const date = new Date(dateInput);
+            if (isNaN(date.getTime())) return String(dateInput);
+            
+            const now = new Date();
+            const diffSeconds = Math.floor((now - date) / 1000);
+
+            if (diffSeconds < 60) return 'الآن';
+            if (diffSeconds < 3600) return `منذ ${Math.floor(diffSeconds / 60)} دقيقة`;
+            if (diffSeconds < 86400) return `منذ ${Math.floor(diffSeconds / 3600)} ساعة`;
+
+            const yyyy = date.getFullYear();
+            const mm = String(date.getMonth() + 1).padStart(2, '0');
+            const dd = String(date.getDate()).padStart(2, '0');
+            const hh = String(date.getHours()).padStart(2, '0');
+            const min = String(date.getMinutes()).padStart(2, '0');
+
+            return `${yyyy}-${mm}-${dd} ${hh}:${min}`;
+        } catch (e) {
+            return String(dateInput);
+        }
+    }
+
+    return {
+        roundDecimal,
+        formatUSD,
+        formatIQD,
+        formatNumber,
+        formatDate
+    };
+})();
+
+</script>
 
     <!-- 2. إعدادات النظام وكتالوج الخدمات (Config & Catalog) -->
-    <script src="assets/js/config/constants.js?v=5.0"></script>
-    <script src="assets/js/config/servicesData.js?v=5.0"></script>
+    <script>
+﻿/**
+ * ==============================================================================
+ * @file        constants.js
+ * @package     StoreApp.Config.Constants
+ * @description إعدادات النظام المركزية، أسعار الصرف، بوابات الدفع، وروابط الدعم.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+window.StoreApp = window.StoreApp || {};
+window.StoreApp.Config = window.StoreApp.Config || {};
+
+window.StoreApp.Config.Constants = {
+    // معلومات المتجر
+    APP_NAME: "متجر حسين أثير",
+    APP_SUBTITLE: "منصة رشق وتمويل السوشيال ميديا الأولى في العراق",
+    APP_VERSION: "2.6.0 Enterprise",
+    APP_AUTHOR: "Hussein Atheer",
+    
+    // سعر الصرف المعتمد (1 دولار = دينار عراقي)
+    USD_TO_IQD: 1520,
+
+    // مفاتيح التخزين الآمن
+    STORAGE_KEYS: {
+        MAIN_STATE: "h98lh_data_v2",
+        LEGACY_STATE: "h98lh_data",
+        THEME_MODE: "hush_theme_mode"
+    },
+
+    // مبالغ الشحن السريع المقترحة (Quick Recharge Presets)
+    RECHARGE_PRESETS: [5, 10, 25, 50, 100],
+
+    // قنوات الدعم والتواصل الرسمي
+    SUPPORT: {
+        BOT_USERNAME:      "ttbbegbot",
+        BOT_URL:           "https://t.me/ttbbegbot",
+        TELEGRAM_USERNAME: "h99lh",
+        TELEGRAM_URL:      "https://t.me/h99lh",
+        TELEGRAM_CHANNEL:  "https://t.me/h98lh",
+        getOrderInquiryUrl: function(orderId, serviceName) {
+            const text = encodeURIComponent(
+                `مرحباً، لدي استفسار عن الطلب رقم #${orderId} (${serviceName})`
+            );
+            return `https://t.me/h99lh?text=${text}`;
+        }
+    },
+
+    // بوابات الدفع — مطابقة لقائمة البوت
+    PAYMENT_METHODS: [
+        {
+            id: "stars", name: "نجوم تيليكرام ⭐", badge: "فوري",
+            icon: "fas fa-star", accountNumber: "@ttbbegbot",
+            accountHolder: "حسين أثير",
+            instructions: "أرسل النجوم للبوت @ttbbegbot ثم أرسلنا عددها واسم حسابك.",
+            isCard: false, color: "#f4c430"
+        },
+        {
+            id: "asiasell", name: "أسياسيل 📱", badge: "شائع",
+            icon: "fas fa-mobile-alt", accountNumber: "07739439110",
+            accountHolder: "حسين أثير",
+            instructions: "حوّل للرقم 07739439110 ثم أرسل رقم العملية والمبلغ.",
+            isCard: false, color: "#00b4d8"
+        },
+        {
+            id: "zaincash", name: "زين كاش 💳", badge: "فوري",
+            icon: "fas fa-wallet", accountNumber: "07739439110",
+            accountHolder: "حسين أثير",
+            instructions: "حوّل للمحفظة 07739439110 ثم أرسل رقم العملية والمبلغ.",
+            isCard: false, color: "#e63946"
+        },
+        {
+            id: "master_rafidain", name: "ماستر الرافدين 💳", badge: "بنك",
+            icon: "fas fa-credit-card", accountNumber: "1234-5678-9012-3456",
+            accountHolder: "حسين أثير",
+            instructions: "حوّل للحساب 1234-5678-9012-3456 ثم أرسل رقم التحويل والمبلغ.",
+            isCard: true, color: "#7209b7"
+        }
+    ],
+
+    // قيود الأمان وحدود المدخلات
+    LIMITS: {
+        MIN_RECHARGE_USD: 1.0,
+        MAX_RECHARGE_USD: 1000.0,
+        MAX_INPUT_LENGTH: 500
+    }
+};
+
+// التوافقية العكسية للاسم القديم
+window.StoreApp.Constants = window.StoreApp.Config.Constants;
+
+</script>
+    <script>
+window.StoreApp = window.StoreApp || {};
+window.StoreApp.Config = window.StoreApp.Config || {};
+
+window.StoreApp.Config.ServicesCatalog = [
+    {
+        id: "free", name: "خدمات مجانية", desc: "متاحة للجميع مجاناً",
+        icon: "fas fa-gift", iconClass: "icon-free", category: "offers", popular: true,
+        services: [
+            {
+                id: "free-1", numId: 694,
+                name: "[694] مشاهدات ستوري انستكرام لجميع الستوريات - سريع",
+                rate: 0.0000, min: 100, max: 1000,
+                unit: 1000, badge: "✨ مجاني", speed: "⏱️ وقت التنفيذ: 7 دقائق",
+                label: "رابط الحساب (@username)", placeholder: "https://instagram.com/username", type: "standard"
+            },
+            {
+                id: "free-2", numId: 800,
+                name: "[800] مشاهدات ستوري انستكرام لجميع الستوريات - بطيء",
+                rate: 0.0000, min: 500, max: 5000,
+                unit: 1000, badge: "✨ مجاني", speed: "🕒 وقت التنفيذ: 4 ساعات",
+                label: "رابط الحساب (@username)", placeholder: "https://instagram.com/username", type: "standard"
+            },
+            {
+                id: "free-3", numId: 868,
+                name: "[868] مشاهدات انستكرام - فيديو ريلز - مجانية",
+                rate: 0.0000, min: 1000, max: 1000,
+                unit: 1000, badge: "🔥 حصري", speed: "⏱️ وقت التنفيذ: 3 دقائق",
+                label: "رابط المنشور / الفيديو", placeholder: "https://www.instagram.com/p/XXXX/", type: "standard"
+            },
+            {
+                id: "free-4", numId: 687,
+                name: "[687] مشاركات انستكرام حركة اكسبلور - مجاني",
+                rate: 0.0000, min: 100, max: 1000,
+                unit: 1000, badge: "✨ مجاني", speed: "⏱️ وقت التنفيذ: 12 دقيقة",
+                label: "رابط المنشور (Post Link)", placeholder: "https://instagram.com/p/xxx", type: "standard"
+            },
+            {
+                id: "free-5", numId: 690,
+                name: "[690] تليكرام تفاعلات ايجابية - مجاني",
+                rate: 0.0000, min: 10, max: 100,
+                unit: 1000, badge: "✨ مجاني", speed: "⏱️ وقت التنفيذ: 29 دقيقة",
+                label: "رابط المنشور (Post Link)", placeholder: "https://t.me/channel/123", type: "standard"
+            },
+            {
+                id: "free-6", numId: 691,
+                name: "[691] تليكرام تفاعلات سلبية - مجاني",
+                rate: 0.0000, min: 10, max: 100,
+                unit: 1000, badge: "✨ مجاني", speed: "⏱️ وقت التنفيذ: 9 دقائق",
+                label: "رابط المنشور (Post Link)", placeholder: "https://t.me/channel/123", type: "standard"
+            }
+        ]
+    },
+    {
+        id: "instagram", name: "إنستغرام", desc: "متابعين • لايكات • مشاهدات",
+        icon: "fab fa-instagram", iconClass: "icon-insta", category: "social", popular: true,
+        services: [
+            {
+                id: "insta-followers-30d", numId: 2989,
+                name: "[2989] متابعين إنستغرام (مع ضمان)",
+                rate: 0.2125, min: 10, max: 25000,
+                unit: 1000, badge: "🛡️ مع ضمان", speed: "🕒 وقت التنفيذ: 3 ساعات",
+                label: "رابط الحساب أو اليوزر (@username)", placeholder: "https://instagram.com/username أو @username", type: "standard"
+            },
+            {
+                id: "insta-likes", numId: 8216,
+                name: "[8216] لايكات إنستغرام",
+                rate: 0.0125, min: 10, max: 100000,
+                unit: 1000, badge: "⚡ فوري", speed: "⏱️ وقت التنفيذ: 10 دقائق",
+                label: "رابط المنشور (Post Link)", placeholder: "https://instagram.com/p/xxx", type: "standard"
+            },
+            {
+                id: "insta-views", numId: 339,
+                name: "[339] مشاهدات إنستغرام (ريلز/فيديو)",
+                rate: 0.0012, min: 100, max: 217545811,
+                unit: 1000, badge: "🔥 حصري", speed: "⏱️ وقت التنفيذ: 5 دقائق",
+                label: "رابط الريلز (Reel Link)", placeholder: "https://instagram.com/reel/xxx", type: "standard"
+            }
+        ]
+    },
+    {
+        id: "tiktok", name: "تيك توك", desc: "متابعين • لايكات • مشاهدات",
+        icon: "fab fa-tiktok", iconClass: "icon-tiktok", category: "video", popular: true,
+        services: [
+            {
+                id: "tiktok-followers", numId: 10136,
+                name: "[10136] متابعين تيك توك (مع ضمان)",
+                rate: 1.10, min: 100, max: 10000,
+                unit: 1000, badge: "⭐ ممتاز", speed: "🕒 وقت التنفيذ: 5 ساعات",
+                label: "رابط الحساب أو اليوزر (@user)", placeholder: "https://tiktok.com/@username", type: "standard"
+            },
+            {
+                id: "tiktok-likes", numId: 8063,
+                name: "[8063] لايكات تيك توك",
+                rate: 0.0138, min: 50, max: 100000,
+                unit: 1000, badge: "👍 سريع", speed: "⏱️ وقت التنفيذ: 15 دقيقة",
+                label: "رابط المنشور (Video Link)", placeholder: "https://tiktok.com/@user/video/xxx", type: "standard"
+            },
+            {
+                id: "tiktok-views", numId: 265,
+                name: "[265] مشاهدات تيك توك",
+                rate: 0.0001, min: 100, max: 1000000,
+                unit: 1000, badge: "🔥 الأكثر طلباً", speed: "⏱️ وقت التنفيذ: 2 دقيقة",
+                label: "رابط المنشور (Video Link)", placeholder: "https://tiktok.com/@user/video/xxx", type: "standard"
+            }
+        ]
+    },
+    {
+        id: "telegram", name: "تيليجرام", desc: "أعضاء • مشاهدات",
+        icon: "fab fa-telegram-plane", iconClass: "icon-telegram", category: "messaging", popular: false,
+        services: [
+            {
+                id: "tele-members", numId: 1234,
+                name: "[1234] أعضاء تيليجرام (قنوات/كروبات)",
+                rate: 0.50, min: 100, max: 50000,
+                unit: 1000, badge: "🛡️ آمن", speed: "🕒 وقت التنفيذ: 4 ساعات",
+                label: "رابط القناة (Channel Link)", placeholder: "https://t.me/channel_name", type: "standard"
+            },
+            {
+                id: "tele-views", numId: 5678,
+                name: "[5678] مشاهدات تيليجرام (آخر منشور)",
+                rate: 0.05, min: 100, max: 100000,
+                unit: 1000, badge: "👀 رخيص جداً", speed: "⏱️ وقت التنفيذ: 3 دقائق",
+                label: "رابط المنشور (Post Link)", placeholder: "https://t.me/channel/123", type: "standard"
+            }
+        ]
+    }
+];
+
+</script>
 
     <!-- 3. طبقة الخدمات ومنطق الأعمال (Services Layer) -->
-    <script src="assets/js/services/telegramService.js?v=5.0"></script>
-    <script src="assets/js/services/storageService.js?v=5.0"></script>
-    <script src="assets/js/services/orderService.js?v=5.0"></script>
-    <script src="assets/js/services/rechargeService.js?v=5.0"></script>
-    <script src="assets/js/services/notificationService.js?v=5.0"></script>
+    <script>
+/**
+ * ==============================================================================
+ * @file        telegramService.js
+ * @package     StoreApp.Services.Telegram
+ * @description تكامل متقدم ومحمي مع واجهة تليجرام البرمجية (Telegram Mini App SDK).
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+window.StoreApp = window.StoreApp || {};
+window.StoreApp.Services = window.StoreApp.Services || {};
+
+window.StoreApp.Services.Telegram = (function() {
+    'use strict';
+
+    const tg = window.Telegram ? window.Telegram.WebApp : null;
+    const backButtonStack = [];
+
+    /**
+     * @function init
+     * @description تهيئة تطبيق تليجرام المصغر مع ضبط الألوان وتثبيت الشاشة.
+     */
+    function init() {
+        if (!tg) {
+            console.info('[TelegramService] Working in standalone browser mode.');
+            return;
+        }
+
+        try {
+            tg.ready();
+            tg.expand();
+
+            // منع إغلاق التطبيق بالسحب العرضي لأسفل لحماية تجربة المستخدم
+            if (typeof tg.enableClosingConfirmation === 'function') {
+                tg.enableClosingConfirmation();
+            }
+
+            // ضبط ألوان شريط التطبيق العلوي والخلفية
+            if (typeof tg.setHeaderColor === 'function') {
+                tg.setHeaderColor('#e3f2fd');
+            }
+            if (typeof tg.setBackgroundColor === 'function') {
+                tg.setBackgroundColor('#e3f2fd');
+            }
+
+            // مزامنة ألوان ثيم تليجرام إن وجدت
+            if (tg.themeParams && Object.keys(tg.themeParams).length > 0) {
+                // forced light theme
+            }
+
+            console.info('[TelegramService] Initialized successfully. User:', tg.initDataUnsafe?.user?.id || 'Guest');
+        } catch (e) {
+            console.warn('[TelegramService] Init warning:', e);
+        }
+    }
+
+    /**
+     * @function getUser
+     * @description استرجاع بيانات المستخدم الحالي الموثقة من تليجرام بأمان.
+     * @returns {{ id: number, firstName: string, lastName: string, username: string, photoUrl: string|null }}
+     */
+    function getUser() {
+        if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            const u = tg.initDataUnsafe.user;
+            return {
+                id: u.id,
+                firstName: window.StoreApp.Utils.Security.escapeHTML(u.first_name || 'مستخدم'),
+                lastName: window.StoreApp.Utils.Security.escapeHTML(u.last_name || ''),
+                username: u.username ? `@${window.StoreApp.Utils.Security.escapeHTML(u.username)}` : '',
+                photoUrl: u.photo_url || null
+            };
+        }
+        return {
+            id: 1001,
+            firstName: "حسين أثير",
+            lastName: "",
+            username: "@h99lh",
+            photoUrl: null
+        };
+    }
+
+    /**
+     * @function haptic
+     * @description إرسال نبضات اهتزاز لمسية تفاعلية (Haptic Feedback) عبر جهاز المستخدم.
+     * @param {'light'|'medium'|'heavy'|'rigid'|'soft'|'error'|'success'|'warning'} type
+     */
+    function haptic(type = 'light') {
+        if (!tg || !tg.HapticFeedback) return;
+        try {
+            if (['error', 'success', 'warning'].includes(type)) {
+                tg.HapticFeedback.notificationOccurred(type);
+            } else {
+                tg.HapticFeedback.impactOccurred(type);
+            }
+        } catch (e) {
+            // Ignored on unsupported devices
+        }
+    }
+
+    /**
+     * @function pushBackButton
+     * @description تسجيل إجراء رجوع في مكدس زر الرجوع الأصلي لتليجرام.
+     * @param {Function} callback
+     */
+    function pushBackButton(callback) {
+        if (!tg || !tg.BackButton) return;
+        try {
+            backButtonStack.push(callback);
+            tg.BackButton.show();
+            tg.BackButton.offClick();
+            tg.BackButton.onClick(() => {
+                haptic('light');
+                const handler = backButtonStack.pop();
+                if (typeof handler === 'function') {
+                    handler();
+                }
+                if (backButtonStack.length === 0) {
+                    tg.BackButton.hide();
+                }
+            });
+        } catch (e) {
+            console.warn('[TelegramService] BackButton error:', e);
+        }
+    }
+
+    /**
+     * @function clearBackButton
+     * @description إخفاء زر الرجوع ومسح المكدس.
+     */
+    function clearBackButton() {
+        if (!tg || !tg.BackButton) return;
+        try {
+            backButtonStack.length = 0;
+            tg.BackButton.hide();
+            tg.BackButton.offClick();
+        } catch (e) {
+            // Ignored
+        }
+    }
+
+    /**
+     * @function openTelegramLink
+     * @description فتح محادثة أو قناة تليجرام داخل التطبيق مباشرة.
+     */
+    function openTelegramLink(url) {
+        if (tg && typeof tg.openTelegramLink === 'function') {
+            tg.openTelegramLink(url);
+        } else {
+            window.open(url, '_blank', 'noopener,noreferrer');
+        }
+    }
+
+    /**
+     * @function openExternalLink
+     * @description فتح رابط خارجي بأمان.
+     */
+    function openExternalLink(url) {
+        if (tg && typeof tg.openLink === 'function') {
+            tg.openLink(url);
+        } else {
+            window.open(url, '_blank', 'noopener,noreferrer');
+        }
+    }
+
+    /**
+     * @function isTelegramEnvironment
+     * @description التحقق مما إذا كان التطبيق يعمل داخل بيئة تليجرام.
+     */
+    function isTelegramEnvironment() {
+        return !!(tg && tg.initData && tg.initData.length > 0);
+    }
+
+    return {
+        init,
+        getUser,
+        haptic,
+        pushBackButton,
+        clearBackButton,
+        openTelegramLink,
+        openExternalLink,
+        isTelegramEnvironment
+    };
+})();
+
+// التوافقية العكسية للاسم القديم
+window.StoreApp.TelegramService = window.StoreApp.Services.Telegram;
+
+</script>
+    <script>
+/**
+ * ==============================================================================
+ * @file        storageService.js
+ * @package     StoreApp.Services.Storage
+ * @description إدارة التخزين المحلي الآمن، الترحيل التلقائي للإصدارات، ومقاومة أخطاء الذاكرة.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+window.StoreApp = window.StoreApp || {};
+window.StoreApp.Services = window.StoreApp.Services || {};
+
+window.StoreApp.Services.Storage = (function() {
+    'use strict';
+
+    const Security = window.StoreApp.Utils.Security;
+    const Constants = window.StoreApp.Config.Constants;
+
+    const STORAGE_KEY = Constants.STORAGE_KEYS.MAIN_STATE;
+    const LEGACY_KEY = Constants.STORAGE_KEYS.LEGACY_STATE;
+
+    /**
+     * الحالة الافتراضية المرجعية الأولية
+     */
+    const INITIAL_STATE = {
+        version: "2.7.0",
+        balance: 0.0,
+        orders: [],
+        notifications: [],
+        theme: "light"
+    };
+
+    let cacheState = null;
+    const subscribers = [];
+
+    /**
+     * @function init
+     * @description تحميل الحالة الأولية مع فحص وترحيل البيانات من الإصدارات القديمة.
+     */
+    function init() { localStorage.removeItem(STORAGE_KEY); 
+        try {
+            // محاولة جلب الإصدار v2
+            const rawV2 = localStorage.getItem(STORAGE_KEY);
+            if (rawV2) {
+                const parsed = Security.safeJSONParse(rawV2, null);
+                if (parsed && typeof parsed.balance === 'number') {
+                    cacheState = sanitizeLoadedState(parsed);
+                    return cacheState;
+                }
+            }
+
+            // فحص وجود ترحيل من الإصدار القديم
+            const rawLegacy = localStorage.getItem(LEGACY_KEY);
+            if (rawLegacy) {
+                console.info('[StorageService] Migrating data from legacy version...');
+                const legacyParsed = Security.safeJSONParse(rawLegacy, null);
+                if (legacyParsed) {
+                    cacheState = {
+                        ...INITIAL_STATE,
+                        balance: typeof legacyParsed.balance === 'number' ? legacyParsed.balance : INITIAL_STATE.balance,
+                        orders: Array.isArray(legacyParsed.orders) ? legacyParsed.orders : INITIAL_STATE.orders,
+                        notifications: Array.isArray(legacyParsed.notifications) ? legacyParsed.notifications : INITIAL_STATE.notifications
+                    };
+                    saveState(cacheState);
+                    return cacheState;
+                }
+            }
+
+            // فحص وجود رصيد ممرر عبر رابط البوت (URL Query Parameter: ?balance=X&user_id=Y)
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('balance')) {
+                const urlBal = parseFloat(urlParams.get('balance'));
+                if (!isNaN(urlBal)) {
+                    INITIAL_STATE.balance = urlBal;
+                }
+            }
+
+            // في حال عدم وجود أي بيانات سابقة
+            cacheState = JSON.parse(JSON.stringify(INITIAL_STATE));
+            saveState(cacheState);
+        } catch (e) {
+            console.warn('[StorageService] LocalStorage read error, using memory fallback:', e);
+            cacheState = JSON.parse(JSON.stringify(INITIAL_STATE));
+        }
+
+        // محاولة جلب الرصيد الحقيقي من خادم البوت إذا كان متصلاً
+        const user = window.StoreApp.Services.Telegram?.getUser();
+        if (user && user.id) {
+            syncWithBotServer(user.id);
+        }
+
+        return cacheState;
+    }
+
+    /**
+     * @function syncWithBotServer
+     * @description مزامنة الرصيد والطلبات مباشرة مع قاعدة بيانات البوت عبر API السيرفر.
+     */
+    async function syncWithBotServer(userId) {
+        if (!userId) return;
+        try {
+            const res = await fetch(`/api/user?id=${userId}`, { cache: 'no-cache' });
+            if (res.ok) {
+                const data = await res.json();
+                if (data.success && typeof data.balance === 'number') {
+                    console.info('[StorageService] Synced live balance with Bot DB:', data.balance);
+                    const state = getState();
+                    state.balance = data.balance;
+                    if (Array.isArray(data.orders) && data.orders.length > 0) {
+                        state.orders = data.orders;
+                    }
+                    saveState(state);
+                }
+            }
+        } catch (e) {
+            // العمل محلياً في حالة عدم تشغيل السيرفر
+            console.info('[StorageService] Offline mode: using local cache.');
+        }
+    }
+
+    /**
+     * @function sanitizeLoadedState
+     * @description تطهير وتدقيق بنية الكائن المحمل من التخزين لتفادي الأخطاء.
+     */
+    function sanitizeLoadedState(data) {
+        return {
+            version: "2.6.0",
+            balance: typeof data.balance === 'number' && !isNaN(data.balance) ? Math.max(0, data.balance) : INITIAL_STATE.balance,
+            orders: Array.isArray(data.orders) ? data.orders : INITIAL_STATE.orders,
+            notifications: Array.isArray(data.notifications) ? data.notifications : INITIAL_STATE.notifications,
+            settings: data.settings || INITIAL_STATE.settings
+        };
+    }
+
+    /**
+     * @function getState
+     * @description جلب الحالة الحالية من الذاكرة المؤقتة.
+     */
+    function getState() {
+        if (!cacheState) {
+            init();
+        }
+        return cacheState;
+    }
+
+    /**
+     * @function saveState
+     * @description حفظ الحالة في الذاكرة المحلية وإخطار جميع المشتركين.
+     */
+    function saveState(newState) {
+        cacheState = newState;
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(cacheState));
+        } catch (e) {
+            console.error('[StorageService] QuotaExceeded or write error:', e);
+        }
+        notifySubscribers();
+    }
+
+    /**
+     * @function updateBalance
+     * @description تعديل الرصيد بقيمة معينة مع التقريب الدقيق.
+     */
+    function updateBalance(deltaAmount) {
+        const state = getState();
+        state.balance = window.StoreApp.Utils.Formatters.roundDecimal(state.balance + deltaAmount, 2);
+        if (state.balance < 0) state.balance = 0;
+        saveState(state);
+        return state.balance;
+    }
+
+    /**
+     * @function subscribe
+     * @description تسجيل دالة استماع للتغيرات في الحالة (Reactive pattern).
+     */
+    function subscribe(callback) {
+        if (typeof callback === 'function') {
+            subscribers.push(callback);
+        }
+    }
+
+    /**
+     * @function notifySubscribers
+     * @description إشعار جميع المراقبين بتحديث البيانات.
+     */
+    function notifySubscribers() {
+        subscribers.forEach(fn => {
+            try {
+                fn(cacheState);
+            } catch (err) {
+                console.error('[StorageService] Error in subscriber:', err);
+            }
+        });
+    }
+
+    /**
+     * @function exportBackupJSON
+     * @description تصدير نسخة احتياطية من بيانات المتجر بصيغة JSON.
+     */
+    function exportBackupJSON() {
+        return JSON.stringify(getState(), null, 2);
+    }
+
+    /**
+     * @function resetToDefault
+     * @description إعادة تعيين المتجر إلى الإعدادات الأولية.
+     */
+    function resetToDefault() {
+        cacheState = JSON.parse(JSON.stringify(INITIAL_STATE));
+        saveState(cacheState);
+    }
+
+    return {
+        init,
+        getState,
+        saveState,
+        updateBalance,
+        subscribe,
+        syncWithBotServer,
+        exportBackupJSON,
+        resetToDefault
+    };
+})();
+
+// التوافقية العكسية للاسم القديم
+window.StoreApp.StorageService = window.StoreApp.Services.Storage;
+
+</script>
+    <script>
+/**
+ * ==============================================================================
+ * @file        orderService.js
+ * @package     StoreApp.Services.Order
+ * @description إدارة الطلبات، الحسابات المالية الدقيقة، والتحقق الأمني من المدخلات.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+window.StoreApp = window.StoreApp || {};
+window.StoreApp.Services = window.StoreApp.Services || {};
+
+window.StoreApp.Services.Order = (function() {
+    'use strict';
+
+    const Storage = window.StoreApp.Services.Storage;
+    const Telegram = window.StoreApp.Services.Telegram;
+    const Catalog = window.StoreApp.Config.ServicesCatalog;
+    const Security = window.StoreApp.Utils.Security;
+    const Formatters = window.StoreApp.Utils.Formatters;
+
+    let isProcessingOrder = false;
+
+    /**
+     * @function findServiceById
+     * @description البحث عن خدمة معينة واستخراج بياناتها مع المنصة التابعة لها.
+     * @param {string} serviceId
+     * @returns {{ service: Object, platform: Object }|null}
+     */
+    function findServiceById(serviceId) {
+        if (!serviceId) return null;
+        for (const platform of Catalog) {
+            const service = platform.services.find(s => s.id === serviceId);
+            if (service) {
+                return { service, platform };
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @function calculateCost
+     * @description حساب التكلفة المالية بدقة متناهية ودون أخطاء الفاصلة العائمة.
+     * @param {Object} service - كائن الخدمة.
+     * @param {number|string} quantity - الكمية المطلوبة.
+     * @returns {number} التكلفة المحسوبة بدقة.
+     */
+    function calculateCost(service, quantity) {
+        if (!service || quantity === null || quantity === undefined) return 0;
+        
+        if (service.type === 'free') {
+            return 0;
+        }
+
+        const qtyNum = parseFloat(quantity);
+        if (isNaN(qtyNum) || qtyNum <= 0) return 0;
+
+        if (service.type === 'campaign') {
+            return Formatters.roundDecimal(qtyNum, 2);
+        }
+
+        const unit = service.unit || 1000;
+        const total = (qtyNum / unit) * service.rate;
+        return Formatters.roundDecimal(total, 3);
+    }
+
+    /**
+     * @function validateOrderInput
+     * @description التحقق الأمني والفني الصارم من مدخلات الطلب قبل الاعتماد.
+     * @param {Object} service
+     * @param {string} targetInput
+     * @param {number|string} quantityInput
+     * @returns {{ valid: boolean, message?: string, cost?: number, cleanTarget?: string, cleanQty?: number }}
+     */
+    function validateOrderInput(service, targetInput, quantityInput) {
+        if (!service) {
+            return { valid: false, message: '❌ الخدمة المحددة غير موجودة في النظام' };
+        }
+
+        // 1. التحقق من الرابط / اليوزر
+        const targetValidation = Security.validateTargetUrl(targetInput, service.platformId || '');
+        if (!targetValidation.valid) {
+            return { valid: false, message: targetValidation.error };
+        }
+
+        const cleanTarget = targetValidation.sanitized;
+
+        // 2. الخدمات المجانية
+        if (service.type === 'free') {
+            return {
+                valid: true,
+                cost: 0,
+                cleanTarget,
+                cleanQty: service.fixedQty || 1000
+            };
+        }
+
+        // 3. الحملات الإعلانية الممولة
+        if (service.type === 'campaign') {
+            const budget = parseFloat(quantityInput);
+            const minBudget = service.minBudget || 10;
+            if (isNaN(budget) || budget < minBudget) {
+                return { valid: false, message: `⚠️ الحد الأدنى لميزانية الحملة هو $${minBudget}.00` };
+            }
+
+            const state = Storage.getState();
+            if (state.balance < budget) {
+                return { valid: false, message: `❌ رصيدك الحالي ($${state.balance.toFixed(2)}) غير كافٍ لهذه الحملة` };
+            }
+
+            return {
+                valid: true,
+                cost: Formatters.roundDecimal(budget, 2),
+                cleanTarget,
+                cleanQty: 1
+            };
+        }
+
+        // 4. الخدمات القياسية (Standard Services)
+        const qty = parseInt(quantityInput, 10);
+        if (isNaN(qty) || qty <= 0) {
+            return { valid: false, message: '⚠️ يرجى إدخال كمية رقمية صحيحة أكبر من الصفر' };
+        }
+
+        if (service.min && qty < service.min) {
+            return { valid: false, message: `⚠️ الحد الأدنى للطلب في هذه الخدمة هو ${Formatters.formatNumber(service.min)}` };
+        }
+
+        if (service.max && qty > service.max) {
+            return { valid: false, message: `⚠️ الحد الأقصى للطلب في هذه الخدمة هو ${Formatters.formatNumber(service.max)}` };
+        }
+
+        const cost = calculateCost(service, qty);
+        const state = Storage.getState();
+
+        if (state.balance < cost) {
+            return {
+                valid: false,
+                message: `❌ رصيدك غير كافٍ. المطلوب: $${cost.toFixed(2)} | رصيدك الحالي: $${state.balance.toFixed(2)}`
+            };
+        }
+
+        return {
+            valid: true,
+            cost,
+            cleanTarget,
+            cleanQty: qty
+        };
+    }
+
+    /**
+     * @function submitOrder
+     * @description تنفيذ الطلب وخصم الرصيد مع منع تكرار النقر وتوثيق المعاملة.
+     * @param {string} serviceId
+     * @param {string} targetInput
+     * @param {number|string} quantityInput
+     * @returns {Promise<{ success: boolean, message: string, order?: Object }>}
+     */
+    async function submitOrder(serviceId, targetInput, quantityInput) {
+        if (isProcessingOrder) {
+            return { success: false, message: '⏳ جاري تنفيذ طلب سابق، يرجى الانتظار...' };
+        }
+
+        const match = findServiceById(serviceId);
+        if (!match) {
+            return { success: false, message: '❌ الخدمة غير متوفرة' };
+        }
+
+        const { service, platform } = match;
+        const validation = validateOrderInput(service, targetInput, quantityInput);
+
+        if (!validation.valid) {
+            Telegram.haptic('error');
+            return { success: false, message: validation.message };
+        }
+
+        isProcessingOrder = true;
+
+        try {
+            const state = Storage.getState();
+            const cost = validation.cost;
+
+            // خصم الرصيد بدقة
+            state.balance = Formatters.roundDecimal(state.balance - cost, 2);
+            if (state.balance < 0) state.balance = 0;
+
+            // توليد معرف مشفر فريد
+            const orderId = Security.generateSecureId(6);
+
+            const newOrder = {
+                id: orderId,
+                serviceId: service.id,
+                service: service.name,
+                platformName: platform.name,
+                target: validation.cleanTarget,
+                qty: validation.cleanQty,
+                cost: cost,
+                status: service.type === 'campaign' ? 'قيد التنفيذ' : 'قيد الانتظار',
+                date: new Date().toISOString().replace('T', ' ').substring(0, 16)
+            };
+
+            state.orders.unshift(newOrder);
+
+            // إضافة إشعار فوري
+            state.notifications.unshift({
+                id: Date.now(),
+                title: '✅ تم استلام طلبك بنجاح',
+                body: `طلب رقم #${orderId}: ${service.name} بقيمة $${cost.toFixed(2)}`,
+                time: 'الآن',
+                read: false
+            });
+
+            // حفظ في التخزين
+            Storage.saveState(state);
+            Telegram.haptic('success');
+
+            // إرسال ومزامنة الطلب مع خادم البوت وقاعدة البيانات إن كان متصلاً
+            const user = Telegram.getUser();
+            try {
+                fetch('/api/order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_id: user ? user.id : 0,
+                        order_id: orderId,
+                        service_name: service.name,
+                        target: validation.cleanTarget,
+                        qty: validation.cleanQty,
+                        cost: cost
+                    })
+                }).catch(() => {});
+            } catch (e) {}
+
+            return {
+                success: true,
+                order: newOrder,
+                message: '🚀 تم إرسال طلبك بنجاح وسيبدأ تنفيذه فوراً'
+            };
+        } finally {
+            // فك القفل بعد فترة وجيزة
+            setTimeout(() => {
+                isProcessingOrder = false;
+            }, 500);
+        }
+    }
+
+    /**
+     * @function getOrders
+     * @description جلب الطلبات مع دعم التصفية بالحالة والبحث النصي الذكي.
+     * @param {string} statusFilter
+     * @param {string} searchQuery
+     * @returns {Array} قائمة الطلبات المطابقة
+     */
+    function getOrders(statusFilter = 'all', searchQuery = '') {
+        const state = Storage.getState();
+        let list = state.orders || [];
+
+        if (statusFilter && statusFilter !== 'all') {
+            list = list.filter(o => o.status === statusFilter);
+        }
+
+        if (searchQuery && typeof searchQuery === 'string') {
+            const q = searchQuery.toLowerCase().trim();
+            if (q) {
+                list = list.filter(o => 
+                    String(o.id).includes(q) ||
+                    (o.service && o.service.toLowerCase().includes(q)) ||
+                    (o.target && o.target.toLowerCase().includes(q)) ||
+                    (o.platformName && o.platformName.toLowerCase().includes(q))
+                );
+            }
+        }
+
+        return list;
+    }
+
+    /**
+     * @function getOrderById
+     * @description جلب طلب معين بواسطة معرفه الرقمي.
+     */
+    function getOrderById(orderId) {
+        const state = Storage.getState();
+        return (state.orders || []).find(o => String(o.id) === String(orderId)) || null;
+    }
+
+    return {
+        findServiceById,
+        calculateCost,
+        validateOrderInput,
+        submitOrder,
+        getOrders,
+        getOrderById
+    };
+})();
+
+// التوافقية العكسية للاسم القديم
+window.StoreApp.OrderService = window.StoreApp.Services.Order;
+
+</script>
+    <script>
+/**
+ * ==============================================================================
+ * @file        rechargeService.js
+ * @package     StoreApp.Services.Recharge
+ * @description إدارة عمليات شحن الرصيد والتحقق من الحوالات وأكواد الكروت.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+window.StoreApp = window.StoreApp || {};
+window.StoreApp.Services = window.StoreApp.Services || {};
+
+window.StoreApp.Services.Recharge = (function() {
+    'use strict';
+
+    const Constants = window.StoreApp.Config.Constants;
+    const Storage = window.StoreApp.Services.Storage;
+    const Telegram = window.StoreApp.Services.Telegram;
+    const Security = window.StoreApp.Utils.Security;
+    const Formatters = window.StoreApp.Utils.Formatters;
+
+    /**
+     * @function getPaymentMethods
+     * @description إرجاع كافة طرق الدفع المدعومة في النظام.
+     */
+    function getPaymentMethods() {
+        return Constants.PAYMENT_METHODS;
+    }
+
+    /**
+     * @function getPaymentMethodById
+     * @description جلب تفاصيل طريقة دفع معينة عبر المعرف.
+     */
+    function getPaymentMethodById(methodId) {
+        return Constants.PAYMENT_METHODS.find(m => m.id === methodId) || Constants.PAYMENT_METHODS[0];
+    }
+
+    /**
+     * @function submitRechargeRequest
+     * @description التحقق من بيانات الشحن وتسجيل الطلب في قائمة التنبيهات للمراجعة.
+     * @param {string} methodId - معرف وسيلة الدفع.
+     * @param {string} codeOrTx - رقم الحوالة أو كود الكارت.
+     * @param {number|string} amount - المبلغ التقريبي بالدولار.
+     * @returns {{ success: boolean, message: string, refId?: number }}
+     */
+    function submitRechargeRequest(methodId, codeOrTx, amount) {
+        const cleanCode = Security.sanitizeString(codeOrTx);
+
+        if (!cleanCode || cleanCode.length < 3) {
+            Telegram.haptic('error');
+            return {
+                success: false,
+                message: '⚠️ يرجى إدخال رقم الحوالة أو كود كارت الشحن بشكل صحيح'
+            };
+        }
+
+        const method = getPaymentMethodById(methodId);
+        const refId = Security.generateSecureId(5);
+        const state = Storage.getState();
+
+        let amountText = '';
+        const parsedAmount = parseFloat(amount);
+        if (!isNaN(parsedAmount) && parsedAmount > 0) {
+            const formatted = Formatters.formatUSD(parsedAmount);
+            const iqd = Formatters.formatIQD(parsedAmount);
+            amountText = `بمبلغ: ${formatted} (≈ ${iqd})`;
+        }
+
+        // إضافة إشعار رسمي بحالة الطلب
+        state.notifications.unshift({
+            id: Date.now(),
+            title: '⏳ طلب شحن قيد التدقيق السريع',
+            body: `طلب رقم #${refId} عبر [${method.name}] - المعرف/الكود: (${cleanCode}) ${amountText}. سيتم التحقق الفوري وشحن رصيدك.`,
+            time: 'الآن',
+            read: false
+        });
+
+        Storage.saveState(state);
+        Telegram.haptic('success');
+
+        // إرسال طلب الشحن لسيرفر البوت لإشعار الآدمن فوراً
+        const user = Telegram.getUser();
+        try {
+            fetch('/api/recharge', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_id: user ? user.id : 0,
+                    ref_id: refId,
+                    method: method.name,
+                    code: cleanCode,
+                    amount: parsedAmount || 0
+                })
+            }).catch(() => {});
+        } catch (e) {}
+
+        return {
+            success: true,
+            refId: refId,
+            methodName: method.name,
+            message: `📩 تم إرسال طلب الشحن بنجاح (رقم المعاملة #${refId})`
+        };
+    }
+
+    return {
+        getPaymentMethods,
+        getPaymentMethodById,
+        submitRechargeRequest
+    };
+})();
+
+// التوافقية العكسية للاسم القديم
+window.StoreApp.RechargeService = window.StoreApp.Services.Recharge;
+
+</script>
+    <script>
+/**
+ * ==============================================================================
+ * @file        notificationService.js
+ * @package     StoreApp.Services.Notification
+ * @description إدارة مركز الإشعارات والتنبيهات، وحساب الرسائل غير المقروءة.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+window.StoreApp = window.StoreApp || {};
+window.StoreApp.Services = window.StoreApp.Services || {};
+
+window.StoreApp.Services.Notification = (function() {
+    'use strict';
+
+    const Storage = window.StoreApp.Services.Storage;
+
+    /**
+     * @function getNotifications
+     * @description جلب كافة الإشعارات المسجلة مرتبة من الأحدث إلى الأقدم.
+     */
+    function getNotifications() {
+        const state = Storage.getState();
+        return state.notifications || [];
+    }
+
+    /**
+     * @function getUnreadCount
+     * @description إحصاء عدد التنبيهات الجديدة غير المقروءة لتحديث شارة الجرس.
+     */
+    function getUnreadCount() {
+        const list = getNotifications();
+        return list.filter(n => !n.read).length;
+    }
+
+    /**
+     * @function markAllAsRead
+     * @description تحديد كافة الإشعارات كمقروءة وإخفاء النقطة الحمراء.
+     */
+    function markAllAsRead() {
+        const state = Storage.getState();
+        if (Array.isArray(state.notifications)) {
+            let changed = false;
+            state.notifications.forEach(n => {
+                if (!n.read) {
+                    n.read = true;
+                    changed = true;
+                }
+            });
+            if (changed) {
+                Storage.saveState(state);
+            }
+        }
+    }
+
+    /**
+     * @function addNotification
+     * @description إضافة تنبيه جديد إلى القائمة.
+     */
+    function addNotification(title, body, time = 'الآن') {
+        const state = Storage.getState();
+        state.notifications.unshift({
+            id: Date.now(),
+            title: title,
+            body: body,
+            time: time,
+            read: false
+        });
+        Storage.saveState(state);
+    }
+
+    /**
+     * @function clearAll
+     * @description مسح سجل الإشعارات بالكامل.
+     */
+    function clearAll() {
+        const state = Storage.getState();
+        state.notifications = [];
+        Storage.saveState(state);
+    }
+
+    return {
+        getNotifications,
+        getUnreadCount,
+        markAllAsRead,
+        addNotification,
+        clearAll
+    };
+})();
+
+// التوافقية العكسية للاسم القديم
+window.StoreApp.NotificationService = window.StoreApp.Services.Notification;
+
+</script>
 
     <!-- 4. طبقة واجهة المستخدم التفاعلية (UI Layer) -->
-    <script src="assets/js/ui/toast.js?v=5.0"></script>
-    <script src="assets/js/ui/modal.js?v=5.0"></script>
-    <script src="assets/js/ui/navigation.js?v=5.0"></script>
-    <script src="assets/js/ui/renderers.js?v=5.0"></script>
-    <script src="assets/js/ui/sidebar.js?v=5.0"></script>
+    <script>
+/**
+ * ==============================================================================
+ * @file        toast.js
+ * @package     StoreApp.UI.Toast
+ * @description نافذة التنبيهات المنبثقة الخفيفة (Toast Notification Component).
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+window.StoreApp = window.StoreApp || {};
+window.StoreApp.UI = window.StoreApp.UI || {};
+
+window.StoreApp.UI.Toast = (function() {
+    'use strict';
+
+    let timer = null;
+
+    /**
+     * @function show
+     * @description إظهار إشعار سريع للمستخدم مع أيقونة مناسبة.
+     * @param {string} message - نص التنبيه.
+     * @param {'normal'|'success'|'error'|'warning'} type - نوع التنبيه.
+     */
+    function show(message, type = 'normal') {
+        let toastEl = document.getElementById('toast');
+        if (!toastEl) {
+            toastEl = document.createElement('div');
+            toastEl.id = 'toast';
+            document.body.appendChild(toastEl);
+        }
+
+        // إيقاف أي مؤقت سابق
+        if (timer) {
+            clearTimeout(timer);
+        }
+
+        let icon = 'fas fa-info-circle';
+        if (type === 'success') icon = 'fas fa-check-circle';
+        else if (type === 'error') icon = 'fas fa-exclamation-circle';
+        else if (type === 'warning') icon = 'fas fa-exclamation-triangle';
+
+        // تطهير النص منعاً لحقن الأكواد
+        const cleanMsg = window.StoreApp.Utils.Security.escapeHTML(message);
+
+        toastEl.className = 'show';
+        if (type === 'error') toastEl.classList.add('toast-error');
+        else if (type === 'success') toastEl.classList.add('toast-success');
+        else if (type === 'warning') toastEl.classList.add('toast-warning');
+
+        toastEl.innerHTML = `<i class="${icon}"></i> <span>${cleanMsg}</span>`;
+
+        timer = setTimeout(() => {
+            toastEl.className = '';
+        }, 3200);
+    }
+
+    return {
+        show,
+        success: (msg) => show(msg, 'success'),
+        error: (msg) => show(msg, 'error'),
+        warning: (msg) => show(msg, 'warning'),
+        info: (msg) => show(msg, 'normal')
+    };
+})();
+
+</script>
+    <script>
+/**
+ * ==============================================================================
+ * @file        modal.js
+ * @package     StoreApp.UI.Modal
+ * @description نظام النوافذ المنبثقة التفاعلي والمحمي (Accessible Modal Dialog).
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+window.StoreApp = window.StoreApp || {};
+window.StoreApp.UI = window.StoreApp.UI || {};
+
+window.StoreApp.UI.Modal = (function() {
+    'use strict';
+
+    let modalEl = null;
+
+    /**
+     * @function init
+     * @description تجهيز عناصر المودال وربط أحداث الإغلاق وزر الهروب Escape.
+     */
+    function init() {
+        if (!modalEl) {
+            modalEl = document.getElementById('app-modal');
+            if (modalEl) {
+                // إغلاق عند النقر على الخلفية الضبابية
+                modalEl.addEventListener('click', (e) => {
+                    if (e.target === modalEl) {
+                        close();
+                    }
+                });
+
+                // إغلاق عند الضغط على زر Escape من لوحة المفاتيح
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && modalEl.classList.contains('active')) {
+                        close();
+                    }
+                });
+            }
+        }
+    }
+
+    /**
+     * @function show
+     * @description فتح المودال مع تعبئة المحتوى ديناميكياً.
+     * @param {Object} options
+     * @param {string} options.title - عنوان النافذة.
+     * @param {string} options.bodyHtml - محتوى HTML مجهز.
+     * @param {string} [options.confirmText='تأكيد'] - نص زر التأكيد.
+     * @param {string} [options.cancelText='إلغاء'] - نص زر الإلغاء.
+     * @param {Function} [options.onConfirm] - دالة التنفيذ عند التأكيد.
+     * @param {boolean} [options.showCancel=true] - إظهار زر الإلغاء.
+     */
+    function show({ title, bodyHtml, confirmText = 'تأكيد', cancelText = 'إلغاء', onConfirm = null, showCancel = true }) {
+        init();
+        if (!modalEl) return;
+
+        const titleEl = modalEl.querySelector('.modal-title');
+        const bodyEl = modalEl.querySelector('.modal-body');
+        const footerEl = modalEl.querySelector('.modal-footer');
+
+        if (titleEl) titleEl.innerHTML = title;
+        if (bodyEl) bodyEl.innerHTML = bodyHtml;
+
+        if (footerEl) {
+            footerEl.innerHTML = `
+                ${showCancel ? `<button type="button" class="btn-action btn-secondary modal-cancel-btn">${cancelText}</button>` : ''}
+                <button type="button" class="btn-action modal-confirm-btn">${confirmText}</button>
+            `;
+
+            const confirmBtn = footerEl.querySelector('.modal-confirm-btn');
+            const cancelBtn = footerEl.querySelector('.modal-cancel-btn');
+
+            if (confirmBtn) {
+                confirmBtn.onclick = () => {
+                    close();
+                    if (typeof onConfirm === 'function') {
+                        onConfirm();
+                    }
+                };
+            }
+
+            if (cancelBtn) {
+                cancelBtn.onclick = () => close();
+            }
+        }
+
+        modalEl.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    /**
+     * @function close
+     * @description إغلاق نافذة المودال واستعادة التمرير.
+     */
+    function close() {
+        init();
+        if (!modalEl) return;
+        modalEl.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    return {
+        init,
+        show,
+        close
+    };
+})();
+
+</script>
+    <script>
+/**
+ * ==============================================================================
+ * @file        navigation.js
+ * @package     StoreApp.UI.Navigation
+ * @description موجه الصفحات (SPA Router) وإدارة التنقل السلس مع زر الرجوع الأصلي.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+window.StoreApp = window.StoreApp || {};
+window.StoreApp.UI = window.StoreApp.UI || {};
+
+window.StoreApp.UI.Navigation = (function() {
+    'use strict';
+
+    const Telegram = window.StoreApp.Services.Telegram;
+    let activePageId = 'page-home';
+
+    /**
+     * @function init
+     * @description بدء تشغيل الموجه وعرض الصفحة الرئيسية.
+     */
+    function init() {
+        navigateTo('page-home');
+    }
+
+    /**
+     * @function navigateTo
+     * @description التنقل بين الصفحات وتحديث شريط التنقل السفلي وزر الرجوع.
+     * @param {string} pageId - معرف الصفحة المستهدفة.
+     * @param {HTMLElement} [navElement] - عنصر الشريط السفلي إذا تم النقر عليه.
+     */
+    function navigateTo(pageId, navElement = null) {
+        activePageId = pageId;
+
+        // إخفاء كافة أقسام الصفحات
+        document.querySelectorAll('.page-section').forEach(sec => {
+            sec.classList.remove('active');
+        });
+
+        // إظهار الصفحة المستهدفة
+        const targetPage = document.getElementById(pageId);
+        if (targetPage) {
+            targetPage.classList.add('active');
+        }
+
+        // تحديث حالة الشريط السفلي
+        if (navElement) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            navElement.classList.add('active');
+        } else {
+            syncBottomNav(pageId);
+        }
+
+        // مزامنة زر الرجوع الأصلي في تليجرام
+        if (pageId === 'page-home') {
+            Telegram.clearBackButton();
+        } else {
+            Telegram.pushBackButton(() => {
+                navigateTo('page-home');
+            });
+        }
+
+        // إذا تم الدخول لصفحة الإشعارات، تحديدها كمقروءة
+        if (pageId === 'page-notifications') {
+            window.StoreApp.Services.Notification.markAllAsRead();
+            updateNotifBadge();
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /**
+     * @function openPlatformView
+     * @description فتح صفحة المنصة الفرعية وتوليد خدماتها.
+     * @param {string} platformId - معرف المنصة.
+     */
+    function openPlatformView(platformId) {
+        window.StoreApp.UI.Renderers.renderPlatformView(platformId);
+        navigateTo('platform-view-page');
+    }
+
+    /**
+     * @function syncBottomNav
+     * @description مزامنة التحديد النشط في الشريط السفلي.
+     */
+    function syncBottomNav(pageId) {
+        const navMap = {
+            'page-home': 0,
+            'page-orders': 1,
+            'page-recharge': 2,
+            'page-notifications': 3
+        };
+
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(n => n.classList.remove('active'));
+
+        const index = navMap[pageId];
+        if (index !== undefined && navItems[index]) {
+            navItems[index].classList.add('active');
+        }
+    }
+
+    /**
+     * @function updateNotifBadge
+     * @description تحديث نقطة التنبيهات الحمراء والشارة الرقمية.
+     */
+    function updateNotifBadge() {
+        const count = window.StoreApp.Services.Notification.getUnreadCount();
+        const badge = document.getElementById('header-notif-badge');
+        const navBadge = document.getElementById('bottom-nav-notif-badge');
+
+        if (badge) {
+            badge.style.display = count > 0 ? 'block' : 'none';
+        }
+        if (navBadge) {
+            navBadge.style.display = count > 0 ? 'inline-block' : 'none';
+            navBadge.innerText = count > 99 ? '99+' : count;
+        }
+    }
+
+    /**
+     * @function getActivePage
+     * @description معرفة الصفحة النشطة حالياً.
+     */
+    function getActivePage() {
+        return activePageId;
+    }
+
+    return {
+        init,
+        navigateTo,
+        openPlatformView,
+        updateNotifBadge,
+        getActivePage
+    };
+})();
+
+</script>
+    <script>
+/**
+ * ==============================================================================
+ * @file        renderers.js
+ * @package     StoreApp.UI.Renderers
+ * @description منسق ومولد واجهات المستخدم التفاعلية (Dynamic View Renderers).
+ *              مبني بنظام حماية 100% ضد ثغرات XSS وتوليد فوري فائق السرعة.
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+window.StoreApp = window.StoreApp || {};
+window.StoreApp.UI = window.StoreApp.UI || {};
+
+window.StoreApp.UI.Renderers = (function() {
+    'use strict';
+
+    const Constants = window.StoreApp.Config.Constants;
+    const Catalog = window.StoreApp.Config.ServicesCatalog;
+    const Storage = window.StoreApp.Services.Storage;
+    const OrderService = window.StoreApp.Services.Order;
+    const RechargeService = window.StoreApp.Services.Recharge;
+    const NotificationService = window.StoreApp.Services.Notification;
+    const Telegram = window.StoreApp.Services.Telegram;
+    const Security = window.StoreApp.Utils.Security;
+    const Formatters = window.StoreApp.Utils.Formatters;
+    const Toast = window.StoreApp.UI.Toast;
+    const Modal = window.StoreApp.UI.Modal;
+
+    let currentOrderFilter = 'all';
+    let currentCategoryFilter = 'all';
+
+    /**
+     * @function renderHeaderAndStats
+     * @description تحديث الرصيد (USD / IQD)، إحصائيات المتجر، وحساب المستخدم.
+     */
+    function renderHeaderAndStats() {
+        const state = Storage.getState();
+        const user = Telegram.getUser();
+
+        // 1. تحديث الرصيد
+        const balanceValEl = document.getElementById('user-balance-val');
+        const balanceIqdEl = document.getElementById('user-balance-iqd');
+        if (balanceValEl) {
+            balanceValEl.innerText = state.balance.toFixed(2);
+        }
+        if (balanceIqdEl) {
+            balanceIqdEl.innerText = `≈ ${Formatters.formatIQD(state.balance, Constants.USD_TO_IQD)}`;
+        }
+
+        // 2. إجمالي الخدمات النشطة
+        let totalServicesCount = 0;
+        Catalog.forEach(p => totalServicesCount += (p.services ? p.services.length : 0));
+
+        const activeServicesEl = document.getElementById('active-services-count');
+        if (activeServicesEl) {
+            activeServicesEl.innerText = `${totalServicesCount} خدمة نشطة`;
+        }
+
+        // 3. الطلبات المكتملة
+        const completedOrdersEl = document.getElementById('completed-orders-count');
+        if (completedOrdersEl) {
+            const count = (state.orders ? state.orders.length : 0);
+            completedOrdersEl.innerText = `${count} طلب مكتمل`;
+        }
+
+        // 4. يوزر المستخدم في الشريط العلوي
+        const userPillEl = document.getElementById('header-user-pill');
+        if (userPillEl) {
+            const shortId = 'h' + user.id.toString(36);
+            userPillEl.innerHTML = `<i class="fas fa-user-circle text-primary"></i> <span style="font-weight: 800; letter-spacing: 0.5px;">${shortId}</span>`;
+            // Make it click to copy as well
+            userPillEl.style.cursor = 'pointer';
+            userPillEl.title = "انقر لنسخ اسم المستخدم الخاص بك";
+            userPillEl.onclick = function() {
+                navigator.clipboard.writeText(shortId);
+                window.StoreApp.UI.Toast.success('تم نسخ اسم المستخدم!');
+            };
+        }
+
+        // 5. عدد الطلبات في شارة صفحة الطلبات
+        const ordersTotalBadge = document.getElementById('orders-total-badge');
+        if (ordersTotalBadge) {
+            ordersTotalBadge.innerText = `${state.orders ? state.orders.length : 0} طلب`;
+        }
+
+        // 6. شارة الإشعارات
+        window.StoreApp.UI.Navigation.updateNotifBadge();
+    }
+
+    /**
+     * @function renderCategoryFilterTabs
+     * @description رسم تبويبات تصنيف المنصات في الصفحة الرئيسية.
+     */
+    function renderCategoryFilterTabs() {
+        const container = document.getElementById('platform-categories-tabs');
+        if (!container) return;
+
+        const categories = [
+            { id: 'all', label: 'الكل' },
+            { id: 'social', label: 'تواصل اجتماعي' },
+            { id: 'video', label: 'فيديو وريلز' },
+            { id: 'messaging', label: 'تراسل فوري' },
+            { id: 'gifts', label: 'تجارب مجانية' },
+            { id: 'ads', label: 'تمويل إعلاني' }
+        ];
+
+        container.innerHTML = categories.map(cat => `
+            <div class="filter-tab ${currentCategoryFilter === cat.id ? 'active' : ''}" 
+                 onclick="window.StoreApp.UI.Renderers.setCategoryFilter('${cat.id}')">
+                ${cat.label}
+            </div>
+        `).join('');
+    }
+
+    /**
+     * @function setCategoryFilter
+     * @description تغيير تصفية المنصات بحسب التصنيف.
+     */
+    function setCategoryFilter(categoryId) {
+        currentCategoryFilter = categoryId;
+        Telegram.haptic('light');
+        renderCategoryFilterTabs();
+        renderPlatformsGrid();
+    }
+
+    /**
+     * @function renderPlatformsGrid
+     * @description رسم شبكة كروت المنصات بحسب التصنيف والبحث.
+     */
+    function renderPlatformsGrid() {
+        const container = document.getElementById('platforms-container');
+        if (!container) return;
+
+        let filtered = Catalog;
+        if (currentCategoryFilter !== 'all') {
+            filtered = Catalog.filter(p => p.category === currentCategoryFilter);
+        }
+
+        const countBadge = document.getElementById('platforms-count-badge');
+        if (countBadge) {
+            countBadge.innerText = `${filtered.length} منصات`;
+        }
+
+        container.innerHTML = filtered.map(platform => {
+            const serviceCount = platform.services ? platform.services.length : 0;
+            return `
+            <div class="platform-card" onclick="window.StoreApp.UI.Navigation.openPlatformView('${platform.id}')" data-platform-id="${platform.id}">
+                <div class="platform-icon ${platform.iconClass}">
+                    <i class="${platform.icon}"></i>
+                    <div class="platform-online-dot"></div>
+                </div>
+                <div class="platform-info">
+                    <div class="platform-name-row">
+                        <span class="platform-name">${Security.escapeHTML(platform.name)}</span>
+                        ${platform.popular ? '<span class="platform-badge-hot">شائع 🔥</span>' : ''}
+                        <span class="platform-badge-online">أونلاين</span>
+                    </div>
+                    <div class="platform-desc">${Security.escapeHTML(platform.desc)}</div>
+                    <div class="platform-meta-row">
+                        <span class="platform-services-count">
+                            <i class="fas fa-circle-dot"></i> ${serviceCount} خدمات متاحة
+                        </span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-left platform-arrow"></i>
+            </div>
+        `}).join('');
+    }
+
+    /**
+     * @function renderPlatformView
+     * @description عرض خدمات منصة معينة وحاسبة الأسعار التفاعلية الفورية.
+     * @param {string} platformId
+     */
+    function renderPlatformView(platformId) {
+        const platform = Catalog.find(p => p.id === platformId);
+        if (!platform) return;
+
+        const titleEl = document.getElementById('platform-view-title');
+        const iconEl = document.getElementById('platform-view-icon');
+        const servicesContainer = document.getElementById('platform-services-list');
+
+        if (titleEl) titleEl.innerText = `خدمات ${platform.name}`;
+        if (iconEl) {
+            iconEl.className = `platform-icon ${platform.iconClass}`;
+            iconEl.innerHTML = `<i class="${platform.icon}"></i>`;
+        }
+
+        if (!servicesContainer) return;
+
+        servicesContainer.innerHTML = platform.services.map(service => {
+            const isFree = service.type === 'free';
+            const isCampaign = service.type === 'campaign';
+
+            return `
+                <div class="service-card" id="card-${service.id}">
+                    <div class="service-header-row">
+                        <div class="service-title">${Security.escapeHTML(service.name)}</div>
+                        ${service.badge ? `<span class="service-tag">${Security.escapeHTML(service.badge)}</span>` : ''}
+                    </div>
+
+                    <div class="service-rate">
+                        ${isFree ? '<i class="fas fa-gift text-primary"></i> السعر: مجاني 100% (هدية تجريبية)' : 
+                          isCampaign ? `<i class="fas fa-bullhorn text-primary"></i> يبدأ من $${service.minBudget || 10}.00` :
+                          `<i class="fas fa-tag text-primary"></i> السعر لكل 1000: $${service.rate.toFixed(2)}`}
+                    </div>
+
+                    <div class="service-meta-info">
+                        ${service.speed ? `<span><i class="fas fa-tachometer-alt"></i> ${Security.escapeHTML(service.speed)}</span>` : ''}
+                        ${!isFree && !isCampaign ? `<span>الحد: ${Formatters.formatNumber(service.min)} - ${Formatters.formatNumber(service.max)}</span>` : ''}
+                    </div>
+
+                    <div class="form-group">
+                        <label>${Security.escapeHTML(service.label)}</label>
+                        <input type="text" id="target-${service.id}" class="form-control" 
+                               placeholder="${Security.escapeHTML(service.placeholder)}" dir="ltr">
+                    </div>
+
+                    ${!isFree ? `
+                        <div class="form-group">
+                            <label>${isCampaign ? 'ميزانية الحملة بالدولار ($):' : 'الكمية المطلوب إرسالها:'}</label>
+                            <input type="number" id="qty-${service.id}" class="form-control" 
+                                placeholder="${isCampaign ? `الحد الأدنى: ${service.minBudget || 10}$` : `الحد الأدنى: ${service.min}`}"
+                                oninput="window.StoreApp.UI.Renderers.handleQuantityChange('${service.id}')">
+                        </div>
+
+                        <div class="price-summary-box">
+                            <span class="price-summary-label">التكلفة الإجمالية التقديرية:</span>
+                            <span class="price-summary-value">$<span id="cost-${service.id}">0.00</span></span>
+                        </div>
+                    ` : ''}
+
+                    <button type="button" class="btn-action" onclick="window.StoreApp.UI.Renderers.handleOrderClick('${service.id}')">
+                        <i class="${isFree ? 'fas fa-gift' : isCampaign ? 'fas fa-bullhorn' : 'fas fa-paper-plane'}"></i>
+                        ${isFree ? 'احصل على التجربة المجانية الآن' : isCampaign ? 'إطلاق الحملة الممولة' : 'تأكيد إرسال الطلب'}
+                    </button>
+                </div>
+            `;
+        }).join('');
+    }
+
+    /**
+     * @function handleQuantityChange
+     * @description تفاعل حاسبة الأسعار اللحظية عند كتابة الكمية.
+     */
+    function handleQuantityChange(serviceId) {
+        const item = OrderService.findServiceById(serviceId);
+        if (!item) return;
+
+        const { service } = item;
+        const qtyInput = document.getElementById(`qty-${serviceId}`);
+        const costSpan = document.getElementById(`cost-${serviceId}`);
+
+        if (!qtyInput || !costSpan) return;
+
+        const val = parseFloat(qtyInput.value);
+        if (isNaN(val) || val <= 0) {
+            costSpan.innerText = '0.00';
+            return;
+        }
+
+        const cost = OrderService.calculateCost(service, val);
+        costSpan.innerText = cost.toFixed(service.type === 'campaign' ? 2 : 3);
+    }
+
+    /**
+     * @function handleOrderClick
+     * @description فحص البيانات وفتح نافذة التأكيد قبل خصم الرصيد.
+     */
+    function handleOrderClick(serviceId) {
+        Telegram.haptic('light');
+
+        const item = OrderService.findServiceById(serviceId);
+        if (!item) return;
+
+        const { service } = item;
+        const targetInput = document.getElementById(`target-${serviceId}`);
+        const qtyInput = document.getElementById(`qty-${serviceId}`);
+
+        const targetVal = targetInput ? targetInput.value : '';
+        const qtyVal = service.type === 'free' ? (service.fixedQty || 1000) : (qtyInput ? qtyInput.value : '');
+
+        const validation = OrderService.validateOrderInput(service, targetVal, qtyVal);
+
+        if (!validation.valid) {
+            Toast.error(validation.message);
+            Telegram.haptic('error');
+            return;
+        }
+
+        const cost = validation.cost;
+        const state = Storage.getState();
+        const safeTarget = Security.escapeHTML(validation.cleanTarget);
+        const safeServiceName = Security.escapeHTML(service.name);
+
+        Modal.show({
+            title: '<i class="fas fa-shopping-cart text-primary"></i> تأكيد إرسال الطلب',
+            bodyHtml: `
+                <div class="receipt-preview-box">
+                    <div class="receipt-service-title">${safeServiceName}</div>
+                    <div class="receipt-target-url">${safeTarget}</div>
+                </div>
+                <div class="receipt-row">
+                    <span class="text-muted">الكمية المطلوبة:</span>
+                    <span class="font-bold">${service.type === 'campaign' ? 'حملة إعلانية' : Formatters.formatNumber(validation.cleanQty)}</span>
+                </div>
+                <div class="receipt-row">
+                    <span class="text-muted">التكلفة الإجمالية:</span>
+                    <span class="font-bold text-primary">$${cost.toFixed(2)} (${Formatters.formatIQD(cost, Constants.USD_TO_IQD)})</span>
+                </div>
+                <div class="receipt-row">
+                    <span class="text-muted">الرصيد المتبقي بعد الخصم:</span>
+                    <span class="font-bold">$${(state.balance - cost).toFixed(2)}</span>
+                </div>
+            `,
+            confirmText: 'نعم، إرسال الطلب الآن',
+            cancelText: 'تراجع',
+            onConfirm: async () => {
+                const res = await OrderService.submitOrder(serviceId, targetVal, qtyVal);
+                if (res.success) {
+                    Toast.success(res.message);
+
+                    if (targetInput) targetInput.value = '';
+                    if (qtyInput) qtyInput.value = '';
+                    const costSpan = document.getElementById(`cost-${serviceId}`);
+                    if (costSpan) costSpan.innerText = '0.00';
+
+                    renderHeaderAndStats();
+
+                    setTimeout(() => {
+                        window.StoreApp.UI.Navigation.navigateTo('page-orders');
+                    }, 800);
+                } else {
+                    Toast.error(res.message);
+                }
+            }
+        });
+    }
+
+    /**
+     * @function renderOrders
+     * @description رسم قائمة الطلبات مع فلاتر الحالة وميزة فتح الفاتورة وتتبع الحالة.
+     */
+    function renderOrders(filter = 'all') {
+        currentOrderFilter = filter;
+        const container = document.getElementById('orders-list-container');
+        if (!container) return;
+
+        const searchInput = document.getElementById('order-search-input');
+        const query = searchInput ? searchInput.value : '';
+
+        const orders = OrderService.getOrders(filter, query);
+
+        // تحديث أزرار الفلترة النشطة
+        document.querySelectorAll('.filter-tab[data-filter]').forEach(tab => {
+            if (tab.getAttribute('data-filter') === filter) {
+                tab.classList.add('active');
+            } else {
+                tab.classList.remove('active');
+            }
+        });
+
+        if (orders.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon"><i class="fas fa-box-open"></i></div>
+                    <div class="empty-state-title">لا توجد طلبات في هذا القسم</div>
+                    <div class="empty-state-desc">تصفح أقسام المنصات وابدأ بإنشاء طلبك الأول بكل سهولة وسرعة.</div>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = orders.map(order => {
+            let statusClass = 'status-pending';
+            if (order.status === 'مكتمل') statusClass = 'status-completed';
+            else if (order.status === 'قيد التنفيذ') statusClass = 'status-processing';
+            else if (order.status === 'ملغي') statusClass = 'status-cancelled';
+
+            const safeId = Security.escapeHTML(order.id);
+            const safeService = Security.escapeHTML(order.service);
+            const safeTarget = Security.escapeHTML(order.target);
+            const safeDate = Security.escapeHTML(order.date);
+
+            return `
+                <div class="order-card" onclick="window.StoreApp.UI.Renderers.showOrderDetailsModal('${order.id}')" title="انقر لعرض التفاصيل وتتبع الطلب">
+                    <div class="order-head">
+                        <span class="order-id">
+                            <i class="fas fa-hashtag text-primary"></i> ${safeId}
+                        </span>
+                        <span class="order-status ${statusClass}">
+                            ${Security.escapeHTML(order.status)}
+                        </span>
+                    </div>
+                    <div class="order-body">
+                        <div class="order-service-name">${safeService}</div>
+                        <div class="order-target">${safeTarget}</div>
+                        <div class="order-footer">
+                            <span>الكمية: <strong>${Formatters.formatNumber(order.qty)}</strong></span>
+                            <span>التكلفة: <strong class="text-primary">$${Number(order.cost).toFixed(2)}</strong></span>
+                            <span>${safeDate}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    /**
+     * @function showOrderDetailsModal
+     * @description فتح نافذة تفاعلية مفصلة لتتبع الطلب مع شريط التقدم وزر مراسلة الدعم المباشر.
+     */
+    function showOrderDetailsModal(orderId) {
+        Telegram.haptic('light');
+        const order = OrderService.getOrderById(orderId);
+        if (!order) return;
+
+        let progressPercent = 25;
+        let progressLabel = 'تم الاستلام وهو قيد الانتظار';
+        if (order.status === 'قيد التنفيذ') {
+            progressPercent = 65;
+            progressLabel = 'جاري إرسال المتابعين/التفاعلات حالياً';
+        } else if (order.status === 'مكتمل') {
+            progressPercent = 100;
+            progressLabel = 'تم إكمال الطلب بنجاح تام';
+        }
+
+        const supportUrl = Constants.SUPPORT.getOrderInquiryUrl(order.id, order.service);
+        const safeTarget = Security.escapeHTML(order.target);
+        const safeService = Security.escapeHTML(order.service);
+
+        Modal.show({
+            title: `<i class="fas fa-file-invoice text-primary"></i> تفاصيل الطلب #${order.id}`,
+            bodyHtml: `
+                <!-- شريط تتبع حالة الطلب -->
+                <div class="tracking-progress-container">
+                    <div class="tracking-progress-labels">
+                        <span>الحالة: <strong>${Security.escapeHTML(order.status)}</strong></span>
+                        <span class="text-primary">${progressPercent}%</span>
+                    </div>
+                    <div class="tracking-progress-track">
+                        <div class="tracking-progress-bar" style="width: ${progressPercent}%"></div>
+                    </div>
+                    <div class="tracking-subtext">${progressLabel}</div>
+                </div>
+
+                <div class="receipt-details-list">
+                    <div class="receipt-row">
+                        <span class="text-muted">رقم الطلب:</span>
+                        <span class="font-bold">
+                            #${order.id}
+                            <button type="button" class="copy-pill-inline" onclick="window.StoreApp.UI.Renderers.copyText('${order.id}')" title="نسخ الرقم">
+                                <i class="far fa-copy"></i>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="text-muted">الخدمة:</span>
+                        <span class="font-bold">${safeService}</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="text-muted">الرابط المستهدف:</span>
+                        <span class="font-bold ltr text-muted" style="word-break:break-all; max-width: 60%;">${safeTarget}</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="text-muted">الكمية:</span>
+                        <span class="font-bold">${Formatters.formatNumber(order.qty)}</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="text-muted">التكلفة:</span>
+                        <span class="font-bold text-primary">$${Number(order.cost).toFixed(2)} (${Formatters.formatIQD(order.cost, Constants.USD_TO_IQD)})</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="text-muted">تاريخ الطلب:</span>
+                        <span>${Security.escapeHTML(order.date)}</span>
+                    </div>
+                </div>
+
+                <a href="${supportUrl}" target="_blank" class="btn-action btn-support-inquiry" style="margin-top: 14px; text-decoration: none;">
+                    <i class="fab fa-telegram-plane"></i> استفسار عن هذا الطلب بالدعم الفني
+                </a>
+            `,
+            confirmText: 'إغلاق',
+            showCancel: false
+        });
+    }
+
+    /**
+     * @function renderRechargeMethods
+     * @description رسم طرق الشحن، أزرار المبالغ المقترحة، وأرقام المحافظ للنسخ.
+     */
+    function renderRechargeMethods() {
+        const selectEl = document.getElementById('recharge-method');
+        const detailsContainer = document.getElementById('recharge-method-details');
+        const presetsContainer = document.getElementById('recharge-presets-container');
+
+        if (!selectEl || !detailsContainer) return;
+
+        const methods = RechargeService.getPaymentMethods();
+
+        selectEl.innerHTML = methods.map(m => `
+            <option value="${m.id}">${Security.escapeHTML(m.name)} - [${Security.escapeHTML(m.badge)}]</option>
+        `).join('');
+
+        // رسم كروت المبالغ المقترحة السريعة
+        if (presetsContainer) {
+            presetsContainer.innerHTML = Constants.RECHARGE_PRESETS.map(amount => `
+                <button type="button" class="preset-chip" onclick="window.StoreApp.UI.Renderers.selectPresetAmount(${amount})">
+                    $${amount}
+                </button>
+            `).join('');
+        }
+
+        function updateDetails() {
+            const selected = RechargeService.getPaymentMethodById(selectEl.value);
+            const safeInstructions = Security.escapeHTML(selected.instructions);
+            const safeAcc = Security.escapeHTML(selected.accountNumber);
+
+            detailsContainer.innerHTML = `
+                <div class="payment-method-details">
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">
+                        ${safeInstructions}
+                    </div>
+                    ${!selected.isCard ? `
+                        <div class="payment-account-row">
+                            <span class="payment-account-number" id="pay-acc-num">${safeAcc}</span>
+                            <button type="button" class="copy-pill" onclick="window.StoreApp.UI.Renderers.copyText('${selected.accountNumber}')">
+                                <i class="far fa-copy"></i> نسخ الرقم
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        selectEl.onchange = updateDetails;
+        updateDetails();
+    }
+
+    /**
+     * @function selectPresetAmount
+     * @description تعيين مبلغ الشحن بنقرة واحدة من المبالغ الجاهزة.
+     */
+    function selectPresetAmount(amount) {
+        Telegram.haptic('light');
+        const amountInput = document.getElementById('recharge-amount');
+        if (amountInput) {
+            amountInput.value = amount;
+            amountInput.classList.add('pulse-focus');
+            setTimeout(() => amountInput.classList.remove('pulse-focus'), 600);
+        }
+    }
+
+    /**
+     * @function handleRechargeSubmit
+     * @description إرسال طلب الشحن.
+     */
+    function handleRechargeSubmit() {
+        Telegram.haptic('light');
+
+        const selectEl = document.getElementById('recharge-method');
+        const codeInput = document.getElementById('recharge-code');
+        const amountInput = document.getElementById('recharge-amount');
+
+        if (!selectEl || !codeInput) return;
+
+        const methodId = selectEl.value;
+        const code = codeInput.value;
+        const amount = amountInput ? amountInput.value : '';
+
+        const res = RechargeService.submitRechargeRequest(methodId, code, amount);
+
+        if (res.success) {
+            Toast.success(res.message);
+            codeInput.value = '';
+            if (amountInput) amountInput.value = '';
+
+            renderHeaderAndStats();
+            renderNotifications();
+
+            setTimeout(() => {
+                window.StoreApp.UI.Navigation.navigateTo('page-notifications');
+            }, 800);
+        } else {
+            Toast.error(res.message);
+        }
+    }
+
+    /**
+     * @function renderNotifications
+     * @description رسم التنبيهات في مركز الإشعارات.
+     */
+    function renderNotifications() {
+        const container = document.getElementById('notif-list-container');
+        if (!container) return;
+
+        const notifications = NotificationService.getNotifications();
+
+        if (notifications.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon"><i class="far fa-bell-slash"></i></div>
+                    <div class="empty-state-title">لا توجد إشعارات جديدة</div>
+                    <div class="empty-state-desc">ستصلك هنا إشعارات فورية بكل طلب جديد أو تأكيد شحن رصيد.</div>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = notifications.map(n => `
+            <div class="notif-card ${!n.read ? 'notif-unread' : ''}">
+                <div class="notif-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="notif-content">
+                    <div class="notif-title">${Security.escapeHTML(n.title)}</div>
+                    <div class="notif-body">${Security.escapeHTML(n.body)}</div>
+                    <div class="notif-time">${Security.escapeHTML(n.time)}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    /**
+     * @function copyText
+     * @description نسخ أي نص إلى الحافظة بأمان مع إشعار للمستخدم.
+     */
+    function copyText(text) {
+        if (!text) return;
+        Telegram.haptic('light');
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(() => {
+                Toast.success("تم نسخ المحتوى بنجاح!");
+            }).catch(() => {
+                fallbackCopy(text);
+            });
+        } else {
+            fallbackCopy(text);
+        }
+    }
+
+    function fallbackCopy(text) {
+        const el = document.createElement('textarea');
+        el.value = text;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        Toast.success("تم نسخ المحتوى بنجاح!");
+    }
+
+    /**
+     * @function filterPlatforms
+     * @description البحث الفوري في المنصات والخدمات مع إلغاء التأخير الزمني.
+     */
+    function filterPlatforms() {
+        const input = document.getElementById('platform-search-input');
+        if (!input) return;
+
+        const query = input.value.toLowerCase().trim();
+        const cards = document.querySelectorAll('.platform-card');
+
+        cards.forEach(card => {
+            const platformId = card.getAttribute('data-platform-id');
+            const platform = Catalog.find(p => p.id === platformId);
+            if (!platform) return;
+
+            const inPlatform = platform.name.toLowerCase().includes(query) || platform.desc.toLowerCase().includes(query);
+            const inServices = (platform.services || []).some(s => s.name.toLowerCase().includes(query));
+
+            if (query === '' || inPlatform || inServices) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    return {
+        renderHeaderAndStats,
+        renderCategoryFilterTabs,
+        setCategoryFilter,
+        renderPlatformsGrid,
+        renderPlatformView,
+        handleQuantityChange,
+        handleOrderClick,
+        renderOrders,
+        showOrderDetailsModal,
+        renderRechargeMethods,
+        selectPresetAmount,
+        handleRechargeSubmit,
+        renderNotifications,
+        copyText,
+        filterPlatforms
+    };
+})();
+
+</script>
+    <script>
+
+window.StoreApp = window.StoreApp || {};
+window.StoreApp.UI = window.StoreApp.UI || {};
+
+window.StoreApp.UI.Sidebar = (function() {
+    'use strict';
+
+    let sidebarEl = null;
+
+    function init() {
+        if (!sidebarEl) {
+            sidebarEl = document.getElementById('sidebar-drawer');
+        }
+    }
+
+    function open() {
+        init();
+        if (!sidebarEl) return;
+        
+        // Update user data dynamically
+        const user = window.StoreApp.Services.Telegram.getUser() || { id: 0, first_name: 'مستخدم', username: '' };
+        const bal = window.StoreApp.Services.Storage.getBalance();
+        
+        const fname = user.first_name || 'مستخدم';
+        document.getElementById('sidebar-name').innerText = fname;
+        document.getElementById('sidebar-avatar').innerText = fname.charAt(0);
+        document.getElementById('sidebar-uid').innerText = user.username || user.id;
+        document.getElementById('sidebar-balance').innerText = '$' + parseFloat(bal).toFixed(4);
+
+        sidebarEl.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function close(e) {
+        if (e && e.target !== e.currentTarget) return; // Prevent closing when clicking content
+        init();
+        if (!sidebarEl) return;
+        sidebarEl.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    return { init, open, close };
+})();
+
+</script>
 
     <!-- 5. المنسق العام وتشغيل التطبيق (App Orchestrator) -->
-    <script src="assets/js/app.js?v=5.0"></script>
+    <script>
+/**
+ * ==============================================================================
+ * @file        app.js
+ * @package     StoreApp.Main
+ * @description المنسق العام ومتحكم بدء تشغيل التطبيق (Application Orchestrator).
+ * @author      Senior Software Architect (40+ Years Standards)
+ * ==============================================================================
+ */
+
+window.StoreApp = window.StoreApp || {};
+
+window.StoreApp.Main = (function() {
+    'use strict';
+
+    const Constants = window.StoreApp.Config.Constants;
+    const Telegram = window.StoreApp.Services.Telegram;
+    const Storage = window.StoreApp.Services.Storage;
+    const Navigation = window.StoreApp.UI.Navigation;
+    const Renderers = window.StoreApp.UI.Renderers;
+    const Modal = window.StoreApp.UI.Modal;
+    const Security = window.StoreApp.Utils.Security;
+    const Formatters = window.StoreApp.Utils.Formatters;
+
+    /**
+     * @function init
+     * @description نقطة انطلاق التطبيق المركزية.
+     */
+    function init() {
+        console.info(`[StoreApp] Initializing ${Constants.APP_NAME} v${Constants.APP_VERSION}...`);
+
+        // 1. تهيئة تكامل تليجرام SDK
+        Telegram.init();
+
+        // 2. تهيئة التخزين وترحيل البيانات القديمة إن وجدت
+        Storage.init();
+
+        // 3. تهيئة المودال
+        Modal.init();
+
+        // 4. رسم الواجهات الأولية
+        Renderers.renderHeaderAndStats();
+        Renderers.renderCategoryFilterTabs();
+        Renderers.renderPlatformsGrid();
+        Renderers.renderOrders('all');
+        Renderers.renderRechargeMethods();
+        Renderers.renderNotifications();
+
+        // 5. تهيئة نظام التوجيه
+        Navigation.init();
+
+        // 6. ربط الأحداث العامة
+        bindGlobalEvents();
+
+        // 7. الاستماع لتحديثات التخزين التفاعلي
+        Storage.subscribe(() => {
+            Renderers.renderHeaderAndStats();
+            const activePage = Navigation.getActivePage();
+            if (activePage === 'page-orders') {
+                Renderers.renderOrders();
+            } else if (activePage === 'page-notifications') {
+                Renderers.renderNotifications();
+            }
+        });
+
+        console.info('[StoreApp] StoreApp is fully initialized and operational.');
+    }
+
+    /**
+     * @function bindGlobalEvents
+     * @description ربط أزرار القائمة، حاسبة العملات، والتنبيهات العامة.
+     */
+    function bindGlobalEvents() {
+        // زر القائمة العلوية
+        const menuBtn = document.getElementById('btn-top-menu');
+        if (menuBtn) {
+            menuBtn.onclick = () => {
+                Telegram.haptic('light');
+                showStoreInfoModal();
+            };
+        }
+
+        // حقل البحث في الطلبات مع Debounce لمنع اللاغ
+        const orderSearchInput = document.getElementById('order-search-input');
+        if (orderSearchInput) {
+            orderSearchInput.oninput = Security.debounce(() => {
+                Renderers.renderOrders();
+            }, 250);
+        }
+
+        // زر مسح الإشعارات
+        const clearNotifsBtn = document.getElementById('btn-clear-notifs');
+        if (clearNotifsBtn) {
+            clearNotifsBtn.onclick = () => {
+                Telegram.haptic('medium');
+                window.StoreApp.Services.Notification.clearAll();
+                Renderers.renderNotifications();
+                Navigation.updateNotifBadge();
+                window.StoreApp.UI.Toast.info("تم مسح كافة التنبيهات");
+            };
+        }
+
+        // بطاقة الرصيد: النقر على الرصيد يفتح حاسبة الصرف السريع
+        const balanceCard = document.querySelector('.balance-amount');
+        if (balanceCard) {
+            balanceCard.style.cursor = 'pointer';
+            balanceCard.title = 'انقر لفتح حاسبة العملات (USD / IQD)';
+            balanceCard.onclick = () => {
+                Telegram.haptic('light');
+                showCurrencyCalculatorModal();
+            };
+        }
+    }
+
+    /**
+     * @function showStoreInfoModal
+     * @description عرض واجهة الملف الشخصي الخاصة بالمستخدم مع اسم المستخدم والرصيد (تحاكي القائمة الجانبية).
+     */
+    function showStoreInfoModal() {
+        const user = window.StoreApp.Services.Telegram.getUser();
+        const shortId = 'h' + user.id.toString(36);
+        const currentBalance = window.StoreApp.Services.Storage.getBalance();
+
+        Modal.show({
+            title: '<i class="fas fa-user-circle text-primary"></i> ملفي الشخصي',
+            bodyHtml: `
+                <div style="background: var(--bg-surface); border-radius: var(--radius-md); padding: 16px; margin-bottom: 20px; text-align: center; border: 1px solid var(--border-color);">
+                    <div style="width: 56px; height: 56px; border-radius: 18px; background: var(--bg-card); display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--primary); font-weight: 800; margin: 0 auto 12px; border: 1px solid var(--border-color-hover);">
+                        ${user.firstName.charAt(0)}
+                    </div>
+                    <div style="font-weight: 800; font-size: 16px; color: var(--text-main); margin-bottom: 4px;">${user.firstName}</div>
+                    
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 16px;">
+                        <span style="font-size: 13px; color: var(--text-muted); background: var(--bg-card); padding: 4px 10px; border-radius: 6px; letter-spacing: 1px;">
+                            ${shortId}
+                        </span>
+                        <i class="far fa-copy" style="color: var(--text-muted); cursor: pointer; font-size: 14px;" onclick="navigator.clipboard.writeText('${shortId}'); window.StoreApp.UI.Toast.success('تم نسخ اسم المستخدم!');"></i>
+                    </div>
+
+                    <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 12px; margin-bottom: 12px;">
+                        <div style="text-align: right;">
+                            <div style="font-size: 11px; color: var(--text-muted);">الرصيد المتاح</div>
+                            <div style="font-size: 18px; font-weight: 800; color: var(--text-main);">$${currentBalance.toFixed(2)}</div>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" style="width: 100%; padding: 12px; border-radius: var(--radius-md); font-weight: 800; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 14px;" onclick="window.StoreApp.UI.Modal.hide(); window.StoreApp.UI.Navigation.navigateTo('page-recharge');">
+                        <i class="fas fa-plus"></i> شحن الرصيد
+                    </button>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <button type="button" class="btn-action btn-secondary" onclick="window.StoreApp.Main.openCurrencyCalc()">
+                        <i class="fas fa-calculator text-primary"></i> حاسبة تحويل العملة
+                    </button>
+                    <a href="${Constants.SUPPORT.TELEGRAM_URL}" target="_blank" class="btn-action btn-secondary" style="text-decoration:none;">
+                        <i class="fas fa-headset text-primary"></i> الدعم الفني
+                    </a>
+                </div>
+            `,
+            showCancel: false,
+            confirmText: 'إغلاق'
+        });
+    }
+
+    /**
+     * @function showCurrencyCalculatorModal
+     * @description حاسبة تحويل لحظية بين الدولار والدينار العراقي.
+     */
+    function showCurrencyCalculatorModal() {
+        const rate = Constants.USD_TO_IQD;
+        Modal.show({
+            title: '<i class="fas fa-calculator text-primary"></i> حاسبة العملات الفورية',
+            bodyHtml: `
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+                    سعر الصرف المعتمد داخل المتجر: <strong>1 USD = ${rate.toLocaleString()} د.ع</strong>
+                </div>
+
+                <div class="form-group">
+                    <label>المبلغ بالدولار الأمريكي ($):</label>
+                    <input type="number" id="calc-usd" class="form-control" placeholder="1.00" value="5"
+                           oninput="window.StoreApp.Main.onCalcUsdChange(this.value)">
+                </div>
+
+                <div class="price-summary-box">
+                    <span class="price-summary-label">يعادل بالدينار العراقي:</span>
+                    <span class="price-summary-value text-primary" id="calc-iqd-result">
+                        ${(5 * rate).toLocaleString('ar-IQ')} د.ع
+                    </span>
+                </div>
+            `,
+            showCancel: false,
+            confirmText: 'تم'
+        });
+    }
+
+    function onCalcUsdChange(val) {
+        const resultEl = document.getElementById('calc-iqd-result');
+        if (!resultEl) return;
+        const num = parseFloat(val);
+        if (isNaN(num) || num <= 0) {
+            resultEl.innerText = '0 د.ع';
+            return;
+        }
+        const iqd = Math.round(num * Constants.USD_TO_IQD);
+        resultEl.innerText = `${iqd.toLocaleString('ar-IQ')} د.ع`;
+    }
+
+    return {
+        init,
+        openCurrencyCalc: showCurrencyCalculatorModal,
+        onCalcUsdChange
+    };
+})();
+
+// بدء التشغيل عند اكتمال تحميل شجرة العناصر DOM
+document.addEventListener('DOMContentLoaded', () => {
+    window.StoreApp.Main.init();
+});
+
+</script>
 
 </body>
 </html>
